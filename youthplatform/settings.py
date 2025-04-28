@@ -126,9 +126,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    "E:/youthplatform/youthapp/static",  # Si toos ah u tilmaam dariiqa
 ]
+
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
