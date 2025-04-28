@@ -1,0 +1,194 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl w-full space-y-8 bg-white p-10 rounded-lg shadow-sm">
+        <div class="text-center">
+            <img class="mx-auto h-12 w-auto" src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png"
+                alt="Logo" />
+            <h2 class="mt-6 text-3xl font-bold text-gray-900">Professional Registration</h2>
+            <p class="mt-2 text-sm text-gray-600">Complete your professional profile to get started</p>
+        </div>
+        <div class="flex justify-center gap-4 mt-4"><a href="{% url 'login_view' %}"
+                class="text-sm font-medium text-gray-600 hover:text-custom-600">Sign In</a><span
+                class="text-gray-400">|</span><a href="#"
+                class="text-sm font-medium text-custom hover:text-custom-600 underline">Create Account</a></div>
+        <div class="mt-8">
+            <div class="w-full">
+                <h3 class="text-lg font-semibold mb-6">Profile Details</h3>
+                <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                    {% csrf_token %}
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div class="mb-0">
+                            <label class="block text-sm font-medium text-gray-700">Username</label>
+                            <div class="mt-1 relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-at"></i>
+                                </span>
+                                {{ form.username }}  <!-- Ensure this renders the field -->
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                            <div class="mt-1 relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                {{ form.fullname }}
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div class="mb-0">
+                            <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+                            <div class="mt-1 relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-phone"></i>
+                                </span>
+                                {{ form.phone_number }}
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Email Address</label>
+                            <div class="mt-1 relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                {{ form.email }}
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div class="mb-0">
+                            <label class="block text-sm font-medium text-gray-700">Education</label>
+                            <div class="mt-1 relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </span>
+                                {{ form.education }}
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Skills</label>
+                            <div class="mt-1 relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-tools"></i>
+                                </span>
+                                {{ form.skills }}
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div class="mb-0">
+                            <label class="block text-sm font-medium text-gray-700">User Type</label>
+                            <div class="mt-1 relative">
+                                {{ form.user_type }}
+                            </div>
+                        </div>
+                        <div class="mb-0">
+                            <label class="block text-sm font-medium text-gray-700">Upload CV</label>
+                            <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed !rounded-button">
+                                {{ form.cv_file }}
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div class="mb-0">
+                            <label class="block text-sm font-medium text-gray-700">Password</label>
+                            <div class="mt-1 relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                {{ form.password }}
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                            <div class="mt-1 relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" id="c_pass" placeholder="Enter Confirm password" class="!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom" required>
+                            </div>
+                            <p id="passwordMatchMessage" class="text-red-500 text-sm hidden">Passwords do not match</p>
+                            <p id="passwordMatchedMessage" class="text-green-500 text-sm hidden">Passwords matched</p>
+                        </div>
+                    </div>
+                
+                    <div class="flex items-center col-span-2 mb-6">
+                        <input type="checkbox" class="h-4 w-4 text-custom border-gray-300 focus:ring-custom" required />
+                        <label class="ml-2 block text-sm text-gray-700">
+                            I agree to the <a href="#" class="text-custom hover:text-custom-600">Terms of Service</a> and 
+                            <a href="#" class="text-custom hover:text-custom-600">Privacy Policy</a>
+                        </label>
+                    </div>
+                
+                    <button type="submit" class="!rounded-button w-full py-2 px-4 border border-transparent text-sm font-medium text-white bg-custom hover:bg-custom-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom">
+                        Create Account
+                    </button>
+                </form>
+                
+                
+                
+                
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector("form").addEventListener("submit", function (event) {
+        event.preventDefault();  // Prevent form from submitting immediately
+        let form = this;
+        let Full_Name = document.querySelector("input[name='fullname']").value || "Full_Name";
+        
+        Swal.fire({
+            title: "Information Insertion",
+            text: "You inserted " + Full_Name + " successfully!",
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();  // Submit the form after confirmation
+            }
+        });
+    });
+});
+
+</script>
+
+<script>
+    document.getElementById('c_pass').addEventListener('input', function() {
+        var password = document.querySelector('[name="password"]').value;
+        var confirmPassword = document.getElementById('c_pass').value;
+        var matchMessage = document.getElementById('passwordMatchMessage');
+        var matchedMessage = document.getElementById('passwordMatchedMessage');
+        
+        if (confirmPassword === password) {
+            matchMessage.classList.add('hidden');
+            matchedMessage.classList.remove('hidden');
+        } else {
+            matchedMessage.classList.add('hidden');
+            matchMessage.classList.remove('hidden');
+        }
+    });
+</script>
+
+
+
+
+{% endblock %}

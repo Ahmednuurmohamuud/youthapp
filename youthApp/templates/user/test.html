@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+    <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#000000" data-border-radius="small"></script>
+</head>
+<body class="bg-gray-50 font-[Inter]">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl w-full space-y-8 bg-white p-10 rounded-lg shadow-sm">
+            <div class="text-center">
+                <img class="mx-auto h-12 w-auto" src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo">
+                <h2 class="mt-6 text-3xl font-bold text-gray-900">Welcome to Our Platform</h2>
+                <p class="mt-2 text-sm text-gray-600">Please sign in to your account or create a new one</p>
+            </div>
+
+            <div class="mt-8 flex gap-8">
+                <div class="flex-1 border-r pr-8">
+                    <h3 class="text-lg font-medium mb-6">Sign In</h3>
+                    <form class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Email address</label>
+                            <div class="mt-1 relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <input type="email" required class="!rounded-button block w-full pl-10 py-3 border border-gray-300 focus:ring-custom focus:border-custom sm:text-sm" placeholder="Enter your email">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Password</label>
+                            <div class="mt-1 relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" required class="!rounded-button block w-full pl-10 py-3 border border-gray-300 focus:ring-custom focus:border-custom sm:text-sm" placeholder="Enter your password">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-custom border-gray-300 !rounded focus:ring-custom">
+                                <label class="ml-2 block text-sm text-gray-900">Remember me</label>
+                            </div>
+                            <a href="#" class="text-sm font-medium text-custom hover:text-custom-600">Forgot password?</a>
+                        </div>
+
+                        <button type="submit" class="!rounded-button w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium text-white bg-custom hover:bg-custom-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom">
+                            Sign in
+                        </button>
+                    </form>
+                </div>
+
+                <div class="flex-1">
+                    <h3 class="text-lg font-medium mb-6">Create Account</h3>
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Username</label>
+                                <input type="text" required class="!rounded-button mt-1 block w-full py-3 px-3 border border-gray-300 focus:ring-custom focus:border-custom sm:text-sm" placeholder="Choose username">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                                <input type="text" required class="!rounded-button mt-1 block w-full py-3 px-3 border border-gray-300 focus:ring-custom focus:border-custom sm:text-sm" placeholder="Enter full name">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" required class="!rounded-button mt-1 block w-full py-3 px-3 border border-gray-300 focus:ring-custom focus:border-custom sm:text-sm" placeholder="Enter email address">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Phone</label>
+                            <input type="tel" required class="!rounded-button mt-1 block w-full py-3 px-3 border border-gray-300 focus:ring-custom focus:border-custom sm:text-sm" placeholder="Enter phone number">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Skills</label>
+                            <input type="text" class="!rounded-button mt-1 block w-full py-3 px-3 border border-gray-300 focus:ring-custom focus:border-custom sm:text-sm" placeholder="Enter skills (comma separated)">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Education</label>
+                            <input type="text" class="!rounded-button mt-1 block w-full py-3 px-3 border border-gray-300 focus:ring-custom focus:border-custom sm:text-sm" placeholder="Enter your highest education">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">CV Upload</label>
+                            <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed !rounded-button">
+                                <div class="space-y-1 text-center">
+                                    <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl mb-3"></i>
+                                    <div class="flex text-sm text-gray-600">
+                                        <label class="relative cursor-pointer bg-white rounded-md font-medium text-custom hover:text-custom-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-custom">
+                                            <span>Upload a file</span>
+                                            <input type="file" class="sr-only" accept=".pdf,.doc,.docx">
+                                        </label>
+                                        <p class="pl-1">or drag and drop</p>
+                                    </div>
+                                    <p class="text-xs text-gray-500">PDF, DOC up to 10MB</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">User Type</label>
+                            <select class="!rounded-button mt-1 block w-full py-3 px-3 border border-gray-300 bg-white focus:ring-custom focus:border-custom sm:text-sm">
+                                <option value="">Select user type</option>
+                                <option value="jobseeker">Job Seeker</option>
+                                <option value="employer">Employer</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-center">
+                            <input type="checkbox" required class="h-4 w-4 text-custom border-gray-300 !rounded focus:ring-custom">
+                            <label class="ml-2 block text-sm text-gray-900">
+                                I agree to the <a href="#" class="text-custom hover:text-custom-600">Terms and Conditions</a>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="!rounded-button w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium text-white bg-custom hover:bg-custom-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom">
+                            Create Account
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login &amp; Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+    <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#000000" data-border-radius="small"></script>
+</head>
+<body class="bg-gray-50 font-[&#39;Inter&#39;]">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-lg shadow-sm">
+            <div class="text-center">
+                <img class="mx-auto h-12 w-auto" src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo"/>
+                <h2 class="mt-6 text-3xl font-bold text-gray-900">Welcome Back!</h2>
+                <p class="mt-2 text-sm text-gray-600">Please sign in to your account or create a new one</p>
+            </div><div class="flex justify-center gap-4 mt-4"><a href="#" class="text-sm font-medium text-custom hover:text-custom-600 underline">Sign In</a><span class="text-gray-400">|</span><a href="/register" class="text-sm font-medium text-gray-600 hover:text-custom-600">Create Account</a></div>
+
+            <div class="mt-8">
+                <div class="w-full">
+                    <h3 class="text-lg font-semibold mb-6">Sign In</h3>
+                    <form class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Email or Username</label>
+                            <div class="mt-1 relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <input type="text" class="!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom" required=""/>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Password</label>
+                            <div class="mt-1 relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" class="!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom" required=""/>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-custom border-gray-300 focus:ring-custom"/>
+                                <label class="ml-2 block text-sm text-gray-700">Remember me</label>
+                            </div>
+                            <a href="#" class="text-sm font-medium text-custom hover:text-custom-600">Forgot password?</a>
+                        </div>
+
+                        <button type="submit" class="!rounded-button w-full py-2 px-4 border border-transparent text-sm font-medium text-white bg-custom hover:bg-custom-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom">
+                            Sign In
+                        </button>
+                    </form>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+
+
+</body></html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login &amp; Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+    <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#000000" data-border-radius="small"></script>
+</head>
+<body class="bg-gray-50 font-[&#39;Inter&#39;]">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl w-full space-y-8 bg-white p-10 rounded-lg shadow-sm">
+            <div class="text-center">
+                <img class="mx-auto h-12 w-auto" src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo"/>
+                <h2 class="mt-6 text-3xl font-bold text-gray-900">Professional Registration</h2>
+                <p class="mt-2 text-sm text-gray-600">Complete your professional profile to get started</p>
+            </div><div class="flex justify-center gap-4 mt-4"><a href="#" class="text-sm font-medium text-gray-600 hover:text-custom-600">Sign In</a><span class="text-gray-400">|</span><a href="#" class="text-sm font-medium text-custom hover:text-custom-600 underline">Create Account</a></div>
+            <div class="mt-8">
+                <div class="w-full">
+                    <h3 class="text-lg font-semibold mb-6">Profile Details</h3>
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-2 gap-6 mb-6"><div class="mb-0"><label class="block text-sm font-medium text-gray-700">Username</label><div class="mt-1 relative"><span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400"><i class="fas fa-at"></i></span><input type="text" class="!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom" required=""/></div></div>
+                            <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                            <div class="mt-1 relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <input type="text" class="!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom" required=""/>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-6 mb-6"><div class="mb-0"><label class="block text-sm font-medium text-gray-700">Phone Number</label><div class="mt-1 relative"><span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400"><i class="fas fa-phone"></i></span><input type="tel" class="!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom" required=""/></div></div><div><label class="block text-sm font-medium text-gray-700">Email Address</label><div class="mt-1 relative"><span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400"><i class="fas fa-envelope"></i></span><input type="email" class="!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom" required=""/></div></div>
+                            <label class="block text-sm font-medium text-gray-700">Password</label>
+                            <div class="mt-1 relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" class="!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom" required=""/>
+                            </div>
+                        </div><div class="grid grid-cols-2 gap-6 mb-6"><label class="block text-sm font-medium text-gray-700">Education</label><div class="mt-1 relative"><span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400"><i class="fas fa-graduation-cap"></i></span><input type="text" class="!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom" placeholder="Highest degree earned" required=""/></div></div><div class="mb-6"><label class="block text-sm font-medium text-gray-700">Skills</label><div class="mt-1 relative"><span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400"><i class="fas fa-tools"></i></span><input type="text" class="!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom" placeholder="Separate skills with commas" required=""/></div></div>
+                        <div class="grid grid-cols-2 gap-6 mb-6"><div class="mb-0"><label class="block text-sm font-medium text-gray-700">User Type</label><div class="mt-1 relative"><select class="!rounded-button block w-full py-2 border border-gray-300 focus:ring-custom focus:border-custom" required=""><option value="">Select user type</option><option value="professional">Professional</option><option value="employer">Employer</option><option value="student">Student</option></select></div></div><div class="mb-0"><label class="block text-sm font-medium text-gray-700">Upload CV</label><div class="mt-1 relative"><input type="file" class="!rounded-button block w-full py-2 border border-gray-300 focus:ring-custom focus:border-custom" accept=".pdf,.doc,.docx" required=""/></div></div><div class="flex items-center col-span-2 mb-6"><input type="checkbox" class="h-4 w-4 text-custom border-gray-300 focus:ring-custom"/><label class="ml-2 block text-sm text-gray-700">I agree to the <a href="#" class="text-custom hover:text-custom-600">Terms of Service</a> and <a href="#" class="text-custom hover:text-custom-600">Privacy Policy</a></label></div></div>
+                        <button type="submit" class="!rounded-button w-full py-2 px-4 border border-transparent text-sm font-medium text-white bg-custom hover:bg-custom-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom">Create Account</button>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+    <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#000000" data-border-radius="small"></script>
+</head>
+<body class="bg-gray-50 font-['Inter']">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl w-full space-y-8 bg-white p-10 rounded-lg shadow-sm">
+            <div class="text-center">
+                <img class="mx-auto h-12 w-auto" src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo">
+                <h2 class="mt-6 text-3xl font-bold text-gray-900">Welcome Back!</h2>
+                <p class="mt-2 text-sm text-gray-600">Please sign in to your account or create a new one</p>
+            </div>
+
+            <div class="mt-8 flex gap-8">
+                <div class="flex-1 p-6 border-r border-gray-200">
+                    <h3 class="text-lg font-semibold mb-6">Sign In</h3>
+                    <form class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Email or Username</label>
+                            <div class="mt-1 relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <input type="text" class="!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom" required>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Password</label>
+                            <div class="mt-1 relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" class="!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom" required>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-custom border-gray-300 focus:ring-custom">
+                                <label class="ml-2 block text-sm text-gray-700">Remember me</label>
+                            </div>
+                            <a href="#" class="text-sm font-medium text-custom hover:text-custom-600">Forgot password?</a>
+                        </div>
+
+                        <button type="submit" class="!rounded-button w-full py-2 px-4 border border-transparent text-sm font-medium text-white bg-custom hover:bg-custom-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom">
+                            Sign In
+                        </button>
+                    </form>
+                </div>
+
+                <div class="flex-1 p-6">
+                    <h3 class="text-lg font-semibold mb-6">Create Account</h3>
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Username</label>
+                                <input type="text" class="!rounded-button mt-1 block w-full py-2 px-3 border border-gray-300 focus:ring-custom focus:border-custom" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                                <input type="text" class="!rounded-button mt-1 block w-full py-2 px-3 border border-gray-300 focus:ring-custom focus:border-custom" required>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" class="!rounded-button mt-1 block w-full py-2 px-3 border border-gray-300 focus:ring-custom focus:border-custom" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Phone</label>
+                            <input type="tel" class="!rounded-button mt-1 block w-full py-2 px-3 border border-gray-300 focus:ring-custom focus:border-custom" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Skills</label>
+                            <input type="text" class="!rounded-button mt-1 block w-full py-2 px-3 border border-gray-300 focus:ring-custom focus:border-custom" placeholder="e.g. JavaScript, Python, React">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Education</label>
+                            <input type="text" class="!rounded-button mt-1 block w-full py-2 px-3 border border-gray-300 focus:ring-custom focus:border-custom" placeholder="Degree, Institution">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Upload CV</label>
+                            <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed !rounded-button">
+                                <div class="space-y-1 text-center">
+                                    <i class="fas fa-upload text-gray-400 text-3xl mb-3"></i>
+                                    <div class="flex text-sm text-gray-600">
+                                        <label class="relative cursor-pointer bg-white rounded-md font-medium text-custom hover:text-custom-600">
+                                            <span>Upload a file</span>
+                                            <input type="file" class="sr-only" accept=".pdf,.doc,.docx">
+                                        </label>
+                                        <p class="pl-1">or drag and drop</p>
+                                    </div>
+                                    <p class="text-xs text-gray-500">PDF, DOC up to 10MB</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">User Type</label>
+                            <select class="!rounded-button mt-1 block w-full py-2 px-3 border border-gray-300 focus:ring-custom focus:border-custom">
+                                <option>Job Seeker</option>
+                                <option>Employer</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-center">
+                            <input type="checkbox" class="h-4 w-4 text-custom border-gray-300 focus:ring-custom" required>
+                            <label class="ml-2 block text-sm text-gray-700">
+                                I agree to the <a href="#" class="font-medium text-custom hover:text-custom-600">Terms and Conditions</a>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="!rounded-button w-full py-2 px-4 border border-transparent text-sm font-medium text-white bg-custom hover:bg-custom-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-custom">
+                            Create Account
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

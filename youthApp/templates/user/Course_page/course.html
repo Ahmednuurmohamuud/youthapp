@@ -1,0 +1,269 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<main class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex gap-8">
+        <div class="w-1/4">
+            <div class="bg-white shadow rounded-lg p-6 sticky top-8">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">Filters</h3>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                        <select class="w-full border-gray-300 !rounded-button">
+                            <option>All Categories</option>
+                            <option>Development</option>
+                            <option>Business</option>
+                            <option>Design</option>
+                            <option>Marketing</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Level</label>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="!rounded-button px-4 py-2 text-sm bg-custom text-white">Beginner</button>
+                            <button
+                                class="!rounded-button px-4 py-2 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200">Intermediate</button>
+                            <button
+                                class="!rounded-button px-4 py-2 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200">Advanced</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Price Range</label>
+                        <input type="range" class="w-full" min="0" max="200" value="100">
+                        <div class="flex justify-between text-sm text-gray-600 mt-1"> <span>$0</span>
+                            <span>$200</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Rating</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center"> <input type="checkbox"
+                                    class="rounded text-custom border-gray-300">
+                                <span class="ml-2 text-sm text-gray-700">4+ Stars</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="rounded text-custom border-gray-300"> <span
+                                    class="ml-2 text-sm text-gray-700">3+ Stars</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Duration</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center"> <input type="checkbox"
+                                    class="rounded text-custom border-gray-300">
+                                <span class="ml-2 text-sm text-gray-700">0-2 Hours</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="rounded text-custom border-gray-300"> <span
+                                    class="ml-2 text-sm text-gray-700">3-6 Hours</span>
+                            </label> <label class="flex items-center">
+                                <input type="checkbox" class="rounded text-custom border-gray-300"> <span
+                                    class="ml-2 text-sm text-gray-700">7+ Hours</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-3/4">
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h1 class="text-2xl font-bold text-gray-900">Featured Courses</h1>
+                    <div class="relative"> <select
+                            class="appearance-none bg-white border border-gray-300 !rounded-button pl-4 pr-8 py-2 focus:outline-none focus:ring-custom focus:border-custom text-sm">
+                            <option>Most Popular</option>
+                            <option>Newest</option>
+                            <option>Highest Rated</option>
+                        </select>
+                        <i
+                            class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="bg-white shadow rounded-lg overflow-hidden group">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <img src="https://creatie.ai/ai/api/search-image?query=A modern web development workspace setup with clean code displayed on multiple monitors, showing HTML, CSS, and JavaScript code against a minimalist background&width=400&height=225&orientation=landscape&flag=d17bf471-a3f6-4118-8983-a31f5eb35873"
+                                alt="Course thumbnail" class="object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center mb-2"> <span
+                                    class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Development</span>
+                                <span class="ml-2 text-sm text-gray-500">Beginner</span>
+                            </div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">Complete Web Development Bootcamp
+                            </h3>
+                            <p class="text-sm text-gray-500 mb-4">Learn web development from scratch with HTML, CSS,
+                                JavaScript and more.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="flex items-center"> <i class="fas fa-star text-yellow-400"></i>
+                                        <span class="ml-1 text-sm font-medium text-gray-900">4.8</span>
+                                    </div>
+                                    <span class="mx-2 text-gray-500">•</span>
+                                    <span class="text-sm text-gray-500">12,345 students</span>
+                                </div> <span class="text-lg font-medium text-gray-900">$99.99</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white shadow rounded-lg overflow-hidden group">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <img src="https://creatie.ai/ai/api/search-image?query=A professional business setting with modern office environment, showing data analytics dashboards and business strategy documents on a clean desk&width=400&height=225&orientation=landscape&flag=3d270842-4ea8-4055-99c7-da908719b458"
+                                alt="Course thumbnail" class="object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center mb-2"> <span
+                                    class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Business</span>
+                                <span class="ml-2 text-sm text-gray-500">Intermediate</span>
+                            </div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">Business Analytics Masterclass</h3>
+                            <p class="text-sm text-gray-500 mb-4">Master data-driven decision making and business
+                                intelligence tools.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="flex items-center"> <i class="fas fa-star text-yellow-400"></i>
+                                        <span class="ml-1 text-sm font-medium text-gray-900">4.9</span>
+                                    </div>
+                                    <span class="mx-2 text-gray-500">•</span>
+                                    <span class="text-sm text-gray-500">8,721 students</span>
+                                </div> <span class="text-lg font-medium text-gray-900">$149.99</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white shadow rounded-lg overflow-hidden group">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <img src="https://creatie.ai/ai/api/search-image?query=A creative workspace with digital design tools, showing UI/UX design process with wireframes and prototypes on a modern computer screen&width=400&height=225&orientation=landscape&flag=c25f7c08-f4b2-487f-b48b-b332017eb601"
+                                alt="Course thumbnail" class="object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center mb-2"> <span
+                                    class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">Design</span>
+                                <span class="ml-2 text-sm text-gray-500">Advanced</span>
+                            </div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">UI/UX Design Professional</h3>
+                            <p class="text-sm text-gray-500 mb-4">Create beautiful and functional user interfaces
+                                with modern design principles.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="flex items-center"> <i class="fas fa-star text-yellow-400"></i>
+                                        <span class="ml-1 text-sm font-medium text-gray-900">4.7</span>
+                                    </div>
+                                    <span class="mx-2 text-gray-500">•</span>
+                                    <span class="text-sm text-gray-500">6,543 students</span>
+                                </div> <span class="text-lg font-medium text-gray-900">$199.99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold text-gray-900">All Courses</h2>
+                    <div class="relative">
+                        <input type="text" placeholder="Search courses..."
+                            class="w-64 pl-10 pr-4 py-2 border border-gray-300 !rounded-button focus:outline-none focus:ring-custom focus:border-custom">
+                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-white shadow rounded-lg overflow-hidden flex">
+                        <div class="w-48">
+                            <img src="https://creatie.ai/ai/api/search-image?query=A modern marketing workspace showing social media analytics and content creation tools on a sleek desktop setup&width=192&height=192&orientation=squarish&flag=5b8bb139-961e-4fc4-8874-3c94e700d03b"
+                                alt="Course thumbnail" class="h-full w-full object-cover">
+                        </div>
+                        <div class="p-6 flex-1">
+                            <div class="flex items-center mb-2"> <span
+                                    class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Marketing</span>
+                                <span class="ml-2 text-sm text-gray-500">Intermediate</span>
+                            </div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">Digital Marketing Strategy</h3>
+                            <p class="text-sm text-gray-500 mb-4">Master modern digital marketing channels and
+                                strategies.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="flex items-center"> <i class="fas fa-star text-yellow-400"></i>
+                                        <span class="ml-1 text-sm font-medium text-gray-900">4.6</span>
+                                    </div>
+                                    <span class="mx-2 text-gray-500">•</span>
+                                    <span class="text-sm text-gray-500">4,567 students</span>
+                                </div> <button
+                                    class="!rounded-button bg-custom text-white px-4 py-2 text-sm font-medium hover:bg-custom/90">Enroll
+                                    Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white shadow rounded-lg overflow-hidden flex">
+                        <div class="w-48">
+                            <img src="https://creatie.ai/ai/api/search-image?query=A data science workspace showing Python code, machine learning algorithms, and data visualization on multiple screens&width=192&height=192&orientation=squarish&flag=986fcb4f-16a9-41ca-bc0e-ba152abdb99a"
+                                alt="Course thumbnail" class="h-full w-full object-cover">
+                        </div>
+                        <div class="p-6 flex-1">
+                            <div class="flex items-center mb-2"> <span
+                                    class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">Data
+                                    Science</span> <span class="ml-2 text-sm text-gray-500">Advanced</span>
+                            </div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">Machine Learning & AI</h3>
+                            <p class="text-sm text-gray-500 mb-4">Learn advanced machine learning algorithms and AI
+                                concepts.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="flex items-center"> <i class="fas fa-star text-yellow-400"></i>
+                                        <span class="ml-1 text-sm font-medium text-gray-900">4.9</span>
+                                    </div>
+                                    <span class="mx-2 text-gray-500">•</span>
+                                    <span class="text-sm text-gray-500">3,456 students</span>
+                                </div> <button
+                                    class="!rounded-button bg-custom text-white px-4 py-2 text-sm font-medium hover:bg-custom/90">Enroll
+                                    Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 flex items-center justify-between">
+                    <div class="flex items-center gap-2"> <button
+                            class="!rounded-button px-4 py-2 bg-white border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                            <i class="fas fa-chevron-left mr-2"></i>
+                            Previous
+                        </button>
+                        <div class="flex gap-1">
+                            <button
+                                class="!rounded-button w-10 h-10 flex items-center justify-center bg-custom text-white">1</button>
+                            <button
+                                class="!rounded-button w-10 h-10 flex items-center justify-center bg-white border border-gray-300 text-gray-700 hover:bg-gray-50">2</button>
+                            <button
+                                class="!rounded-button w-10 h-10 flex items-center justify-center bg-white border border-gray-300 text-gray-700 hover:bg-gray-50">3</button>
+                            <span class="w-10 h-10 flex items-center justify-center">...</span>
+                            <button
+                                class="!rounded-button w-10 h-10 flex items-center justify-center bg-white border border-gray-300 text-gray-700 hover:bg-gray-50">10</button>
+                        </div>
+                        <button
+                            class="!rounded-button px-4 py-2 bg-white border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50">
+                            Next
+                            <i class="fas fa-chevron-right ml-2"></i>
+                        </button>
+                    </div>
+                    <select
+                        class="!rounded-button bg-white border border-gray-300 text-sm font-medium text-gray-700 px-4 py-2">
+                        <option>10 per page</option>
+                        <option>20 per page</option>
+                        <option>50 per page</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

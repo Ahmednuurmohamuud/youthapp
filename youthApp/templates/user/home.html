@@ -1,0 +1,145 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<main class="pt-16">
+    <section class="relative bg-white">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="py-24 lg:py-32">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+                            <span class="block">Launch Your Career</span>
+                            <span class="block text-custom">With Confidence</span>
+                        </h1>
+                        <p class="mt-6 text-lg text-gray-500 max-w-3xl">
+                            Connect with top employers, access exclusive learning resources, and build your professional
+                            network. Your dream career starts here.
+                        </p>
+                        <div class="mt-8 flex gap-4">
+                            <button
+                                class="!rounded-button bg-custom text-white px-8 py-3 text-base font-medium hover:bg-custom/90">Get
+                                Started</button>
+                            <button
+                                class="!rounded-button bg-white text-gray-700 px-8 py-3 text-base font-medium border border-gray-300 hover:bg-gray-50">Browse
+                                Jobs</button>
+                        </div>
+                    </div>
+                    <div class="relative h-96">
+                        <img src="{% static 'images/logo.png' %}" alt="Hero"
+                            class="absolute inset-0 w-full h-full object-contain object-center">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-gray-50 py-20">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Featured Opportunities</h2>
+                <p class="mt-4 text-lg text-gray-500">Discover your next career move from our curated job listings</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for job in jobs %}
+                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between mb-4">
+                        <img src="{{ job.company.logo.url }}" alt="{{ job.company.name }}"
+                            class="h-12 w-12 rounded-full">
+                        <span class="text-sm font-medium text-custom">New</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900">{{ job.job_title }}</h3>
+                    <p class="text-gray-500 mt-2">{{ job.company.name }}</p>
+                    <div class="mt-4 flex items-center text-sm text-gray-500">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        {{ job.location }}
+                    </div>
+                    <div class="mt-4 flex items-center text-sm text-gray-500">
+                        <i class="fas fa-dollar-sign mr-2"></i>
+                        {{ job.salary }} USD
+                    </div>
+                    <button
+                        class="!rounded-button w-full mt-6 bg-custom text-white px-4 py-2 font-medium hover:bg-custom/90">
+                        Apply Now
+                    </button>
+                </div>
+                {% empty %}
+                <p class="text-gray-500 text-center mt-4">No job postings available.</p>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="bg-white py-20">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-3xl font-bold text-gray-900">Stay Updated</h2>
+                <p class="mt-4 text-lg text-gray-500">Get the latest job opportunities and career insights delivered to
+                    your inbox</p>
+                <form class="mt-8">
+                    <div class="flex gap-4 max-w-md mx-auto">
+                        <input type="email" placeholder="Enter your email"
+                            class="flex-1 !rounded-button min-w-0 px-4 py-2 border border-gray-300 focus:ring-2 focus:ring-custom focus:border-custom">
+                        <button type="submit"
+                            class="!rounded-button bg-custom text-white px-6 py-2 font-medium hover:bg-custom/90">Subscribe</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="bg-gray-50 py-20">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Featured Training Courses</h2>
+                <p class="mt-4 text-lg text-gray-500">Enhance your skills with our carefully curated training programs.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for course in courses %}
+                <div class="bg-white shadow rounded-lg overflow-hidden flex">
+                    <div class="w-48">
+                        {% if course.image %}
+                        <img src="{{ course.image.url }}" alt="{{ course.course_name }}" class="h-full w-full object-cover">
+                        {% endif %}
+                    </div>
+                    <div class="p-6 flex-1">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                               Devlopment {{ course.category }}
+                            </span>
+                            <span class="ml-2 text-sm text-gray-500">{{ course.level }}Beginner</span>
+                        </div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">{{ course.course_name }}</h3>
+                        <p class="text-sm text-gray-500 mb-4">{{ course.course_description|truncatewords:20 }}</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <span class="ml-1 text-sm font-medium text-gray-900">{{ course.rating }}4.3</span>
+                                </div>
+                                <span class="mx-2 text-gray-500">•</span>
+                                <span class="text-sm text-gray-500">{{ course.students_enrolled }}12939 students</span>
+                            </div>
+                            <button class="!rounded-button bg-custom text-white px-4 py-2 text-sm font-medium hover:bg-custom/90">
+                                Enroll Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-gray-500 text-center mt-4">No training courses available.</p>
+                {% endfor %}
+            </div>
+            
+            
+
+           
+        </div>
+    </section>
+
+
+
+</main>
+{% endblock %}
