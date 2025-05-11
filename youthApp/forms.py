@@ -1,5 +1,6 @@
 from django import forms
 from .models import JobPosting,CompanyProfile,TrainingCourse,UserPro
+from django.core.exceptions import ValidationError
 
 class JobForm(forms.ModelForm):
     company = forms.ModelChoiceField(
@@ -41,76 +42,23 @@ class CourseForm(forms.ModelForm):
 
 
 
+class RegistrationForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
 
-class UserProForm(forms.ModelForm):
-    password = forms.CharField(
-        widget=forms.PasswordInput(attrs={
-            'class': '!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom',
-            'placeholder': 'Enter password'
-        }),
-        required=True  # Ensures this field is required
-    )
     class Meta:
         model = UserPro
-        fields = ['username', 'fullname', 'phone_number', 'email', 'education', 'skills', 'user_type', 'cv_file']
-        widgets = {
-            'username': forms.TextInput(attrs={
-                'class': '!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom',
-                'placeholder': 'Username'
-            }),
-            'fullname': forms.TextInput(attrs={
-                'class': '!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom',
-                'placeholder': 'Full Name'
-            }),
-            'phone_number': forms.TextInput(attrs={
-                'class': '!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom',
-                'placeholder': 'Phone Number'
-            }),
-            'email': forms.EmailInput(attrs={
-                'class': '!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom',
-                'placeholder': 'Email Address'
-            }),
-            'education': forms.TextInput(attrs={
-                'class': '!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom',
-                'placeholder': 'Highest degree earned'
-            }),
-            'skills': forms.Textarea(attrs={
-                'class': '!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom',
-                'rows': 2,
-                'placeholder': 'Separate skills with commas'
-            }),
-            'user_type': forms.Select(attrs={
-                'class': '!rounded-button block w-full py-2 border border-gray-300 focus:ring-custom focus:border-custom'
-            }),
-            'cv_file': forms.FileInput(attrs={
-                'class': 'block w-full text-sm text-gray-600 border border-gray-300 focus:ring-custom focus:border-custom'
-            }),
-            
-            
-            
-        }
+        fields = ['username', 'fullname', 'email', 'phone_number', 'skills', 'education', 'cv_file', 'user_type', 'password']
 
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        # Halkan waxaad ku dari kartaa shuruudo dheeraad ah haddii loo baahdo
+        if len(password) < 8:
+            raise ValidationError("Password must be at least 8 characters long.")
+        return password
 
-
-
-class LoginForm(forms.ModelForm):
-    password = forms.CharField(
-        widget=forms.PasswordInput(attrs={
-            'class': '!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom',
-            'placeholder': 'Enter password'
-        }),
-        required=True  # Ensures this field is required
-    )
-    class Meta:
-        model = UserPro
-        fields = ['username']
-        widgets = {
-            'username': forms.TextInput(attrs={
-                'class': '!rounded-button block w-full pl-10 py-2 border border-gray-300 focus:ring-custom focus:border-custom',
-                'placeholder': 'Username'
-            }),     
-        }
-
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
 
 
 class CompanyProfileForm(forms.ModelForm):

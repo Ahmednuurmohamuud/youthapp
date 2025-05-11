@@ -1,5 +1,21 @@
 from django.db import models
+from django.contrib.auth.models import User
 
+class JobApplication(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    job = models.ForeignKey('JobPosting', on_delete=models.CASCADE)
+    applied_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'job')  # Prevent duplicate applications
+
+class CourseEnrollment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey('TrainingCourse', on_delete=models.CASCADE)
+    enrolled_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'course')  # Prevent duplicate enrollments
 
 # Create your models here.
 
@@ -57,7 +73,7 @@ class TrainingCourse(models.Model):
 class UserPro(models.Model):
     username = models.CharField(max_length=255, unique=True)
     fullname = models.CharField(max_length=255)
-    email = models.EmailField(unique=True)  # Ensure unique email
+    email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=20)
     skills = models.TextField()
     education = models.TextField()

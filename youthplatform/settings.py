@@ -26,7 +26,7 @@ MEDIA_URL = 'youthApp/static/images/'
 SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['youthapp.onrender.com', '127.0.0.1']
 

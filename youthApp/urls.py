@@ -1,4 +1,5 @@
 from django.urls import path
+from .views import login_view
 from .views import (
     base_page,
     job_create,
@@ -11,10 +12,12 @@ from .views import (
     course_delete,
     user_page,
     course_page,
-    login,
-    registration,
-    register_user,
-    login_view
+    # login,
+    # registration,
+    register_view,
+    login_view,
+    apply_job,  # Soo dhoofi aragtida apply_job
+    enroll_course  # Soo dhoofi aragtida enroll_course
 )
 
 urlpatterns = [
@@ -28,9 +31,9 @@ urlpatterns = [
     path('admin/Course_Registration/edit/<int:id>/', course_update, name='course_update'),
     path('admin/Course_Registration/delete/<int:id>/', course_delete, name='course_delete'),
     path('user/', user_page, name='user_page'),  
-    path('user/Course_page/', course_page, name='course_page'),  
-    path('user/Login_Registration/', login, name='login'),  
-    path('user/Login_Registration/registration/', registration, name='registration'),  # Updated the URL
-    path('user/Login_Registration/register/', register_user, name='register_user'),  # Updated the URL
-    path('login/', login_view, name='login_view'),  # Updated the URL
+    path('user/Course_page/', course_page, name='course_page'),
+    path('user/Login_Registration/register/', register_view, name='register_view'),
+    path('user/Login_Registration/login/', login_view, name='login_view'),
+    path('apply-job/<int:job_id>/', apply_job, name='apply_job'),  # Waddada cusub ee ku saabsan arjiga shaqada
+    path('enroll-course/<int:course_id>/', enroll_course, name='enroll_course'),  # Waddada cusub ee ku saabsan diiwaangelinta koorsada
 ]

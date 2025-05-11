@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import JobPosting
 from .forms import JobForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import check_password
 
-from .models import TrainingCourse
+from .models import TrainingCourse,JobApplication,CourseEnrollment
 from .forms import CourseForm
 
 from .models import UserPro
-from .forms import UserProForm
+from .forms import RegistrationForm
 
 
 
@@ -120,10 +123,24 @@ def course_delete(request, id):
     return render(request, 'admin/Course_Registration/course_list.html', {'course': course})
 
 
+# def user_page(request):
+#     jobs = JobPosting.objects.all()
+#     courses = TrainingCourse.objects.all()
+#     return render(request, 'user/home.html', {'jobs': jobs, 'courses': courses})
+
+
 def user_page(request):
     jobs = JobPosting.objects.all()
     courses = TrainingCourse.objects.all()
-    return render(request, 'user/home.html', {'jobs': jobs, 'courses': courses})
+
+    # flag: haddii uu login-galay
+    is_logged_in = request.user.is_authenticated
+
+    return render(request, 'user/home.html', {
+        'jobs': jobs,
+        'courses': courses,
+        'is_logged_in': is_logged_in
+    })
 
 
 def course_page(request):
@@ -134,50 +151,88 @@ def course_page(request):
 
 
 
-def login(request):
 
-    jobs = JobPosting.objects.all()
-    courses = TrainingCourse.objects.all()
-    return render(request, 'user/Login_Registration/login.html', {'jobs': jobs, 'courses': courses})
+# def login(request):
 
-
-
+#     jobs = JobPosting.objects.all()
+#     courses = TrainingCourse.objects.all()
+#     return render(request, 'user/Login_Registration/login.html', {'jobs': jobs, 'courses': courses})
 
 
+@login_required
+def apply_job(request, job_id):
+    job = get_object_or_404(JobPosting, id=job_id)
 
-
-def registration(request):
-    # Render the registration page
-    form = UserProForm()  # Initialize an empty form
-    return render(request, 'user/Login_Registration/registration.html', {'form': form})
-
-
-def register_user(request):
-    if request.method == "POST":
-        form = UserProForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('user_page')  # Redirect to the user page after successful registration
+    # Check if user has already applied
+    application, created = JobApplication.objects.get_or_create(user=request.user, job=job)
+    if created:
+        messages.success(request, "You have successfully applied for this job.")
     else:
-        form = UserProForm()  # Initialize an empty form
+        messages.info(request, "You have already applied for this job.")
 
-    # Render the registration page with the form
+    return redirect('user_page')
+
+@login_required
+def enroll_course(request, course_id):
+    course = get_object_or_404(TrainingCourse, id=course_id)
+    enrollment, created = CourseEnrollment.objects.get_or_create(user=request.user, course=course)
+    if created:
+        messages.success(request, "You have successfully enrolled in the course.")
+    else:
+        messages.info(request, "You are already enrolled in this course.")
+    return redirect('user_page')
+
+
+
+
+
+
+# def registration(request):
+#     # Render the registration page
+#     form = UserProForm()  # Initialize an empty form
+#     return render(request, 'user/Login_Registration/registration.html', {'form': form})
+
+
+def register_view(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.password = make_password(form.cleaned_data['password'])
+            user.save()
+            messages.success(request, "Account created successfully. You can now login.")
+            return redirect('login_view')  # Hubi in magacan sax yahay
+    else:
+        form = RegistrationForm()
+    
     return render(request, 'user/Login_Registration/registration.html', {'form': form})
 
+
+   
 
 def login_view(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('user_page')  # Redirect to dashboard or homepage
-            else:
-                messages.error(request, "Invalid username or password")
+            try:
+                user = UserPro.objects.get(username=username)
+                if check_password(password, user.password):  # Isticmaal check_password!
+                    request.session['user_id'] = user.id
+                    request.session['username'] = user.username
+                    messages.success(request, "Login successful.")
+                    return redirect('user_page')  # Badal hadii aad rabto page kale
+                else:
+                    messages.error(request, "Invalid password.")
+            except UserPro.DoesNotExist:
+                messages.error(request, "User does not exist.")
     else:
         form = LoginForm()
-    
+
     return render(request, 'user/Login_Registration/login.html', {'form': form})
+
+def logout_view(request):
+    request.session.flush()
+    messages.success(request, "Logged out successfully.")
+    return redirect('login')
