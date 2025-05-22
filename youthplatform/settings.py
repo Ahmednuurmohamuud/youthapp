@@ -19,6 +19,9 @@ MEDIA_URL = 'youthApp/static/images/'
 #MEDIA_ROOT = BASE_DIR / 'images'
 
 
+
+LOGIN_URL = '/accounts/login/'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 

@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 
 {% block title %}Courses List{% endblock %}
@@ -6,119 +5,35 @@
 {% block content %}
 <br>
 <div class="card">
-    <div class="card-header">
-        <h2 class="mb-4">Courses List</h2>
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="mb-0">Courses List</h2>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal">
+            + Add Course
+        </button>
     </div>
+
     <div class="card-body">
-        <a href="{% url 'job_list' %}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal">
-            Add Course
-        </a>
-        <br><br>
-        <h5 class="modal-title" id="largeModalLabel">
-            {% if edit_mode %}
-            Edit Course
-            {% else %}
-            Add Course
-            {% endif %}
-        </h5>
-        <div class="modal fade" id="largeModal" tabindex="-1" aria-labelledby="largeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="largeModalLabel">
-                            {% if edit_mode %}
-                            Edit Course
-                            {% else %}
-                            Add Course
-                            {% endif %}
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="card card-primary card-outline mt-3">
-                            <h2 class="p-4" id="form-title">{% if edit_mode %}Edit{% else %}Add{% endif %} Course</h2>
-                            <div class="card-body">
-                                <form method="POST" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <div class="container-fluid">
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <label for="{{ form.course_name.id_for_label }}">Course Name</label>
-                                                {{ form.course_name }}
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="{{ form.instructor.id_for_label }}">Instructor</label>
-                                                {{ form.instructor }}
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-12">
-                                                <label for="{{ form.course_description.id_for_label }}">Course
-                                                    Description</label>
-                                                {{ form.course_description }}
-                                            </div>
-                                        </div>
-        
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <label for="{{ form.price.id_for_label }}">Price</label>
-                                                {{ form.price }}
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="{{ form.start_date.id_for_label }}">Start Date</label>
-                                                {{ form.start_date }}
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <label for="{{ form.end_date.id_for_label }}">End Date</label>
-                                                <div class="form-group">
-                                                    {{ form.end_date }}
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="{{ form.status.id_for_label }}">Status</label>
-                                                <div class="form-group">
-                                                    {{ form.status }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-12">
-                                                <label for="{{ form.image.id_for_label }}">Image</label>
-                                                <div class="form-group">
-                                                    {{ form.image }}
-                                                </div>
-                                            </div>
-        
-                                        </div>
-        
-                                        <button type="submit" class="btn btn-success">Submit</button>
-                                        <a href="{% url 'course_list' %}" class="btn btn-secondary">Cancel</a>
-                                    </div>
-        
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                {{ form.errors }}
             </div>
-        </div>
+        {% endif %}
 
-
-        <table class="table table-striped border">
-
+        <table class="table table-striped border mt-3">
             <thead>
                 <tr>
                     <th>Course Name</th>
                     <th>Instructor</th>
                     <th>Price</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Level</th> <!-- Halkan level -->
+                    <th>Rating</th> <!-- Halkan rating -->
+                    <!-- <th>Enrollment Count</th> -->
                     <th>Image</th>
                     <th>Status</th>
                     <th>Action</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -126,17 +41,19 @@
                 <tr>
                     <td>{{ course.course_name }}</td>
                     <td>{{ course.instructor }}</td>
-                    <td>{{ course.price }}</td>
+                    <td>${{ course.price }}</td>
                     <td>{{ course.start_date }}</td>
                     <td>{{ course.end_date }}</td>
+                    <td>{{ course.level }}</td> <!-- Level -->
+                    <td>{{ course.rating }}</td> <!-- Rating -->
+                    <!-- <td>{{ course.enrollment_count }}</td> -->
                     <td>
                         {% if course.image %}
-                            <img src="{{ course.image.url }}" alt="Course Image" width="100">
+                            <img src="{{ course.image.url }}" alt="Image" width="70">
                         {% else %}
-                            No Image
+                            <span class="text-muted">No Image</span>
                         {% endif %}
                     </td>
-                    
                     <td>
                         {% if course.status == "active" %}
                             <span class="badge bg-success">Active</span>
@@ -148,27 +65,110 @@
                             <span class="badge bg-light text-dark">Unknown</span>
                         {% endif %}
                     </td>
-                    
-
                     <td>
                         <a href="{% url 'course_update' course.id %}" class="btn btn-warning btn-sm">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <button class="btn btn-danger btn-sm delete-btn" data-id="{{ course.id }}"
-                            data-name="{{ course.name|escapejs }}">
+                        <button class="btn btn-danger btn-sm delete-btn" data-id="{{ course.id }}" data-name="{{ course.course_name|escapejs }}">
                             <i class="fas fa-trash-alt"></i>
                         </button>
-
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        
     </div>
 </div>
 
-<!-- SweetAlert JS -->
+<!-- Modal for Add/Edit Course -->
+<div class="modal fade" id="largeModal" tabindex="-1" aria-labelledby="largeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="POST" enctype="multipart/form-data" id="courseForm">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="form-title">
+                        {% if edit_mode %} Edit Course {% else %} Add Course {% endif %}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="{{ form.course_name.id_for_label }}">Course Name</label>
+                            {{ form.course_name }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="{{ form.instructor.id_for_label }}">Instructor</label>
+                            {{ form.instructor }}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label for="{{ form.course_description.id_for_label }}">Description</label>
+                            {{ form.course_description }}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="{{ form.price.id_for_label }}">Price</label>
+                            {{ form.price }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="{{ form.start_date.id_for_label }}">Start Date</label>
+                            {{ form.start_date }}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="{{ form.end_date.id_for_label }}">End Date</label>
+                            {{ form.end_date }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="{{ form.status.id_for_label }}">Status</label>
+                            {{ form.status }}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="{{ form.category.id_for_label }}">Category</label>
+                            {{ form.category }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="{{ form.level.id_for_label }}">Level</label>
+                            {{ form.level }}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="{{ form.rating.id_for_label }}">Rating</label>
+                            {{ form.rating }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="{{ form.duration.id_for_label }}">Duration</label>
+                            {{ form.duration }}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.image.id_for_label }}">Image</label>
+                        {{ form.image }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- JS Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Delete Confirmation -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".delete-btn").forEach(button => {
@@ -178,13 +178,12 @@
 
                 Swal.fire({
                     title: "Are you sure?",
-                    text: "You are about to delete " + courseName + ". This action cannot be undone!",
+                    text: "Delete course: " + courseName + "?",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#d33",
                     cancelButtonColor: "#3085d6",
-                    confirmButtonText: "Yes, Delete",
-                    cancelButtonText: "Cancel"
+                    confirmButtonText: "Yes, delete it!",
                 }).then((result) => {
                     if (result.isConfirmed) {
                         fetch("{% url 'course_delete' 0 %}".replace('0', courseId), {
@@ -198,27 +197,22 @@
                                     location.reload();
                                 });
                             } else {
-                                Swal.fire("Error!", "Failed to delete the course.", "error");
+                                Swal.fire("Error!", "Something went wrong.", "error");
                             }
                         });
                     }
                 });
             });
         });
-    });
-</script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelector(".btn-success").addEventListener("click", function (event) {
-            event.preventDefault();  // Prevent form from submitting immediately
-
-            let form = this.closest('form');  // Get the form
-            let formTitle = document.getElementById('form-title').textContent.trim();
-            let isEditMode = formTitle.includes("Edit");  // Detect if we are editing
-            let courseName = document.querySelector("input[name='course_name']")?.value || "course";  // Get course name
+        // SweetAlert on Save
+        const saveBtn = document.querySelector(".btn-success");
+        saveBtn.addEventListener("click", function (event) {
+            event.preventDefault();
+            let form = document.getElementById("courseForm");
+            let formTitle = document.getElementById("form-title").textContent.trim();
+            let isEditMode = formTitle.includes("Edit");
+            let courseName = document.querySelector("input[name='course_name']")?.value || "Course";
 
             Swal.fire({
                 title: isEditMode ? "Course Update" : "Course Insertion",
@@ -230,18 +224,17 @@
                 confirmButtonText: 'OK'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    form.submit();  // Submit form after confirmation
+                    form.submit();
                 }
             });
         });
     });
 </script>
 
-
+<!-- Auto-open modal if in edit mode -->
 {% if edit_mode %}
 <script>
     $(document).ready(function () {
-        // Show the modal if we're in edit mode
         $('#largeModal').modal('show');
     });
 </script>

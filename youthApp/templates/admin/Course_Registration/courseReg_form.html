@@ -24,14 +24,14 @@
                                         {{ form.instructor }}
                                     </div>
                                 </div>
+                        
                                 <div class="row mb-3">
                                     <div class="col-md-12">
-                                        <label for="{{ form.course_description.id_for_label }}">Course
-                                            Description</label>
+                                        <label for="{{ form.course_description.id_for_label }}">Course Description</label>
                                         {{ form.course_description }}
                                     </div>
                                 </div>
-
+                        
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label for="{{ form.price.id_for_label }}">Price</label>
@@ -42,61 +42,74 @@
                                         {{ form.start_date }}
                                     </div>
                                 </div>
+                        
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label for="{{ form.end_date.id_for_label }}">End Date</label>
-                                        <div class="form-group">
-                                            {{ form.end_date }}
-                                        </div>
+                                        {{ form.end_date }}
                                     </div>
                                     <div class="col-md-6">
                                         <label for="{{ form.status.id_for_label }}">Status</label>
-                                        <div class="form-group">
-                                            {{ form.status }}
-                                        </div>
+                                        {{ form.status }}
                                     </div>
                                 </div>
+                        
                                 <div class="row mb-3">
-                                    <div class="col-md-12">
-                                        <label for="{{ form.image.id_for_label }}">Image</label>
-                                        <div class="form-group">
-                                            {{ form.image }}
-                                        </div>
+                                    <div class="col-md-6">
+                                        <label for="{{ form.category.id_for_label }}">Category</label>
+                                        {{ form.category }}
                                     </div>
-
+                                    <div class="col-md-6">
+                                        <label for="{{ form.level.id_for_label }}">Level</label>
+                                        {{ form.level }}
+                                    </div>
                                 </div>
-
+                        
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="{{ form.rating.id_for_label }}">Rating</label>
+                                        {{ form.rating }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="{{ form.duration.id_for_label }}">Duration (hours)</label>
+                                        {{ form.duration }}
+                                    </div>
+                                </div>
+                        
+                                <!-- <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="{{ form.enrollment_count.id_for_label }}">Enrollment Count</label>
+                                        {{ form.enrollment_count }}
+                                    </div> -->
+                                    <div class="col-md-6">
+                                        <label for="{{ form.image.id_for_label }}">Image</label>
+                                        {{ form.image }}
+                                    </div>
+                                </div>
+                        
                                 <button type="submit" class="btn btn-success">Submit</button>
                                 <a href="{% url 'course_list' %}" class="btn btn-secondary">Cancel</a>
                             </div>
-
                         </form>
+                        
 
                     </div>
                 </div>
             </div>
             <div class="col-md-1"></div>
         </div>
-
-
     </div>
 </div>
-
-
-<!-- Fix form action -->
-
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelector(".btn-success").addEventListener("click", function (event) {
-            event.preventDefault();  // Prevent form from submitting immediately
-
-            let form = this.closest('form');  // Get the form
+            event.preventDefault();
+            let form = this.closest('form');
             let formTitle = document.getElementById('form-title').textContent.trim();
-            let isEditMode = formTitle.includes("Edit");  // Detect if we are editing
-            let courseName = document.querySelector("input[name='course_name']")?.value || "course";  // Get course name
-
+            let isEditMode = formTitle.includes("Edit");
+            let courseName = document.querySelector("input[name='course_name']")?.value || "course";
             Swal.fire({
                 title: isEditMode ? "Course Update" : "Course Insertion",
                 text: isEditMode
@@ -107,10 +120,11 @@
                 confirmButtonText: 'OK'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    form.submit();  // Submit form after confirmation
+                    form.submit();
                 }
             });
         });
     });
 </script>
+
 {% endblock %}

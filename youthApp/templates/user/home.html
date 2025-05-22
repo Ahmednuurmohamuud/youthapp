@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 <main class="pt-16">
+    
     <section class="relative bg-white">
         <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="py-24 lg:py-32">
@@ -33,7 +34,10 @@
         </div>
     </section>
 
-    <section class="bg-gray-50 py-20">
+
+      <!--  jop  section -->
+
+      <section class="bg-gray-50 py-20" x-data="jobModal">
         <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-gray-900">Featured Opportunities</h2>
@@ -43,8 +47,7 @@
                 {% for job in jobs %}
                 <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
                     <div class="flex items-center justify-between mb-4">
-                        <img src="{{ job.company.logo.url }}" alt="{{ job.company.name }}"
-                            class="h-12 w-12 rounded-full">
+                        <img src="{{ job.company.logo.url }}" alt="{{ job.company.name }}" class="h-12 w-12 rounded-full">
                         <span class="text-sm font-medium text-custom">New</span>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-900">{{ job.job_title }}</h3>
@@ -57,22 +60,79 @@
                         <i class="fas fa-dollar-sign mr-2"></i>
                         {{ job.salary }} USD
                     </div>
-                    <a href="{% url 'apply_job' job.id %}" class="!rounded-button w-full mt-6 bg-custom text-white px-4 py-2 font-medium hover:bg-custom/90">
-                        Apply Now
-                    </a>
-                    
+                   
+                 <!-- Buttons: Apply & View -->
+<div class="mt-6 flex justify-between gap-4">
+    <a href="{% url 'apply_job' job.id %}"
+       class="flex-1 text-center bg-custom text-white px-4 py-2 rounded-lg font-medium hover:bg-custom/90 transition">
+       Apply
+    </a>
+
+    <button
+        @click="open({ title: '{{ job.job_title }}', company: '{{ job.company.name }}', location: '{{ job.location }}', salary: '{{ job.salary }}', description: '{{ job.job_description|escapejs }}', logo: '{{ job.company.logo.url }}' })"
+        class="flex-1 text-center bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition">
+        View
+    </button>
+</div>
+
                 </div>
                 {% empty %}
                 <p class="text-gray-500 text-center mt-4">No job postings available.</p>
                 {% endfor %}
-
-
+            </div>
+        </div>
+    
+        <!-- Modal -->
+        <div
+            x-show="show"
+            style="display: none;"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:leave="transition ease-in duration-150"
+        >
+            <div class="bg-white rounded-2xl shadow-lg w-full max-w-xl p-6 relative">
+                <button @click="close" class="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-xl">&times;</button>
+                <div class="flex items-center gap-4 mb-4">
+                    <img :src="job.logo" alt="" class="h-14 w-14 rounded-full object-cover">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900" x-text="job.title"></h3>
+                        <p class="text-gray-500 text-sm" x-text="job.company"></p>
+                    </div>
+                </div>
+                <div class="mb-2 text-sm text-gray-600 flex items-center gap-2">
+                    <i class="fas fa-map-marker-alt text-gray-400"></i>
+                    <span x-text="job.location"></span>
+                </div>
+                <div class="mb-4 text-sm text-gray-600 flex items-center gap-2">
+                    <i class="fas fa-dollar-sign text-gray-400"></i>
+                    <span x-text="job.salary + ' USD'"></span>
+                </div>
+                <p class="text-gray-700 text-sm leading-relaxed" x-text="job.description"></p>
             </div>
         </div>
     </section>
+    
+    <!-- Modal View Script (Alpine.js) -->
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('jobModal', () => ({
+                show: false,
+                job: {},
+                open(job) {
+                    this.job = job;
+                    this.show = true;
+                },
+                close() {
+                    this.show = false;
+                    this.job = {};
+                }
+            }))
+        })
+    </script>
+    
 
 
-    {% if messages %}
+    <!-- {% if messages %}
     <div class="mt-4">
         {% for message in messages %}
             <div class="text-sm p-2 rounded {{ message.tags }}">
@@ -80,7 +140,7 @@
             </div>
         {% endfor %}
     </div>
-{% endif %}
+{% endif %} -->
 
 
 
@@ -101,13 +161,14 @@
             </div>
         </div>
     </section>
+ 
 
-    <section class="bg-gray-50 py-20">
+      <!--  course  section -->
+      <section class="bg-gray-50 py-20">
         <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-gray-900">Featured Training Courses</h2>
-                <p class="mt-4 text-lg text-gray-500">Enhance your skills with our carefully curated training programs.
-                </p>
+                <p class="mt-4 text-lg text-gray-500">Enhance your skills with our carefully curated training programs.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {% for course in courses %}
@@ -120,25 +181,22 @@
                     <div class="p-6 flex-1">
                         <div class="flex items-center mb-2">
                             <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                               Devlopment {{ course.category }}
+                                {{ course.category }}
                             </span>
-                            <span class="ml-2 text-sm text-gray-500">{{ course.level }}Beginner</span>
+                            <span class="ml-2 text-sm text-gray-500">{{ course.level }}</span>
                         </div>
                         <h3 class="text-lg font-medium text-gray-900 mb-2">{{ course.course_name }}</h3>
                         <p class="text-sm text-gray-500 mb-4">{{ course.course_description|truncatewords:20 }}</p>
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
-                                <div class="flex items-center">
-                                    <i class="fas fa-star text-yellow-400"></i>
-                                    <span class="ml-1 text-sm font-medium text-gray-900">{{ course.rating }}4.3</span>
-                                </div>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <span class="ml-1 text-sm font-medium text-gray-900">{{ course.rating }}</span>
                                 <span class="mx-2 text-gray-500">•</span>
-                                <span class="text-sm text-gray-500">{{ course.students_enrolled }}12939 students</span>
+                                <span class="text-sm text-gray-500">{{ course.duration }} hours</span>
                             </div>
-                            <a href="{% url 'enroll_course' course.id %}" class="!rounded-button bg-custom text-white px-4 py-2 text-sm font-medium hover:bg-custom/90">
+                            <a href="{% url 'enroll_course' course.id %}" class="bg-custom text-white px-4 py-2 text-sm font-medium hover:bg-custom/90">
                                 Enroll Now
                             </a>
-                            
                         </div>
                     </div>
                 </div>
@@ -146,12 +204,12 @@
                 <p class="text-gray-500 text-center mt-4">No training courses available.</p>
                 {% endfor %}
             </div>
-            
-            
-
-           
         </div>
     </section>
+    
+
+
+
 
 
 
