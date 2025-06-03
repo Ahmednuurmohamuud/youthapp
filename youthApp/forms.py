@@ -1,11 +1,20 @@
 from django import forms
-from .models import JobPosting,CompanyProfile,TrainingCourse,UserPro,JobApplication
+from django.conf import settings
+from .models import JobPosting, CompanyProfile, TrainingCourse, CustomUser, JobApplication
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from .models import CustomUser
 
-class UserProForm(forms.ModelForm):
+class RegistrationForm(UserCreationForm):
     class Meta:
-        model = UserPro
-        exclude = ['user']  # `user` waa laga saaray si aan user-ka u qasbin inuu isbeddelo
+        model = CustomUser
+        fields = ['username', 'fullname', 'email', 'phone_number', 'skills', 'education', 'cv_file', 'user_type', 'password1', 'password2']
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
+
+
 
 class JobForm(forms.ModelForm):
     company = forms.ModelChoiceField(
@@ -53,24 +62,6 @@ class CourseForm(forms.ModelForm):
         }
 
 
-
-class RegistrationForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
-
-    class Meta:
-        model = UserPro
-        fields = ['username', 'fullname', 'email', 'phone_number', 'skills', 'education', 'cv_file', 'user_type', 'password']
-
-    def clean_password(self):
-        password = self.cleaned_data.get('password')
-        # Halkan waxaad ku dari kartaa shuruudo dheeraad ah haddii loo baahdo
-        if len(password) < 8:
-            raise ValidationError("Password must be at least 8 characters long.")
-        return password
-
-class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
 
 
 class CompanyProfileForm(forms.ModelForm):

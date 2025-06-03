@@ -1,22 +1,57 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import JobPosting
+from .models import JobPosting,JobApplication
 from .forms import JobForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
+from django.urls import reverse_lazy
 
-from .models import TrainingCourse,JobApplication
+from .models import TrainingCourse, Enrollment
+
 from .forms import CourseForm
-
-from .models import UserPro,Enrollment
 from .forms import RegistrationForm,JobApplicationForm
 
 
 
 from django.contrib.auth import authenticate, login
-from .forms import LoginForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from .models import CustomUser
+
+def register_view(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, 'Account created successfully! Please log in.')
+            return redirect('login_view')  # ha ku darin login(request, user)
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = RegistrationForm()
+    return render(request, 'user/Login_Registration/registration.html', {'form': form})
+
+
+def login_view(request):
+    if request.user.is_authenticated:
+        messages.info(request, "You are already logged in!")
+        return redirect('user_page')
+
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            messages.success(request, f"Welcome back, {user.username}!")
+            return redirect('user_page')
+        else:
+            messages.error(request, "Invalid username or password.")
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'user/Login_Registration/login.html', {'form': form})
+
 
 
 
@@ -37,14 +72,14 @@ def base_page(request):
 
 
 
-
+@login_required(login_url=reverse_lazy('login_view'))
 def apply_job(request, job_id):
     job = get_object_or_404(JobPosting, id=job_id)
-    
+
     if request.method == 'POST':
         form = JobApplicationForm(request.POST, request.FILES)
         if form.is_valid():
-            # Prevent user from applying twice for the same job
+            # Prevent duplicate applications
             if JobApplication.objects.filter(user=request.user, job=job).exists():
                 messages.info(request, "You have already applied for this job.")
             else:
@@ -53,7 +88,7 @@ def apply_job(request, job_id):
                 application.job = job
                 application.save()
                 messages.success(request, "You have successfully applied for the job!")
-                return redirect('user/user_page')  # Redirect to a job listings page or another relevant page
+                return redirect('user_page')  # Make sure 'index' is a valid view name
         else:
             messages.error(request, "There was an error with your application. Please check the form.")
     else:
@@ -162,22 +197,32 @@ def course_delete(request, id):
     return render(request, 'admin/Course_Registration/course_list.html', {'course': course})
 
 
+
+
 def user_page(request):
-    user_id = request.session.get('user_id')
-    username = request.session.get('username')
-    
-    if not user_id:
-        return redirect('login_view')
-    
-    # Halkan waxaad kusoo ururin kartaa jobs/courses user-ka
+    user_pro = None
+    if request.user.is_authenticated:
+        user_pro = request.user  # if request.user is instance of CustomUser
+
     courses = TrainingCourse.objects.all()
     jobs = JobPosting.objects.all()
 
     return render(request, 'user/home.html', {
-        'username': username,
+        'user_pro': user_pro,
         'courses': courses,
         'jobs': jobs
     })
+
+
+@login_required
+def user_dashboard(request):
+    enrollments = Enrollment.objects.filter(user=request.user).select_related('course')
+    context = {
+        'enrollments': enrollments,
+    }
+    return render(request, 'user/Course_page/dashboard.html', context)
+
+
 def course_page(request):
     courses = TrainingCourse.objects.all()
 
@@ -235,76 +280,38 @@ def course_page(request):
 
 
 
-@login_required
-def enroll_course(request, course_id):
+# @login_required(login_url=reverse_lazy('login_view'))
+def enrolled_courses(request, course_id):
     course = get_object_or_404(TrainingCourse, id=course_id)
-    already_enrolled = Enrollment.objects.filter(user=request.user, course=course).exists()
 
-    if already_enrolled:
-        messages.info(request, "You are already enrolled in this course.")
-    else:
-        Enrollment.objects.create(user=request.user, course=course)
-        messages.success(request, "You have been successfully enrolled in this course.")
+    # Haddii aad rabto inaad hubiso in user-ku ku qoran yahay course-kaas:
+    enrollment = Enrollment.objects.filter(user=request.user, course=course).first()
 
-    return redirect('user/Course_page/course_detail.html', course_id=course.id)
+    context = {
+        'course': course,
+        'enrollment': enrollment,
+    }
+    return render(request, 'user/Course_page/enrolled_courses.html', context)
+
 
 
 @login_required
 def course_detail(request, course_id):
     course = get_object_or_404(TrainingCourse, id=course_id)
-    return render(request, 'user/Course_page/course_detail.html', {'course': course})
+    lessons = course.lessons.all()  # thanks to related_name='lessons'
+
+    context = {
+        'course': course,
+        'lessons': lessons,
+    }
+    return render(request, 'user/Course_page/course_detail.html', context)
 
 
-
-# def registration(request):
-#     # Render the registration page
-#     form = UserProForm()  # Initialize an empty form
-#     return render(request, 'user/Login_Registration/registration.html', {'form': form})
-
-
-def register_view(request):
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST, request.FILES)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.password = make_password(form.cleaned_data['password'])
-            user.save()
-            messages.success(request, "Account created successfully. You can now login.")
-            return redirect('login_view')  # Hubi in magacan sax yahay
-    else:
-        form = RegistrationForm()
-    
-    return render(request, 'user/Login_Registration/registration.html', {'form': form})
-
-
-   
-
-def login_view(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            try:
-                user = UserPro.objects.get(username=username)
-                if check_password(password, user.password):  # Isticmaal check_password!
-                    request.session['user_id'] = user.id
-                    request.session['username'] = user.username
-                    messages.success(request, "Login successful.")
-                    return redirect('user_page')  # Badal hadii aad rabto page kale
-                else:
-                    messages.error(request, "Invalid password.")
-            except UserPro.DoesNotExist:
-                messages.error(request, "User does not exist.")
-    else:
-        form = LoginForm()
-
-    return render(request, 'user/Login_Registration/login.html', {'form': form})
 
 
 
 
 def logout_view(request):
-    request.session.flush()
-    messages.success(request, "Logged out successfully.")
+    logout(request)
+    messages.info(request, "You have been logged out.")
     return redirect('login_view')

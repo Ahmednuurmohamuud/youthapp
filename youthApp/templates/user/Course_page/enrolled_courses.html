@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<h1>My Enrolled Courses</h1>
+
+{% if enrollments %}
+    <ul>
+    {% for enrollment in enrollments %}
+        <li>
+            <h3>{{ enrollment.course.course_name }}</h3>
+            <p>Instructor: {{ enrollment.course.instructor }}</p>
+            <p>Category: {{ enrollment.course.category }}</p>
+            <p>Status: {{ enrollment.course.status }}</p>
+            <p>Start Date: {{ enrollment.course.start_date }}</p>
+            <p>Completed: {{ enrollment.completed|yesno:"Yes,No" }}</p>
+            <a href="{% url 'course_detail' enrollment.course.id %}">View Course Details</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>You are not enrolled in any courses yet.</p>
+{% endif %}
+
+{% endblock %}

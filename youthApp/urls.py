@@ -15,7 +15,7 @@ from .views import (
     login_view,
     apply_job,
     course_detail,
-    enroll_course,
+    enrolled_courses,
     logout_view
 )
 
@@ -43,7 +43,8 @@ urlpatterns = [
 
     # Course detail & enrollment
     path('course/<int:course_id>/', course_detail, name='course_detail'),
-    path('course/<int:course_id>/enroll/', enroll_course, name='enroll_course'),  # ✅ Only this is needed
+    path('user/Course_page/enrolled_courses/<int:course_id>/', enrolled_courses, name='enrolled_courses'),
+
 
     # Job application
     path('apply/<int:job_id>/', apply_job, name='apply_job'),

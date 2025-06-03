@@ -141,15 +141,6 @@
     
 
 
-    <!-- {% if messages %}
-    <div class="mt-4">
-        {% for message in messages %}
-            <div class="text-sm p-2 rounded {{ message.tags }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
-{% endif %} -->
 
 
 
@@ -203,9 +194,10 @@
                                 <span class="mx-2 text-gray-500">•</span>
                                 <span class="text-sm text-gray-500">{{ course.duration }} hours</span>
                             </div>
-                            <a href="{% url 'enroll_course' course.id %}" class="bg-custom text-white px-4 py-2 text-sm font-medium hover:bg-custom/90">
-                                Enroll Now
-                            </a>
+                         <a href="{% url 'enrolled_courses' course.id %}" class="btn-enroll">Enroll Now</a>
+
+
+
                         </div>
                     </div>
                 </div>

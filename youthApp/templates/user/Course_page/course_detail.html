@@ -1,10 +1,20 @@
-{% if messages %}
-  {% for message in messages %}
-    <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
-        {{ message }}
-    </div>
-  {% endfor %}
-{% endif %}
+<h1>{{ course.course_name }}</h1>
+<p>{{ course.course_description }}</p>
 
-<h1 class="text-2xl font-bold">{{ course.course_name }}</h1>
-<p class="text-gray-700 mt-2">{{ course.course_description }}</p>
+<h2>Lessons</h2>
+
+{% for lesson in lessons %}
+    <div style="margin-bottom: 30px;">
+        <h3>{{ lesson.order }}. {{ lesson.title }}</h3>
+        <p>{{ lesson.description }}</p>
+
+        {% if lesson.lesson_type == 'video' and lesson.video_url %}
+            <iframe width="560" height="315" src="{{ lesson.video_url }}" frameborder="0" allowfullscreen></iframe>
+        {% elif lesson.lesson_type == 'text' and lesson.text_content %}
+            <div>{{ lesson.text_content|linebreaks }}</div>
+        {% endif %}
+    </div>
+{% empty %}
+    <p>No lessons available for this course yet.</p>
+{% endfor %}
+
