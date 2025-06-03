@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="relative h-96">
-                        <img src="{% static 'images/logo.png' %}" alt="Hero"
+                        <img src="{% static 'images/y.jpg' %}" alt="Hero"
                             class="absolute inset-0 w-full h-full object-contain object-center">
                     </div>
                 </div>
@@ -37,98 +37,107 @@
 
       <!--  jop  section -->
 
-      <section class="bg-gray-50 py-20" x-data="jobModal">
-        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900">Featured Opportunities</h2>
-                <p class="mt-4 text-lg text-gray-500">Discover your next career move from our curated job listings</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {% for job in jobs %}
-                <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
-                    <div class="flex items-center justify-between mb-4">
-                        <img src="{{ job.company.logo.url }}" alt="{{ job.company.name }}" class="h-12 w-12 rounded-full">
-                        <span class="text-sm font-medium text-custom">New</span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900">{{ job.job_title }}</h3>
-                    <p class="text-gray-500 mt-2">{{ job.company.name }}</p>
-                    <div class="mt-4 flex items-center text-sm text-gray-500">
-                        <i class="fas fa-map-marker-alt mr-2"></i>
-                        {{ job.location }}
-                    </div>
-                    <div class="mt-4 flex items-center text-sm text-gray-500">
-                        <i class="fas fa-dollar-sign mr-2"></i>
-                        {{ job.salary }} USD
-                    </div>
-                   
-                 <!-- Buttons: Apply & View -->
-<div class="mt-6 flex justify-between gap-4">
-    <a href="{% url 'apply_job' job.id %}"
-       class="flex-1 text-center bg-custom text-white px-4 py-2 rounded-lg font-medium hover:bg-custom/90 transition">
-       Apply
-    </a>
-
-    <button
-        @click="open({ title: '{{ job.job_title }}', company: '{{ job.company.name }}', location: '{{ job.location }}', salary: '{{ job.salary }}', description: '{{ job.job_description|escapejs }}', logo: '{{ job.company.logo.url }}' })"
-        class="flex-1 text-center bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition">
-        View
-    </button>
-</div>
-
-                </div>
-                {% empty %}
-                <p class="text-gray-500 text-center mt-4">No job postings available.</p>
-                {% endfor %}
-            </div>
+  <!-- Job Section -->
+<section class="bg-gray-50 py-20" x-data="jobModal">
+    <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900">Featured Opportunities</h2>
+            <p class="mt-4 text-lg text-gray-500">Discover your next career move from our curated job listings</p>
         </div>
-    
-        <!-- Modal -->
-        <div
-            x-show="show"
-            style="display: none;"
-            class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-            x-transition:enter="transition ease-out duration-200"
-            x-transition:leave="transition ease-in duration-150"
-        >
-            <div class="bg-white rounded-2xl shadow-lg w-full max-w-xl p-6 relative">
-                <button @click="close" class="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-xl">&times;</button>
-                <div class="flex items-center gap-4 mb-4">
-                    <img :src="job.logo" alt="" class="h-14 w-14 rounded-full object-cover">
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-900" x-text="job.title"></h3>
-                        <p class="text-gray-500 text-sm" x-text="job.company"></p>
-                    </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for job in jobs %}
+            <div class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-4">
+                    <img src="{% if job.company.logo %}{{ job.company.logo.url }}{% else %}/static/img/default-logo.png{% endif %}" 
+                         alt="{{ job.company.name }}" class="h-12 w-12 rounded-full object-cover">
+                    <span class="text-sm font-medium text-custom">New</span>
                 </div>
-                <div class="mb-2 text-sm text-gray-600 flex items-center gap-2">
-                    <i class="fas fa-map-marker-alt text-gray-400"></i>
-                    <span x-text="job.location"></span>
+                <h3 class="text-lg font-semibold text-gray-900">{{ job.job_title }}</h3>
+                <p class="text-gray-500 mt-2">{{ job.company.name }}</p>
+                <div class="mt-4 flex items-center text-sm text-gray-500">
+                    <i class="fas fa-map-marker-alt mr-2"></i>
+                    {{ job.location }}
                 </div>
-                <div class="mb-4 text-sm text-gray-600 flex items-center gap-2">
-                    <i class="fas fa-dollar-sign text-gray-400"></i>
-                    <span x-text="job.salary + ' USD'"></span>
+                <div class="mt-4 flex items-center text-sm text-gray-500">
+                    <i class="fas fa-dollar-sign mr-2"></i>
+                    {{ job.salary }} USD
                 </div>
-                <p class="text-gray-700 text-sm leading-relaxed" x-text="job.description"></p>
+
+                <!-- Buttons: Apply & View -->
+                <div class="mt-6 flex justify-between gap-4">
+                    <a href="{% url 'apply_job' job.id %}"
+                       class="flex-1 text-center bg-custom text-white px-4 py-2 rounded-lg font-medium hover:bg-custom/90 transition">
+                       Apply
+                    </a>
+
+                    <button
+                        @click="open({ 
+                            title: '{{ job.job_title }}', 
+                            company: '{{ job.company.name }}', 
+                            location: '{{ job.location }}', 
+                            salary: '{{ job.salary }}', 
+                            description: '{{ job.job_description|escapejs }}', 
+                            logo: '{% if job.company.logo %}{{ job.company.logo.url }}{% else %}/static/img/default-logo.png{% endif %}' 
+                        })"
+                        class="flex-1 text-center bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition">
+                        View
+                    </button>
+                </div>
             </div>
+            {% empty %}
+            <p class="text-gray-500 text-center mt-4">No job postings available.</p>
+            {% endfor %}
         </div>
-    </section>
-    
-    <!-- Modal View Script (Alpine.js) -->
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('jobModal', () => ({
-                show: false,
-                job: {},
-                open(job) {
-                    this.job = job;
-                    this.show = true;
-                },
-                close() {
-                    this.show = false;
-                    this.job = {};
-                }
-            }))
-        })
-    </script>
+    </div>
+
+    <!-- Modal -->
+    <div
+        x-show="show"
+        style="display: none;"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:leave="transition ease-in duration-150"
+    >
+        <div class="bg-white rounded-2xl shadow-lg w-full max-w-xl p-6 relative">
+            <button @click="close" class="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-xl">&times;</button>
+            <div class="flex items-center gap-4 mb-4">
+                <img :src="job.logo ? job.logo : '/static/img/default-logo.png'" alt="" class="h-14 w-14 rounded-full object-cover">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900" x-text="job.title"></h3>
+                    <p class="text-gray-500 text-sm" x-text="job.company"></p>
+                </div>
+            </div>
+            <div class="mb-2 text-sm text-gray-600 flex items-center gap-2">
+                <i class="fas fa-map-marker-alt text-gray-400"></i>
+                <span x-text="job.location"></span>
+            </div>
+            <div class="mb-4 text-sm text-gray-600 flex items-center gap-2">
+                <i class="fas fa-dollar-sign text-gray-400"></i>
+                <span x-text="job.salary + ' USD'"></span>
+            </div>
+            <p class="text-gray-700 text-sm leading-relaxed" x-text="job.description"></p>
+        </div>
+    </div>
+</section>
+
+<!-- Modal View Script (Alpine.js) -->
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('jobModal', () => ({
+            show: false,
+            job: {},
+            open(job) {
+                this.job = job;
+                this.show = true;
+            },
+            close() {
+                this.show = false;
+                this.job = {};
+            }
+        }))
+    })
+</script>
+
     
 
 

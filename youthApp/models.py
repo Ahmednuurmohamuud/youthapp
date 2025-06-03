@@ -36,6 +36,7 @@ class CompanyProfile(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     location = models.CharField(max_length=255)
+    logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)  # 👈 Logo field
 
     def __str__(self):
         return self.name  # Return the company name when the object is represented as a string
