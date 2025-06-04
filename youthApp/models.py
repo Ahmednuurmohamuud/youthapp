@@ -102,11 +102,17 @@ class Enrollment(models.Model):
     
 class Lesson(models.Model):
     course = models.ForeignKey(TrainingCourse, related_name='lessons', on_delete=models.CASCADE)
-    title = models.CharField(...)
-    lesson_type = models.CharField(choices=[('video', 'Video'), ('text', 'Text')])
+    title = models.CharField(max_length=200)  # sax: max_length waa lama huraan
+    lesson_type = models.CharField(
+        max_length=10,  # sax: max_length=10 ayaa ku filan 'video' & 'text'
+        choices=[('video', 'Video'), ('text', 'Text')]
+    )
     video_url = models.URLField(blank=True, null=True)
     text_content = models.TextField(blank=True, null=True)
     order = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.order}. {self.title}"
 
 
 
