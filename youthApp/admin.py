@@ -17,3 +17,5 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
         (None, {'fields': ('fullname', 'phone_number', 'skills', 'education', 'cv_file', 'user_type')}),
     )
+
+

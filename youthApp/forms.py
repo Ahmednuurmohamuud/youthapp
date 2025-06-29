@@ -26,14 +26,16 @@ class LoginForm(AuthenticationForm):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
 
+
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ['fullname', 'email', 'phone_number', 'skills', 'education', 'cv_file', 'user_type']
+        fields = ['profile_picture', 'fullname', 'email', 'phone_number', 'skills', 'education', 'cv_file', 'user_type']
         widgets = {
             'skills': forms.Textarea(attrs={'rows': 3}),
             'education': forms.Textarea(attrs={'rows': 3}),
         }
+
 
 class JobForm(forms.ModelForm):
     company = forms.ModelChoiceField(

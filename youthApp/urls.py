@@ -15,10 +15,12 @@ from .views import (
     login_view,
     apply_job,
     course_detail,
-    enrolled_courses,
+    enroll_and_view_lessons,
     logout_view,
     job_page,
-    user_profile
+    user_profile,
+    my_enrollments,
+    course_lessons
     
 )
 
@@ -47,7 +49,13 @@ urlpatterns = [
 
     # Course detail & enrollment
     path('course/<int:course_id>/', course_detail, name='course_detail'),
-    path('user/Course_page/enrolled_courses/<int:course_id>/', enrolled_courses, name='enrolled_courses'),
+    # path('user/Course_page/enrolled_courses/<int:course_id>/', enrolled_courses, name='enrolled_courses'),
+    path('user/Course_page/my-enrollments/', my_enrollments, name='my_enrollments'),
+    path('course/<int:course_id>/lessons/', course_lessons, name='course_lessons'),
+    # urls.py
+    path('course/<int:course_id>/enroll/', enroll_and_view_lessons, name='enroll_and_view_lessons'),
+    path('course/<int:course_id>/lessons/',course_lessons, name='course_lessons'),
+
 
 
     # Job application

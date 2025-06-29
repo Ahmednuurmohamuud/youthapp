@@ -124,6 +124,7 @@ class CustomUser(AbstractUser):
     education = models.TextField(blank=True)
     cv_file = models.FileField(upload_to='cv_uploads/', blank=True, null=True)
     user_type = models.CharField(choices=[('individual', 'Individual'), ('company', 'Company')], max_length=50)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)  # ✅ cusub
 
     def __str__(self):
           return self.username

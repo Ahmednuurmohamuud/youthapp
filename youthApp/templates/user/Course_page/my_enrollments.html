@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<div class="max-w-4xl mx-auto mt-10 bg-white p-6 rounded shadow">
+    <h2 class="text-2xl font-bold mb-6">My Enrolled Courses</h2>
+
+    {% if enrollments %}
+        <ul class="space-y-4">
+            {% for enrollment in enrollments %}
+                <li class="p-4 border rounded bg-gray-50">
+                    <h3 class="text-lg font-semibold">{{ enrollment.course.course_name }}</h3>
+                    <p class="text-sm text-gray-500">{{ enrollment.course.description|truncatewords:15 }}</p>
+                    <a href="{% url 'course_lessons' enrollment.course.id %}" class="text-blue-600 hover:underline mt-2 inline-block">Go to Lessons</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-gray-500">You are not enrolled in any courses yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

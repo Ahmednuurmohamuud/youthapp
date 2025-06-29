@@ -194,10 +194,12 @@
                                 <span class="mx-2 text-gray-500">•</span>
                                 <span class="text-sm text-gray-500">{{ course.duration }} hours</span>
                             </div>
-                        <a href="{% url 'enrolled_courses' course.id %}" 
+ <a href="{% url 'course_lessons' course.id %}"
    class="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition duration-300">
    Enroll Now
 </a>
+
+
 
 
                         </div>

@@ -7,7 +7,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 from django.urls import reverse_lazy
 
-from .models import TrainingCourse, Enrollment
+from .models import TrainingCourse, Enrollment,Lesson
 
 from .forms import CourseForm
 from .forms import RegistrationForm,JobApplicationForm,ProfileForm
@@ -311,19 +311,39 @@ def job_page(request):
 
 
 # @login_required(login_url=reverse_lazy('login_view'))
-def enrolled_courses(request, course_id):
+# def enrolled_courses(request, course_id):
+#     course = get_object_or_404(TrainingCourse, id=course_id)
+
+#     # Haddii aad rabto inaad hubiso in user-ku ku qoran yahay course-kaas:
+#     enrollment = Enrollment.objects.filter(user=request.user, course=course).first()
+
+#     context = {
+#         'course': course,
+#         'enrollment': enrollment,
+#     }
+#     return render(request, 'user/Course_page/enrolled_courses.html', context)
+
+# @login_required
+# def enrolled_courses(request, course_id):
+#     course = get_object_or_404(TrainingCourse, id=course_id)
+
+#     # Haddii uu horey u is diiwaan geliyey
+#     if Enrollment.objects.filter(user=request.user, course=course).exists():
+#         return redirect('my_enrollments')  # ama page kale
+
+#     # Diiwaangelin cusub
+#     Enrollment.objects.create(user=request.user, course=course)
+#     return redirect('my_enrollments')  # isticmaal name, ma aha path
+
+@login_required
+def enroll_and_view_lessons(request, course_id):
     course = get_object_or_404(TrainingCourse, id=course_id)
 
-    # Haddii aad rabto inaad hubiso in user-ku ku qoran yahay course-kaas:
-    enrollment = Enrollment.objects.filter(user=request.user, course=course).first()
+    # Haddii horey u isdiiwaangeliyey, iska dhaaf
+    enrollment, created = Enrollment.objects.get_or_create(user=request.user, course=course)
 
-    context = {
-        'course': course,
-        'enrollment': enrollment,
-    }
-    return render(request, 'user/Course_page/enrolled_courses.html', context)
-
-
+    # Ka dib enroll, u dir bogga casharrada
+    return redirect('course_lessons', course_id=course.id)
 
 @login_required
 def course_detail(request, course_id):
@@ -336,8 +356,40 @@ def course_detail(request, course_id):
     }
     return render(request, 'user/Course_page/course_detail.html', context)
 
+@login_required
+def my_enrollments(request):
+    # Diiwaangelinta user-ka
+    enrollments = Enrollment.objects.filter(user=request.user).select_related('course')
+
+    return render(request, 'user/course_page/my_enrollments.html', {
+        'enrollments': enrollments
+    })
+
+@login_required
+def course_lessons(request, course_id):
+    course = get_object_or_404(TrainingCourse, id=course_id)
+    lessons = course.lessons.order_by('order')
+
+    # Hubi in user-ka enrolled yahay
+    if not Enrollment.objects.filter(user=request.user, course=course).exists():
+        return redirect('user_page')
+
+    return render(request, 'user/course_page/course_lessons.html', {
+        'course': course,
+        'lessons': lessons,
+    })
 
 
+
+# @login_required
+# def start_payment(request, course_id):
+#     course = get_object_or_404(TrainingCourse, id=course_id)
+
+#     # check if already enrolled
+#     if Enrollment.objects.filter(user=request.user, course=course).exists():
+#         return redirect('course_lessons', course_id=course.id)
+
+#     return render(request, 'user/courses/payment_page.html', {'course': course})
 
 
 
