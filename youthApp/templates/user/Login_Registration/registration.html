@@ -1,56 +1,63 @@
 {% extends 'index.html' %}
+{% load static %}
 
 {% block content %}
-<div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow mt-10">
+<div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-6">
+  <div class="max-w-md w-full bg-white p-8 shadow-lg rounded-lg">
+    <!-- Header -->
+    <div class="text-center mb-6">
+      <img src="{% static 'images/logo.png' %}" class="h-10 mx-auto" alt="Logo">
+      <h2 class="text-2xl font-bold text-gray-900 mt-4">Create an Account</h2>
+      <p class="text-sm text-gray-500">Join us today and grow your future.</p>
+    </div>
 
-    <h2 class="text-2xl font-bold text-center text-indigo-600 mb-6">User Registration</h2>
+    <!-- Form -->
+    <form method="POST" class="space-y-5">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
 
-    {% if messages %}
-        {% for message in messages %}
-            <div class="mb-4 text-sm text-white px-4 py-2 rounded 
-                {% if message.tags == 'success' %} bg-green-500 
-                {% elif message.tags == 'error' %} bg-red-500 
-                {% else %} bg-blue-500 
-                {% endif %}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
+      <!-- Username -->
+      <div>
+        <label for="id_username" class="block text-sm font-medium text-gray-700">Username</label>
+        {{ form.username }}
+        {{ form.username.errors }}
+      </div>
 
-    {% if form.errors %}
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-            <ul class="list-disc list-inside text-sm">
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
+      <!-- Email -->
+      <div>
+        <label for="id_email" class="block text-sm font-medium text-gray-700">Email address</label>
+        {{ form.email }}
+        {{ form.email.errors }}
+      </div>
 
-    <form method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {% csrf_token %}
-        {% for field in form %}
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">{{ field.label }}</label>
-                {{ field }}
-            </div>
-        {% endfor %}
+      <!-- User Type -->
+      <div>
+        <label for="id_user_type" class="block text-sm font-medium text-gray-700">User Type</label>
+        {{ form.user_type }}
+        {{ form.user_type.errors }}
+      </div>
 
-        <div class="md:col-span-2 flex justify-center">
-            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2 rounded mt-4">
-                Register
-            </button>
-        </div>
+      <!-- Password -->
+      <div>
+        <label for="id_password" class="block text-sm font-medium text-gray-700">Password</label>
+        {{ form.password }}
+        {{ form.password.errors }}
+      </div>
+
+      <!-- Submit -->
+      <div>
+        <button type="submit"
+          class="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition font-semibold">
+          Register
+        </button>
+      </div>
+
+      <!-- Link to login -->
+      <p class="text-center text-sm text-gray-600">
+        Already have an account?
+        <a href="{% url 'login_view' %}" class="text-blue-600 hover:underline">Login here</a>
+      </p>
     </form>
-
-    <p class="text-center text-sm mt-6">
-        Already have an account? 
-        <a href="{% url 'login_view' %}" class="text-indigo-600 hover:underline">Login here</a>.
-    </p>
+  </div>
 </div>
 {% endblock %}

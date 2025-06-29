@@ -54,7 +54,7 @@ class JobPosting(models.Model):
     salary = models.DecimalField(max_digits=10, decimal_places=2)
     application_deadline = models.DateField()
     status = models.CharField(choices=[('approved', 'Approved'), ('pending', 'Pending'), ('rejected', 'Rejected')], max_length=50)
-
+    
 
 
 class TrainingCourse(models.Model):

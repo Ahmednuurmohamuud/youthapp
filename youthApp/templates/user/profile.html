@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-6 mt-10 rounded shadow">
+    <h2 class="text-2xl font-bold mb-4">Your Profile</h2>
+    <form method="POST" enctype="multipart/form-data" class="space-y-4">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        {% for field in form %}
+        <div>
+            <label class="block text-sm font-medium text-gray-700">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <p class="text-red-500 text-sm">{{ field.errors }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <button type="submit"
+                class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition">
+            Update Profile
+        </button>
+    </form>
+</div>
+{% endblock %}

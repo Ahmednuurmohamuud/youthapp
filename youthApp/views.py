@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 from .models import TrainingCourse, Enrollment
 
 from .forms import CourseForm
-from .forms import RegistrationForm,JobApplicationForm
+from .forms import RegistrationForm,JobApplicationForm,ProfileForm
 
 
 
@@ -55,16 +55,21 @@ def login_view(request):
 
 
 
-# def edit_profile(request):
-#     profile, created = UserPro.objects.get_or_create(user=request.user)
-#     if request.method == 'POST':
-#         form = UserProForm(request.POST, request.FILES, instance=profile)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('user_page')  # ama meeshii aad rabto
-#     else:
-#         form = UserProForm(instance=profile)
-#     return render(request, 'user_profile/edit_profile.html', {'form': form})
+@login_required
+def user_profile(request):
+    user = request.user
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=user)  # instance=user muhiim!
+        if form.is_valid():
+            form.save()  # kaydi xogta
+            return redirect('user_profile')  # dib ugu laabo page-ka profile si xogta cusubi u muuqato
+        else:
+            print(form.errors)  # Debug: daabac errors haddii jira
+    else:
+        form = ProfileForm(instance=user)  # marka GET, foomka buuxi xogta jira
+
+    return render(request, 'user/profile.html', {'form': form})
 
 
 def base_page(request):
@@ -275,6 +280,31 @@ def course_page(request):
 
     return render(request, 'user/Course_page/course.html', context)
 
+
+def job_page(request):
+    jobs = JobPosting.objects.all()
+
+    location = request.GET.get('location')
+    max_salary = request.GET.get('salary')
+
+    if location:
+        jobs = jobs.filter(location__icontains=location)
+
+
+    if max_salary:
+        try:
+            jobs = jobs.filter(salary__lte=int(max_salary))
+        except ValueError:
+            pass
+
+
+
+    context = {
+        'jobs': jobs,
+        
+    }
+    
+    return render(request, 'user/jobs/job.html', context)
 
 
 

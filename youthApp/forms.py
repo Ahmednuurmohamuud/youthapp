@@ -5,16 +5,35 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import CustomUser
 
-class RegistrationForm(UserCreationForm):
+
+
+
+class RegistrationForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+
     class Meta:
         model = CustomUser
-        fields = ['username', 'fullname', 'email', 'phone_number', 'skills', 'education', 'cv_file', 'user_type', 'password1', 'password2']
+        fields = ['username', 'email', 'user_type', 'password']
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data['password'])  # Hash password
+        if commit:
+            user.save()
+        return user
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
 
-
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['fullname', 'email', 'phone_number', 'skills', 'education', 'cv_file', 'user_type']
+        widgets = {
+            'skills': forms.Textarea(attrs={'rows': 3}),
+            'education': forms.Textarea(attrs={'rows': 3}),
+        }
 
 class JobForm(forms.ModelForm):
     company = forms.ModelChoiceField(
