@@ -211,6 +211,98 @@
             </div>
         </div>
     </section>
+
+  
+
+
+
+
+<section class="bg-gray-50 py-20" x-data="{ activeTab: 'individual' }">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold text-gray-900">Our Pricing Plans</h2>
+      <p class="mt-2 text-gray-500">Choose the plan that suits your needs</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex justify-center mb-12 space-x-6">
+      <template x-for="tab in ['individual', 'team']" :key="tab">
+        <button
+          @click="activeTab = tab"
+          class="relative px-6 py-2 rounded-full font-semibold transition duration-300"
+          :class="activeTab === tab 
+              ? 'bg-blue-600 text-white shadow-lg'
+              : 'bg-white text-gray-700 border border-gray-300 hover:border-blue-600 hover:text-blue-600'"
+        >
+          <span x-text="tab.charAt(0).toUpperCase() + tab.slice(1)"></span>
+
+          <!-- Circle Indicator -->
+          <span
+            x-show="activeTab === tab"
+            class="absolute -top-2 -right-2 h-3 w-3 bg-blue-600 rounded-full animate-ping"
+          ></span>
+        </button>
+      </template>
+    </div>
+
+    <!-- Individual Plans -->
+    <div x-show="activeTab === 'individual'" x-transition class="grid md:grid-cols-3 gap-8">
+      <!-- Free Plan -->
+      <div class="bg-white shadow-md rounded-xl p-6">
+        <h3 class="text-xl font-semibold text-blue-600 mb-2">Free</h3>
+        <p class="text-4xl font-bold text-gray-800">$0<span class="text-sm text-gray-500">/mo</span></p>
+        <ul class="mt-4 space-y-1 text-sm text-gray-600">
+          <li>✓ Basic access</li>
+          <li>✓ Community support</li>
+        </ul>
+        <button class="mt-6 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">Choose Plan</button>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="bg-white shadow-md rounded-xl p-6 border-2 border-blue-600">
+        <h3 class="text-xl font-semibold text-blue-600 mb-2">Pro</h3>
+        <p class="text-4xl font-bold text-gray-800">$29<span class="text-sm text-gray-500">/mo</span></p>
+        <ul class="mt-4 space-y-1 text-sm text-gray-600">
+          <li>✓ Download courses</li>
+          <li>✓ Progress tracking</li>
+        </ul>
+        <button class="mt-6 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">Choose Plan</button>
+      </div>
+
+      <!-- Premium Plan -->
+      <div class="bg-white shadow-md rounded-xl p-6">
+        <h3 class="text-xl font-semibold text-blue-600 mb-2">Premium</h3>
+        <p class="text-4xl font-bold text-gray-800">$59<span class="text-sm text-gray-500">/mo</span></p>
+        <ul class="mt-4 space-y-1 text-sm text-gray-600">
+          <li>✓ All features</li>
+          <li>✓ Certificate + mentor</li>
+        </ul>
+        <button class="mt-6 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">Choose Plan</button>
+      </div>
+    </div>
+
+    <!-- Team Plan -->
+    <div x-show="activeTab === 'team'" x-transition class="max-w-3xl mx-auto">
+      <div class="bg-white shadow-md rounded-xl p-8 text-center">
+        <h3 class="text-2xl font-bold text-blue-600 mb-2">Team Access</h3>
+        <p class="text-3xl font-bold text-gray-800">$199<span class="text-sm text-gray-500">/mo</span></p>
+        <ul class="mt-4 space-y-1 text-sm text-gray-600">
+          <li>✓ All Premium features</li>
+          <li>✓ 10 members</li>
+          <li>✓ Admin dashboard</li>
+        </ul>
+        <button class="mt-6 w-full bg-gray-800 text-white py-2 rounded hover:bg-gray-900 transition">Contact Sales</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Make sure to include Alpine.js -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+
     
 
 

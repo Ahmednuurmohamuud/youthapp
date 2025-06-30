@@ -219,6 +219,11 @@ def user_page(request):
     })
 
 
+# def all_courses(request):
+#     courses = TrainingCourse.objects.all()
+#     return render(request, 'user/Course_page/all_courses.html', {'courses': courses})
+
+
 @login_required
 def user_dashboard(request):
     enrollments = Enrollment.objects.filter(user=request.user).select_related('course')
@@ -310,53 +315,9 @@ def job_page(request):
 
 
 
-# @login_required(login_url=reverse_lazy('login_view'))
-# def enrolled_courses(request, course_id):
-#     course = get_object_or_404(TrainingCourse, id=course_id)
 
-#     # Haddii aad rabto inaad hubiso in user-ku ku qoran yahay course-kaas:
-#     enrollment = Enrollment.objects.filter(user=request.user, course=course).first()
 
-#     context = {
-#         'course': course,
-#         'enrollment': enrollment,
-#     }
-#     return render(request, 'user/Course_page/enrolled_courses.html', context)
-
-# @login_required
-# def enrolled_courses(request, course_id):
-#     course = get_object_or_404(TrainingCourse, id=course_id)
-
-#     # Haddii uu horey u is diiwaan geliyey
-#     if Enrollment.objects.filter(user=request.user, course=course).exists():
-#         return redirect('my_enrollments')  # ama page kale
-
-#     # Diiwaangelin cusub
-#     Enrollment.objects.create(user=request.user, course=course)
-#     return redirect('my_enrollments')  # isticmaal name, ma aha path
-
-@login_required
-def enroll_and_view_lessons(request, course_id):
-    course = get_object_or_404(TrainingCourse, id=course_id)
-
-    # Haddii horey u isdiiwaangeliyey, iska dhaaf
-    enrollment, created = Enrollment.objects.get_or_create(user=request.user, course=course)
-
-    # Ka dib enroll, u dir bogga casharrada
-    return redirect('course_lessons', course_id=course.id)
-
-@login_required
-def course_detail(request, course_id):
-    course = get_object_or_404(TrainingCourse, id=course_id)
-    lessons = course.lessons.all()  # thanks to related_name='lessons'
-
-    context = {
-        'course': course,
-        'lessons': lessons,
-    }
-    return render(request, 'user/Course_page/course_detail.html', context)
-
-@login_required
+@login_required(login_url=reverse_lazy('login_view'))
 def my_enrollments(request):
     # Diiwaangelinta user-ka
     enrollments = Enrollment.objects.filter(user=request.user).select_related('course')
@@ -365,7 +326,7 @@ def my_enrollments(request):
         'enrollments': enrollments
     })
 
-@login_required
+@login_required(login_url=reverse_lazy('login_view'))
 def course_lessons(request, course_id):
     course = get_object_or_404(TrainingCourse, id=course_id)
     lessons = course.lessons.order_by('order')

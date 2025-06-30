@@ -14,8 +14,8 @@ from .views import (
     register_view,
     login_view,
     apply_job,
-    course_detail,
-    enroll_and_view_lessons,
+    # all_courses,
+    # # enroll_and_view_lessons,
     logout_view,
     job_page,
     user_profile,
@@ -47,13 +47,13 @@ urlpatterns = [
     path('user/profile/', user_profile, name='user_profile'),
 
 
-    # Course detail & enrollment
-    path('course/<int:course_id>/', course_detail, name='course_detail'),
+    # # Course detail & enrollment
+    # path('course/<int:course_id>/', course_detail, name='course_detail'),
     # path('user/Course_page/enrolled_courses/<int:course_id>/', enrolled_courses, name='enrolled_courses'),
     path('user/Course_page/my-enrollments/', my_enrollments, name='my_enrollments'),
     path('course/<int:course_id>/lessons/', course_lessons, name='course_lessons'),
     # urls.py
-    path('course/<int:course_id>/enroll/', enroll_and_view_lessons, name='enroll_and_view_lessons'),
+    # path('course/course_page/all_courses/', all_courses, name='all_courses'),
     path('course/<int:course_id>/lessons/',course_lessons, name='course_lessons'),
 
 
