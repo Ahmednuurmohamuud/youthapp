@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<h1>Notifications</h1>
+<a href="{% url 'mark_all_notifications_read' %}" class="btn btn-primary">Mark all as read</a>
+<ul>
+  {% for note in notifications %}
+  <li {% if not note.is_read %}style="font-weight:bold"{% endif %}>
+    {{ note.message }} - {{ note.created_at|timesince }} ago
+    {% if not note.is_read %}
+      <a href="{% url 'mark_notification_read' note.id %}">Mark as read</a>
+    {% endif %}
+  </li>
+  {% empty %}
+  <li>No notifications</li>
+  {% endfor %}
+</ul>
+{% endblock %}

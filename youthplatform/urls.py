@@ -21,12 +21,13 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 def home_redirect(request):
-    return redirect('base_page')  # Redirect to 'base_page' view
+    return redirect('user_page')  # Redirect to 'base_page' view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('youthApp/', include('youthApp.urls')),  # Ensure 'youthApp' is in INSTALLED_APPS
     path('', home_redirect, name='home'),  # Redirect root URL to 'base_page'
+
 ]
 
 

@@ -1,0 +1,153 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<section class="py-8 bg-white">
+  <div class="max-w-3xl mx-auto bg-gray-100 rounded-xl p-6 shadow-md flex flex-col h-[600px]">
+
+    <div class="mb-4">
+      <h2 class="text-2xl font-bold">Chat with {{ other_user.fullname }}</h2>
+    </div>
+
+    <!-- Messages container -->
+    <div id="messagesContainer" class="flex-1 overflow-y-auto bg-white rounded p-4 space-y-4 mb-4 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+      {% for msg in messages %}
+        <div class="max-w-[75%] {% if msg.sender == request.user %}ml-auto text-right{% else %}mr-auto text-left{% endif %}">
+          <div class="inline-block px-5 py-3 rounded-2xl 
+                      {% if msg.sender == request.user %}
+                        bg-blue-600 text-white
+                      {% else %}
+                        bg-gray-200 text-gray-900
+                      {% endif %} shadow-md">
+
+            {% if msg.content %}
+              <p>{{ msg.content|linebreaksbr }}</p>
+            {% endif %}
+
+            {% if msg.file %}
+              {% if msg.is_video %}
+                <video controls class="mt-2 rounded-xl max-w-full">
+                  <source src="{{ msg.file.url }}" type="video/mp4">
+                </video>
+
+              {% elif msg.is_audio %}
+                <div class="flex items-center gap-3 mt-2 bg-white px-3 py-2 rounded-full shadow border w-fit">
+                  <div class="text-blue-600 text-xl">🎙️</div>
+                  <audio controls class="w-48">
+                    <source src="{{ msg.file.url }}" type="audio/webm">
+                  </audio>
+                  <a href="{{ msg.file.url }}" download class="text-gray-400 hover:text-blue-600 text-sm" title="Download voice message">⬇️</a>
+                </div>
+
+              {% elif msg.is_image %}
+                <img src="{{ msg.file.url }}" alt="Image" class="mt-2 rounded-xl max-w-xs border" />
+
+              {% else %}
+                <a href="{{ msg.file.url }}" class="text-blue-600 underline mt-2 block">Download File</a>
+              {% endif %}
+            {% endif %}
+
+          </div>
+          <div class="text-xs text-gray-400 mt-1 select-none">
+            {{ msg.timestamp|date:"M d, H:i" }}
+            {% if msg.sender == request.user %}
+              {% if not msg.is_read %}
+                <span class="ml-2 text-yellow-500 font-semibold">Sent</span>
+              {% else %}
+                <span class="ml-2 text-green-500 font-semibold">Seen</span>
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-center text-gray-500 mt-12">No messages yet. Say hi!</p>
+      {% endfor %}
+    </div>
+
+    <!-- Message form -->
+    <form method="post" enctype="multipart/form-data" class="flex gap-3 items-center" id="messageForm">
+      {% csrf_token %}
+
+      <!-- 🎙️ Record Button -->
+      <button type="button" id="recordBtn" class="bg-red-500 text-white px-3 py-2 rounded-xl hover:bg-red-600 transition">
+        🎙️
+      </button>
+
+      <!-- Textarea -->
+      <textarea name="content" rows="1"
+        class="flex-grow resize-none rounded-xl border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Type your message..."></textarea>
+
+      <!-- 📎 Attachment Icon -->
+      <label for="fileUpload" title="Attach file" class="cursor-pointer bg-gray-200 hover:bg-gray-300 rounded-full p-2 text-lg">
+        📎
+      </label>
+      <input type="file" id="fileUpload" name="file" accept="image/*,video/*,audio/*" class="hidden" />
+
+      <!-- Send Button -->
+      <button type="submit" class="bg-blue-600 text-white px-5 py-2 rounded-xl hover:bg-blue-700 transition">
+        Send
+      </button>
+    </form>
+
+  </div>
+</section>
+
+<!-- Auto scroll to bottom -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('messagesContainer');
+    container.scrollTop = container.scrollHeight;
+  });
+</script>
+
+<!-- 🎙️ Voice Recorder Script -->
+<script>
+let mediaRecorder;
+let audioChunks = [];
+
+document.getElementById('recordBtn').addEventListener('click', async function () {
+  const btn = this;
+
+  if (btn.dataset.recording === "true") {
+    mediaRecorder.stop();
+    btn.dataset.recording = "false";
+    btn.textContent = "🎙️";
+    return;
+  }
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mediaRecorder = new MediaRecorder(stream);
+    audioChunks = [];
+
+    mediaRecorder.ondataavailable = event => {
+      audioChunks.push(event.data);
+    };
+
+    mediaRecorder.onstop = () => {
+      const blob = new Blob(audioChunks, { type: 'audio/webm' });
+      const file = new File([blob], 'voice_message.webm', { type: 'audio/webm' });
+
+      const form = document.getElementById('messageForm');
+      const formData = new FormData(form);
+      formData.append('file', file);
+
+      fetch("", {
+        method: "POST",
+        body: formData
+      }).then(() => {
+        window.location.reload();
+      });
+    };
+
+    mediaRecorder.start();
+    btn.dataset.recording = "true";
+    btn.textContent = "⏹️";
+  } catch (err) {
+    alert("🎤 Cod duubista lama heli karo. Fadlan oggolow microphone.");
+  }
+});
+</script>
+
+{% endblock %}

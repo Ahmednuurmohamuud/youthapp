@@ -1,9 +1,10 @@
 from django import forms
 from django.conf import settings
-from .models import JobPosting, CompanyProfile, TrainingCourse, CustomUser, JobApplication
+from .models import JobPosting, CompanyProfile, TrainingCourse, CustomUser, JobApplication,NetworkConnection
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import CustomUser
+from .models import Message, Portfolio,Notification,Education
 
 
 
@@ -30,12 +31,20 @@ class LoginForm(AuthenticationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ['profile_picture', 'fullname', 'email', 'phone_number', 'skills', 'education', 'cv_file', 'user_type']
+        fields = [
+            'profile_picture',
+            'fullname',
+            'email',
+            'phone_number',
+            'skills',
+            'education',
+            'cv_file',
+            'user_type'
+        ]
         widgets = {
             'skills': forms.Textarea(attrs={'rows': 3}),
             'education': forms.Textarea(attrs={'rows': 3}),
         }
-
 
 class JobForm(forms.ModelForm):
     company = forms.ModelChoiceField(
@@ -103,3 +112,26 @@ class JobApplicationForm(forms.ModelForm):
     resume = forms.FileField(required=True, label='Upload Your Resume')
     cover_letter = forms.FileField(required=False, label='Upload Your Cover Letter')
     additional_questions = forms.CharField(widget=forms.Textarea, required=False, label='Any Additional Information or Questions')
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['content', 'file']
+
+
+
+class PortfolioForm(forms.ModelForm):
+    class Meta:
+        model = Portfolio
+        fields = ['bio', 'experience', 'skills', 'education', 'website', 'github', 'linkedin']
+        widgets = {
+            'bio': forms.Textarea(attrs={'rows': 3}),
+            'experience': forms.Textarea(attrs={'rows': 3}),
+            'skills': forms.Textarea(attrs={'rows': 2}),
+            'education': forms.Textarea(attrs={'rows': 2}),
+        }
+
+class NetworkConnection(forms.ModelForm):
+    class Meta:
+        model = NetworkConnection  # ← Ku beddel model sax ah
+        fields = '__all__'     # ama ['field1', 'field2']

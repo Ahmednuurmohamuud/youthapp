@@ -1,0 +1,96 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<section class="py-10 bg-gray-50">
+  <div class="max-w-5xl mx-auto bg-white p-8 rounded-2xl shadow-md">
+
+    <!-- Profile Info -->
+    <div class="flex items-center gap-6 border-b pb-6">
+      {% if profile_user.profile_picture %}
+        <img src="{{ profile_user.profile_picture.url }}" class="h-24 w-24 rounded-full object-cover ring-2 ring-blue-500" alt="Profile">
+      {% else %}
+        <img src="{% static 'img/default-user.png' %}" class="h-24 w-24 rounded-full object-cover ring-2 ring-blue-500" alt="Default">
+      {% endif %}
+
+      <div>
+        <h2 class="text-3xl font-bold text-gray-800">{{ profile_user.fullname }}</h2>
+        <p class="text-sm text-gray-500">{{ profile_user.skills }}</p>
+        {% if is_connected %}
+          <p class="text-sm text-gray-400 mt-1">{{ profile_user.email }}</p>
+        {% endif %}
+
+        {% if request.user != profile_user %}
+          <div class="mt-4 flex items-center gap-3">
+            {% if is_connected %}
+              <span class="text-green-600 font-semibold">✅ Connected</span>
+              <a href="{% url 'message_thread' profile_user.id %}" class="bg-blue-600 text-white px-4 py-1.5 rounded hover:bg-blue-700 text-sm">Message</a>
+              <button id="togglePortfolioBtn" class="bg-gray-300 text-gray-800 px-4 py-1.5 rounded hover:bg-gray-400 text-sm">View Portfolio</button>
+            {% elif connection_status == 'pending' %}
+              <form method="post" action="{% url 'accept_connection_request' connection_id %}">
+                {% csrf_token %}
+                <button type="submit" class="bg-yellow-500 text-white px-4 py-1.5 rounded hover:bg-yellow-600 text-sm">Accept Request</button>
+              </form>
+            {% else %}
+              <form method="post" action="{% url 'connect_user' profile_user.id %}">
+                {% csrf_token %}
+                <button type="submit" class="bg-blue-500 text-white px-4 py-1.5 rounded hover:bg-blue-600 text-sm">Connect</button>
+              </form>
+              <button id="togglePortfolioBtn" class="bg-gray-300 text-gray-800 px-4 py-1.5 rounded hover:bg-gray-400 text-sm ml-2">View Portfolio</button>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Portfolio Section: Initially hidden -->
+    <div id="portfolioSection" class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 hidden">
+      {% if portfolio %}
+        <div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">👤 Bio</h3>
+          <p class="text-gray-700 whitespace-pre-line">{{ portfolio.bio }}</p>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">🎓 Education</h3>
+          <p class="text-gray-700 whitespace-pre-line">{{ portfolio.education }}</p>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">💼 Experience</h3>
+          <p class="text-gray-700 whitespace-pre-line">{{ portfolio.experience }}</p>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">🌐 Links</h3>
+          <ul class="text-blue-600 space-y-1 text-sm">
+            {% if portfolio.website %}<li><a href="{{ portfolio.website }}" target="_blank">🌍 Website</a></li>{% endif %}
+            {% if portfolio.github %}<li><a href="{{ portfolio.github }}" target="_blank">🐙 GitHub</a></li>{% endif %}
+            {% if portfolio.linkedin %}<li><a href="{{ portfolio.linkedin }}" target="_blank">💼 LinkedIn</a></li>{% endif %}
+          </ul>
+        </div>
+      {% else %}
+        <p class="text-gray-500 italic">📭 This user has not added their portfolio yet.</p>
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const toggleBtn = document.getElementById('togglePortfolioBtn');
+  const portfolioSection = document.getElementById('portfolioSection');
+
+  if(toggleBtn){
+    toggleBtn.addEventListener('click', () => {
+      if(portfolioSection.classList.contains('hidden')){
+        portfolioSection.classList.remove('hidden');
+        toggleBtn.textContent = "Hide Portfolio";
+      } else {
+        portfolioSection.classList.add('hidden');
+        toggleBtn.textContent = "View Portfolio";
+      }
+    });
+  }
+</script>
+
+{% endblock %}

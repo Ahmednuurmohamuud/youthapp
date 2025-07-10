@@ -3,14 +3,18 @@ from .models import JobPosting,JobApplication
 from .forms import JobForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.hashers import make_password
-from django.contrib.auth.hashers import check_password
 from django.urls import reverse_lazy
+from django.contrib.auth import get_user_model
+from .forms import MessageForm
+from django.db.models import Q
+from django.http import HttpResponseForbidden,JsonResponse
 
-from .models import TrainingCourse, Enrollment,Lesson
+
+
+# from .models import TrainingCourse, Enrollment,Lesson
 
 from .forms import CourseForm
-from .forms import RegistrationForm,JobApplicationForm,ProfileForm
+from .forms import RegistrationForm,JobApplicationForm,ProfileForm,PortfolioForm,NetworkConnection,Portfolio,Notification,Education
 
 
 
@@ -18,6 +22,64 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from .models import CustomUser
+
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+from rest_framework import viewsets
+
+from .models import (
+    CustomUser, JobApplication, Admin, CompanyProfile,
+    JobPosting, TrainingCourse, Enrollment, Lesson,NetworkConnection,Message
+)
+from .serializers import (
+    CustomUserSerializer, JobApplicationSerializer, AdminSerializer,
+    CompanyProfileSerializer, JobPostingSerializer, TrainingCourseSerializer,
+    EnrollmentSerializer, LessonSerializer , NetworkConnectionSerializer
+)
+
+# REST API ViewSets
+class CustomUserViewSet(viewsets.ModelViewSet):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+
+class JobApplicationViewSet(viewsets.ModelViewSet):
+    queryset = JobApplication.objects.all()
+    serializer_class = JobApplicationSerializer
+
+class AdminViewSet(viewsets.ModelViewSet):
+    queryset = Admin.objects.all()
+    serializer_class = AdminSerializer
+
+class CompanyProfileViewSet(viewsets.ModelViewSet):
+    queryset = CompanyProfile.objects.all()
+    serializer_class = CompanyProfileSerializer
+
+class JobPostingViewSet(viewsets.ModelViewSet):
+    queryset = JobPosting.objects.all()
+    serializer_class = JobPostingSerializer
+    authentication_classes = [TokenAuthentication]  # ama JWTAuthentication
+    permission_classes = [IsAuthenticated]  # kaliya users logged in allowed
+
+class TrainingCourseViewSet(viewsets.ModelViewSet):
+    queryset = TrainingCourse.objects.all()
+    serializer_class = TrainingCourseSerializer
+    authentication_classes = [TokenAuthentication]  # ama JWTAuthentication
+    permission_classes = [IsAuthenticated]  # kaliya users logged in allowed
+
+class EnrollmentViewSet(viewsets.ModelViewSet):
+    queryset = Enrollment.objects.all()
+    serializer_class = EnrollmentSerializer
+
+class LessonViewSet(viewsets.ModelViewSet):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
+
+class NetworkConnectionViewSet(viewsets.ModelViewSet):
+    queryset = NetworkConnection.objects.all()
+    serializer_class = NetworkConnectionSerializer
+
+
+
 
 def register_view(request):
     if request.method == 'POST':
@@ -60,14 +122,16 @@ def user_profile(request):
     user = request.user
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=user)  # instance=user muhiim!
+        form = ProfileForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
-            form.save()  # kaydi xogta
-            return redirect('user_profile')  # dib ugu laabo page-ka profile si xogta cusubi u muuqato
+            form.save()
+            messages.success(request, "Your profile has been updated.")
+            return redirect('user_profile')
         else:
-            print(form.errors)  # Debug: daabac errors haddii jira
+            messages.error(request, "Please correct the errors below.")
+            print(form.errors)
     else:
-        form = ProfileForm(instance=user)  # marka GET, foomka buuxi xogta jira
+        form = ProfileForm(instance=user)
 
     return render(request, 'user/profile.html', {'form': form})
 
@@ -75,6 +139,8 @@ def user_profile(request):
 def base_page(request):
     return render(request, 'admin/home.html')  # Make sure 'base.html' exists in the correct templates folder
 
+def home_page(request):
+    return render(request, 'user/home.html') 
 
 
 @login_required(login_url=reverse_lazy('login_view'))
@@ -342,17 +408,297 @@ def course_lessons(request, course_id):
 
 
 
-# @login_required
-# def start_payment(request, course_id):
-#     course = get_object_or_404(TrainingCourse, id=course_id)
-
-#     # check if already enrolled
-#     if Enrollment.objects.filter(user=request.user, course=course).exists():
-#         return redirect('course_lessons', course_id=course.id)
-
-#     return render(request, 'user/courses/payment_page.html', {'course': course})
 
 
+@login_required(login_url=reverse_lazy('login_view'))
+def network_page(request):
+    users = CustomUser.objects.exclude(id=request.user.id)
+
+    # Soo qaado connections-ka dhamaantood ee user-ka
+    connections = NetworkConnection.objects.filter(
+        Q(sender=request.user) | Q(receiver=request.user)
+    )
+
+    # Diyaari dict si sahlan loo baadho xaaladaha user kasta
+    connection_dict = {}
+    for conn in connections:
+        if conn.sender == request.user:
+            connection_dict[conn.receiver.id] = conn.status
+        elif conn.receiver == request.user:
+            connection_dict[conn.sender.id] = conn.status
+
+    unread_count = request.user.notifications.filter(is_read=False).count()
+
+    return render(request, 'user/networks_page/network.html', {
+        'users': users,
+        'connection_dict': connection_dict,
+        'unread_count': unread_count,
+    })
+
+
+
+@login_required
+def send_connection_request(request, user_id):
+    to_user = get_object_or_404(CustomUser, id=user_id)
+    connection, created = NetworkConnection.objects.get_or_create(sender=request.user, receiver=to_user, status='pending')
+    if created:
+        Notification.objects.create(user=to_user, message=f"{request.user.fullname} sent you a connection request")
+    return redirect('network_page')
+
+
+@login_required
+def pending_requests(request):
+    requests = NetworkConnection.objects.filter(receiver=request.user, status='pending')
+
+    if request.method == 'POST':
+        connection_id = request.POST.get('connection_id')
+        action = request.POST.get('action')  # 'accept' or 'reject'
+        
+        try:
+            connection = NetworkConnection.objects.get(id=connection_id, receiver=request.user, status='pending')
+            if action == 'accept':
+                connection.status = 'accepted'
+                connection.save()
+                messages.success(request, f"You have accepted connection request from {connection.sender.fullname}.")
+            elif action == 'reject':
+                connection.delete()
+                messages.info(request, f"You have rejected connection request from {connection.sender.fullname}.")
+        except NetworkConnection.DoesNotExist:
+            messages.error(request, "Connection request not found or already processed.")
+        
+        return redirect('pending_requests')
+
+    return render(request, 'user/networks_page/pendingrequests.html', {'requests': requests})
+
+
+@login_required
+def accept_connection_request(request, connection_id):
+    connection = get_object_or_404(NetworkConnection, id=connection_id)
+
+    # Hubi in user-ka uu yahay receiver-ka codsiga
+    if connection.receiver == request.user and connection.status == 'pending':
+        connection.status = 'accepted'
+        connection.save()
+
+        # U dir notification sender-ka
+        Notification.objects.create(
+            user=connection.sender,
+            message=f"{request.user.fullname} accepted your connection request."
+        )
+
+    return redirect('network_page')
+
+
+@login_required
+def reject_connection_request(request, conn_id):
+    conn = get_object_or_404(NetworkConnection, id=conn_id, receiver=request.user)
+    conn.delete()
+    Notification.objects.create(user=conn.sender, message=f"{request.user.fullname} rejected your connection request")
+    return redirect('pending_requests')
+
+ 
+
+
+@login_required(login_url=reverse_lazy('login_view'))
+def connect_user(request, user_id):
+    target_user = get_object_or_404(CustomUser, id=user_id)
+
+    # Check in case connection already exists
+    connection, created = NetworkConnection.objects.get_or_create(
+        sender=request.user,
+        receiver=target_user,
+        defaults={'status': 'pending'}
+    )
+
+    if created:
+        # Abuur notification user-ka la diro
+        Notification.objects.create(
+            user=target_user,
+            message=f"{request.user.fullname} has sent you a connection request."
+        )
+        messages.success(request, "Connection request sent successfully.")
+    else:
+        messages.info(request, "You have already sent a connection request to this user.")
+
+    return redirect('network_page')
+
+@login_required
+def disconnect_user(request, user_id):
+    other_user = get_object_or_404(CustomUser, id=user_id)
+    connection = NetworkConnection.objects.filter(
+        (Q(sender=request.user, receiver=other_user) | Q(sender=other_user, receiver=request.user)),
+        status='accepted'
+    ).first()
+
+    if connection:
+        connection.delete()
+    
+    return redirect('network_page')
+
+@login_required(login_url=reverse_lazy('login_view'))
+def user_profile_view(request, user_id):
+    profile_user = get_object_or_404(CustomUser, id=user_id)
+
+    is_connected = NetworkConnection.objects.filter(
+        Q(sender=request.user, receiver=profile_user) | Q(sender=profile_user, receiver=request.user),
+        status='accepted'
+    ).exists()
+
+    connection_status = None
+    connection_id = None
+    if not is_connected:
+        pending_connection = NetworkConnection.objects.filter(
+            Q(sender=request.user, receiver=profile_user) | Q(sender=profile_user, receiver=request.user)
+        ).first()
+        if pending_connection:
+            connection_status = pending_connection.status
+            connection_id = pending_connection.id
+
+    portfolio = Portfolio.objects.filter(user=profile_user).first()
+
+    return render(request, 'user/networks_page/profile.html', {
+        'profile_user': profile_user,
+        'portfolio': portfolio,
+        'is_connected': is_connected,
+        'connection_status': connection_status,
+        'connection_id': connection_id
+    })
+
+
+
+@login_required
+def portfolio_api(request, user_id):
+    profile_user = get_object_or_404(CustomUser, id=user_id)
+    portfolio = Portfolio.objects.filter(user=profile_user).first()
+
+    if portfolio:
+        data = {
+            'bio': portfolio.bio,
+            'education': portfolio.education,
+            'experience': portfolio.experience,
+            'website': portfolio.website,
+            'github': portfolio.github,
+            'linkedin': portfolio.linkedin,
+        }
+    else:
+        data = {'error': 'No portfolio found.'}
+
+    return JsonResponse(data)
+
+@login_required
+def edit_portfolio(request):
+    try:
+        portfolio = Portfolio.objects.get(user=request.user)
+    except Portfolio.DoesNotExist:
+        portfolio = None
+
+    if request.method == 'POST':
+        form = PortfolioForm(request.POST, instance=portfolio)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            return redirect('user_profile')  # ama halka aad rabto
+    else:
+        form = PortfolioForm(instance=portfolio)
+
+    return render(request, 'user/networks_page/edit_portfolio.html', {'form': form})
+
+@login_required
+def message_thread(request, user_id):
+    other_user = get_object_or_404(CustomUser, id=user_id)
+
+    # ✅ Hubi in ay connected yihiin
+    is_connected = NetworkConnection.objects.filter(
+        Q(sender=request.user, receiver=other_user, status='accepted') |
+        Q(sender=other_user, receiver=request.user, status='accepted')
+    ).exists()
+
+    if not is_connected:
+        return HttpResponseForbidden("You must be connected to message this user.")
+
+    # ✅ Messages
+    messages = Message.objects.filter(
+        Q(sender=request.user, receiver=other_user) |
+        Q(sender=other_user, receiver=request.user)
+    ).order_by('timestamp')
+
+    # ✅ Update unread messages as read
+    messages.filter(receiver=request.user, is_read=False).update(is_read=True)
+
+    # ✅ POST request
+    if request.method == 'POST':
+        form = MessageForm(request.POST, request.FILES)
+        if form.is_valid():
+            msg = form.save(commit=False)
+            msg.sender = request.user
+            msg.receiver = other_user
+            msg.save()
+
+            # Optional notification
+            Notification.objects.create(
+                user=other_user,
+                message=f"New message from {request.user.fullname}"
+            )
+
+            return redirect('message_thread', user_id=other_user.id)
+    else:
+        form = MessageForm()
+
+    return render(request, 'user/networks_page/message.html', {
+        'form': form,
+        'messages': messages,
+        'other_user': other_user,
+    })
+
+
+@login_required
+def notifications_list(request):
+    notifications = request.user.notifications.order_by('-created_at')[:5]
+    return render(request, 'user/networks_page/notifications.html', {'notifications': notifications})
+
+@login_required
+def mark_notification_read(request, notification_id):
+    notification = request.user.notifications.filter(id=notification_id).first()
+    if notification:
+        notification.is_read = True
+        notification.save()
+    return redirect('notifications_list')
+
+@login_required
+def mark_all_notifications_read(request):
+    request.user.notifications.filter(is_read=False).update(is_read=True)
+    return redirect('notifications_list')
+
+@login_required
+def notification_redirect(request, notification_id):
+    notification = get_object_or_404(Notification, id=notification_id, user=request.user)
+    notification.is_read = True
+    notification.save()
+
+    # Halkan waxaan ka qaadeynaa user-ka soo diray connection request-ka
+    # Assuming notification message-ka waxaa ku jira connection request
+    # Laakiin si sax ah, waxaa fiican in Notification model aad ku xirto ForeignKey Connection ama User
+    # Waxaan tusaale ahaan u qaadaneynaa in Notification model uu leeyahay 'connection' ForeignKey
+
+    if hasattr(notification, 'connection'):
+        conn = notification.connection
+        other_user = conn.sender if conn.receiver == request.user else conn.receiver
+        return redirect('user_profile_view', user_id=other_user.id)
+
+    # Haddii aan connection la socon, redirect to notifications list or homepage
+    return redirect('notifications_list')
+
+
+
+
+
+
+
+@login_required(login_url=reverse_lazy('login_view'))
+def companies_page(request):
+    companies = CompanyProfile.objects.all()
+    return render(request, 'user/companies_page/companies.html', {'companies': companies})
 
 def logout_view(request):
     logout(request)

@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<section class="max-w-4xl mx-auto py-12">
+  <h2 class="text-3xl font-bold mb-6 text-center">Pending Connection Requests</h2>
+
+  {% if requests %}
+    <div class="space-y-6">
+      {% for request in requests %}
+      <div class="bg-white p-6 rounded-xl shadow flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <img src="{{ request.sender.profile_picture.url|default:'/static/img/default-user.png' }}" alt="Profile" class="h-16 w-16 rounded-full object-cover">
+          <div>
+            <h3 class="text-lg font-semibold">{{ request.sender.fullname }}</h3>
+            <p class="text-gray-500">{{ request.sender.skills|default:"No skills provided" }}</p>
+          </div>
+        </div>
+        <form method="post" class="flex gap-2">
+          {% csrf_token %}
+          <input type="hidden" name="connection_id" value="{{ request.id }}">
+          <button type="submit" name="action" value="accept" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">Accept</button>
+          <button type="submit" name="action" value="reject" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">Reject</button>
+        </form>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-center text-gray-500">You have no pending connection requests.</p>
+  {% endif %}
+</section>
+{% endblock %}

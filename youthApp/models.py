@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 User = settings.AUTH_USER_MODEL
+import os
 # from django.contrib.auth import get_user_model
 
 # User = get_user_model()
@@ -125,6 +126,69 @@ class CustomUser(AbstractUser):
     cv_file = models.FileField(upload_to='cv_uploads/', blank=True, null=True)
     user_type = models.CharField(choices=[('individual', 'Individual'), ('company', 'Company')], max_length=50)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)  # ✅ cusub
+  
 
     def __str__(self):
           return self.username
+    
+
+class NetworkConnection(models.Model):
+    sender = models.ForeignKey(CustomUser, related_name='sent_requests', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(CustomUser, related_name='received_requests', on_delete=models.CASCADE)
+    status = models.CharField(max_length=20, choices=[('pending', 'Pending'), ('accepted', 'Accepted')], default='pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('sender', 'receiver')
+
+        
+class Message(models.Model):
+    sender = models.ForeignKey(CustomUser, related_name='sent_messages', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(CustomUser, related_name='received_messages', on_delete=models.CASCADE)
+    content = models.TextField(blank=True)
+    file = models.FileField(upload_to='chat_uploads/', blank=True, null=True)
+    is_read = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    is_image = models.BooleanField(default=False)
+    is_audio = models.BooleanField(default=False)
+    is_video = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        # Auto detect file type
+        if self.file:
+            ext = os.path.splitext(self.file.name)[1].lower()
+            if ext in ['.jpg', '.jpeg', '.png', '.gif']:
+                self.is_image = True
+            elif ext in ['.mp3', '.wav', '.webm']:
+                self.is_audio = True
+            elif ext in ['.mp4', '.mov', '.avi']:
+                self.is_video = True
+        super().save(*args, **kwargs)
+
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='notifications')
+    message = models.CharField(max_length=255)
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class Portfolio(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True)
+    experience = models.TextField(blank=True)
+    skills = models.TextField(blank=True)
+    education = models.TextField(blank=True)
+    website = models.URLField(blank=True)
+    github = models.URLField(blank=True)
+    linkedin = models.URLField(blank=True)
+
+
+class Education(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='educations')
+    institution = models.CharField(max_length=200)
+    degree = models.CharField(max_length=100)
+    year = models.CharField(max_length=20)
+

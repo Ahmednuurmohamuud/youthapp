@@ -31,7 +31,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['youthapp.onrender.com', '127.0.0.1']
+ALLOWED_HOSTS = ['youthapp.onrender.com', '127.0.0.1', 'localhost']
+
 
 AUTH_USER_MODEL = 'youthApp.CustomUser'
 
@@ -47,7 +48,20 @@ INSTALLED_APPS = [
     'youthApp',
     'crispy_forms',
     'crispy_bootstrap5',
+    'rest_framework', 
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # ama 'rest_framework.authentication.TokenAuthentication',
+        # ama 'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
 
 MIDDLEWARE = [
     
@@ -74,6 +88,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'youthApp.context_processors.notification_context' ,
             ],
         },
     },
