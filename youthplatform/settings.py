@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
+load_dotenv()  
 
 
 
@@ -115,7 +117,7 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME', 'youth_db'),
         'USER': os.getenv('DB_USER', 'root'),
         'PASSWORD': os.getenv('DB_PASSWORD', 'Raaxo9318'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'HOST': os.getenv('DB_HOST', ''),
         'PORT': os.getenv('DB_PORT', '3306'),
     }
 }
