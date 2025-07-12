@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from pathlib import Path
+import os
+
+
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,7 +35,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['youthapp.onrender.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['youthapp.Railway.com', '127.0.0.1', 'localhost']
 
 
 AUTH_USER_MODEL = 'youthApp.CustomUser'
@@ -100,10 +104,15 @@ WSGI_APPLICATION = 'youthplatform.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'youth_db',
+        'USER': 'root',
+        'PASSWORD': 'Raaxo9318',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
