@@ -13,9 +13,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 import os
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 
-# load_dotenv()  
+load_dotenv()  
 
 
 
@@ -112,16 +112,19 @@ WSGI_APPLICATION = 'youthplatform.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 
+import os
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'youth_db',
-        'USER': 'root',
-        'PASSWORD': 'Raaxo9318',
-        'HOST': '127.0.0.1',  # ama 'localhost'
-        'PORT': '3306',
+        'NAME': os.getenv('DB_NAME', 'youth_db'),
+        'USER': os.getenv('DB_USER', 'root'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'Raaxo9318'),
+        'HOST': os.getenv('DB_HOST', '127.0.0.1'),  # localhost ama 127.0.0.1
+        'PORT': os.getenv('DB_PORT', '3306'),
     }
 }
+
 
 
 # Password validation
