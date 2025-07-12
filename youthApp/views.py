@@ -277,11 +277,21 @@ def user_page(request):
 
     courses = TrainingCourse.objects.all()
     jobs = JobPosting.objects.all()
+    companies = CompanyProfile.objects.all()
+    total_users = get_user_model().objects.count()
+    total_applications = JobApplication.objects.count()
+    total_companies = CompanyProfile.objects.count()
+    total_jobs = JobPosting.objects.count()
 
     return render(request, 'user/home.html', {
         'user_pro': user_pro,
         'courses': courses,
-        'jobs': jobs
+        'jobs': jobs,
+        'companies': companies,
+        'total_users': total_users,
+        'total_applications': total_applications,
+        'total_companies': total_companies,
+        'total_jobs': total_jobs
     })
 
 
@@ -290,17 +300,12 @@ def user_page(request):
 #     return render(request, 'user/Course_page/all_courses.html', {'courses': courses})
 
 
-@login_required
-def user_dashboard(request):
-    enrollments = Enrollment.objects.filter(user=request.user).select_related('course')
-    context = {
-        'enrollments': enrollments,
-    }
-    return render(request, 'user/Course_page/dashboard.html', context)
+
 
 
 def course_page(request):
     courses = TrainingCourse.objects.all()
+    
 
     # Filter by category
     category = request.GET.get('category')
