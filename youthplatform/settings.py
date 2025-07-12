@@ -118,7 +118,7 @@ DATABASES = {
         'NAME': 'youth_db',
         'USER': 'root',
         'PASSWORD': 'Raaxo9318',
-        'HOST': 'localhost',  # ama 'localhost'
+        'HOST': '127.0.0.1',  # ama 'localhost'
         'PORT': '3306',
     }
 }
