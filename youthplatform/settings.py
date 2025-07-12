@@ -13,9 +13,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-load_dotenv()  
+# load_dotenv()  
 
 
 
@@ -38,7 +38,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-secret-key')
 DEBUG = True
 ALLOWED_HOSTS = [
     'web-production-2178.up.railway.app',
-    '127.0.0.1',
+    '',
     'localhost'
 ]
 
@@ -114,11 +114,11 @@ WSGI_APPLICATION = 'youthplatform.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME', 'youth_db'),
-        'USER': os.getenv('DB_USER', 'root'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'Raaxo9318'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '3306'),
+        'NAME': 'youth_db',
+        'USER': 'root',
+        'PASSWORD': 'Raaxo9318',
+        'HOST': 'localhost',  # ama 'localhost'
+        'PORT': '3306',
     }
 }
 
