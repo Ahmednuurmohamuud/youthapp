@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+ <div class="max-w-md mx-auto p-6 bg-white rounded shadow mt-10">
+    <h2 class="text-xl font-semibold mb-4">Payment Page for {{ course.course_name }}</h2>
+    <p>Qiimaha koorsada: ${{ course.price }}</p>
+
+  <!-- templates/courses/payment.html -->
+<h2 class="text-2xl font-bold mb-4">Bixinta Koorsada: {{ course.title }}</h2>
+<p>Fadlan bixi lacagta si aad u hesho casharrada.</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Bixi Hadda</button>
+</form>
+
+
+
+{% endblock %}

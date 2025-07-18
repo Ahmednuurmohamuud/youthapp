@@ -1,0 +1,1810 @@
+[
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2025-06-03T10:31:08.415Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "DAHABSHIIL",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2025-06-03T10:31:28.027Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "SOMTEL",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2025-06-03T10:31:44.495Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "HORMUUD",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2025-06-03T10:45:19.819Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "SOMTEL",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Logo\"]}}]"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": 1,
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 2,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 2,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 2,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": 2,
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 3,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 3,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 3,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": 3,
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 4,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 4,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 4,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": 4,
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 5,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 5,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 5,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view session",
+    "content_type": 5,
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add admin",
+    "content_type": 6,
+    "codename": "add_admin"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change admin",
+    "content_type": 6,
+    "codename": "change_admin"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete admin",
+    "content_type": 6,
+    "codename": "delete_admin"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view admin",
+    "content_type": 6,
+    "codename": "view_admin"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add company profile",
+    "content_type": 7,
+    "codename": "add_companyprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change company profile",
+    "content_type": 7,
+    "codename": "change_companyprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete company profile",
+    "content_type": 7,
+    "codename": "delete_companyprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view company profile",
+    "content_type": 7,
+    "codename": "view_companyprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add training course",
+    "content_type": 8,
+    "codename": "add_trainingcourse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change training course",
+    "content_type": 8,
+    "codename": "change_trainingcourse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete training course",
+    "content_type": 8,
+    "codename": "delete_trainingcourse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view training course",
+    "content_type": 8,
+    "codename": "view_trainingcourse"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can add user",
+    "content_type": 9,
+    "codename": "add_customuser"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can change user",
+    "content_type": 9,
+    "codename": "change_customuser"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can delete user",
+    "content_type": 9,
+    "codename": "delete_customuser"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can view user",
+    "content_type": 9,
+    "codename": "view_customuser"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 37,
+  "fields": {
+    "name": "Can add job posting",
+    "content_type": 10,
+    "codename": "add_jobposting"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 38,
+  "fields": {
+    "name": "Can change job posting",
+    "content_type": 10,
+    "codename": "change_jobposting"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 39,
+  "fields": {
+    "name": "Can delete job posting",
+    "content_type": 10,
+    "codename": "delete_jobposting"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 40,
+  "fields": {
+    "name": "Can view job posting",
+    "content_type": 10,
+    "codename": "view_jobposting"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 41,
+  "fields": {
+    "name": "Can add lesson",
+    "content_type": 11,
+    "codename": "add_lesson"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 42,
+  "fields": {
+    "name": "Can change lesson",
+    "content_type": 11,
+    "codename": "change_lesson"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 43,
+  "fields": {
+    "name": "Can delete lesson",
+    "content_type": 11,
+    "codename": "delete_lesson"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 44,
+  "fields": {
+    "name": "Can view lesson",
+    "content_type": 11,
+    "codename": "view_lesson"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 45,
+  "fields": {
+    "name": "Can add enrollment",
+    "content_type": 12,
+    "codename": "add_enrollment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 46,
+  "fields": {
+    "name": "Can change enrollment",
+    "content_type": 12,
+    "codename": "change_enrollment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 47,
+  "fields": {
+    "name": "Can delete enrollment",
+    "content_type": 12,
+    "codename": "delete_enrollment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 48,
+  "fields": {
+    "name": "Can view enrollment",
+    "content_type": 12,
+    "codename": "view_enrollment"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 49,
+  "fields": {
+    "name": "Can add job application",
+    "content_type": 13,
+    "codename": "add_jobapplication"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 50,
+  "fields": {
+    "name": "Can change job application",
+    "content_type": 13,
+    "codename": "change_jobapplication"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 51,
+  "fields": {
+    "name": "Can delete job application",
+    "content_type": 13,
+    "codename": "delete_jobapplication"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 52,
+  "fields": {
+    "name": "Can view job application",
+    "content_type": 13,
+    "codename": "view_jobapplication"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 53,
+  "fields": {
+    "name": "Can add network connection",
+    "content_type": 14,
+    "codename": "add_networkconnection"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 54,
+  "fields": {
+    "name": "Can change network connection",
+    "content_type": 14,
+    "codename": "change_networkconnection"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 55,
+  "fields": {
+    "name": "Can delete network connection",
+    "content_type": 14,
+    "codename": "delete_networkconnection"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 56,
+  "fields": {
+    "name": "Can view network connection",
+    "content_type": 14,
+    "codename": "view_networkconnection"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 57,
+  "fields": {
+    "name": "Can add message",
+    "content_type": 15,
+    "codename": "add_message"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 58,
+  "fields": {
+    "name": "Can change message",
+    "content_type": 15,
+    "codename": "change_message"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 59,
+  "fields": {
+    "name": "Can delete message",
+    "content_type": 15,
+    "codename": "delete_message"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 60,
+  "fields": {
+    "name": "Can view message",
+    "content_type": 15,
+    "codename": "view_message"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 61,
+  "fields": {
+    "name": "Can add portfolio",
+    "content_type": 16,
+    "codename": "add_portfolio"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 62,
+  "fields": {
+    "name": "Can change portfolio",
+    "content_type": 16,
+    "codename": "change_portfolio"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 63,
+  "fields": {
+    "name": "Can delete portfolio",
+    "content_type": 16,
+    "codename": "delete_portfolio"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 64,
+  "fields": {
+    "name": "Can view portfolio",
+    "content_type": 16,
+    "codename": "view_portfolio"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 65,
+  "fields": {
+    "name": "Can add notification",
+    "content_type": 17,
+    "codename": "add_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 66,
+  "fields": {
+    "name": "Can change notification",
+    "content_type": 17,
+    "codename": "change_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 67,
+  "fields": {
+    "name": "Can delete notification",
+    "content_type": 17,
+    "codename": "delete_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 68,
+  "fields": {
+    "name": "Can view notification",
+    "content_type": 17,
+    "codename": "view_notification"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 69,
+  "fields": {
+    "name": "Can add education",
+    "content_type": 18,
+    "codename": "add_education"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 70,
+  "fields": {
+    "name": "Can change education",
+    "content_type": 18,
+    "codename": "change_education"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 71,
+  "fields": {
+    "name": "Can delete education",
+    "content_type": 18,
+    "codename": "delete_education"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 72,
+  "fields": {
+    "name": "Can view education",
+    "content_type": 18,
+    "codename": "view_education"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "youthApp",
+    "model": "admin"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "youthApp",
+    "model": "companyprofile"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "youthApp",
+    "model": "trainingcourse"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 9,
+  "fields": {
+    "app_label": "youthApp",
+    "model": "customuser"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 10,
+  "fields": {
+    "app_label": "youthApp",
+    "model": "jobposting"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 11,
+  "fields": {
+    "app_label": "youthApp",
+    "model": "lesson"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 12,
+  "fields": {
+    "app_label": "youthApp",
+    "model": "enrollment"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 13,
+  "fields": {
+    "app_label": "youthApp",
+    "model": "jobapplication"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 14,
+  "fields": {
+    "app_label": "youthApp",
+    "model": "networkconnection"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 15,
+  "fields": {
+    "app_label": "youthApp",
+    "model": "message"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 16,
+  "fields": {
+    "app_label": "youthApp",
+    "model": "portfolio"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 17,
+  "fields": {
+    "app_label": "youthApp",
+    "model": "notification"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 18,
+  "fields": {
+    "app_label": "youthApp",
+    "model": "education"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "4e4h6dtuewro589a6veg5bqpr3h1ggia",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSEUKg-X7vsNZIYZpGogKe3K-O_apAvd3nPOfYkI21ri1nmJM4mLGMTpd0NID647oDvUW5Op1XWZUe6KPGiXUyN-Xg_376BAL98alUmaxoEDacoqs0MHegTPnI1LnIwGZXMePbhg8IwQPKOz1gfO2ijx_gAPVzjM:1uZrAk:7fwgfmHyfrrVEAPBzI_sdzGvOHQ9L0-c5w6293t2CeY",
+    "expire_date": "2025-07-24T13:18:46.039Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "oliydui523s25fqgmrnvtag2znr8yiba",
+  "fields": {
+    "session_data": ".eJxVjDEOAiEQRe9CbcjCAKKlvWcgAzPIqoFk2a2Md1eSLTT51X8v7yUCbmsJW-clzCTOAsTh94uYHlwHoDvWW5Op1XWZoxyK3GmX10b8vOzuX6BgLyNr9IQO8QTKcvZeKwI0URuvyEXHxnLSCJRNBuWP8N3ElrRByjE6FO8P1J838g:1uMmzW:SkAPBVGKhtEJSGjozHdL5is4EEsrPobNPbrhCgnitVE",
+    "expire_date": "2025-06-18T12:13:10.786Z"
+  }
+},
+{
+  "model": "youthApp.jobapplication",
+  "pk": 1,
+  "fields": {
+    "user": 2,
+    "job": 2,
+    "applied_at": "2025-06-03T11:08:42.543Z",
+    "resume": "resumes/deeq_darajo_landing_page.pdf",
+    "cover_letter": "cover_letters/Cover_Letter.pdf",
+    "additional_questions": "jjnj"
+  }
+},
+{
+  "model": "youthApp.jobapplication",
+  "pk": 2,
+  "fields": {
+    "user": 3,
+    "job": 7,
+    "applied_at": "2025-06-04T12:14:18.268Z",
+    "resume": "resumes/Full_Stack_Developer_pro_1a3shKv.pdf",
+    "cover_letter": "cover_letters/Cover_Letter_cc.pdf",
+    "additional_questions": "hhh"
+  }
+},
+{
+  "model": "youthApp.jobapplication",
+  "pk": 3,
+  "fields": {
+    "user": 5,
+    "job": 5,
+    "applied_at": "2025-07-09T11:21:32.598Z",
+    "resume": "resumes/Full_Stack_Developer_pro_1GFVPo1.pdf",
+    "cover_letter": "cover_letters/PyCon_Somalia__Proposal_Submission_YouthPlatform.docx",
+    "additional_questions": "hhh"
+  }
+},
+{
+  "model": "youthApp.companyprofile",
+  "pk": 1,
+  "fields": {
+    "name": "DAHABSHIIL",
+    "description": "hhj",
+    "location": "Mogadishu",
+    "logo": "company_logos/d2_PTXLpmW.png"
+  }
+},
+{
+  "model": "youthApp.companyprofile",
+  "pk": 2,
+  "fields": {
+    "name": "SOMTEL",
+    "description": "jhkjljh",
+    "location": "Mogadishu",
+    "logo": "company_logos/ss_DcFY1zm.png"
+  }
+},
+{
+  "model": "youthApp.companyprofile",
+  "pk": 3,
+  "fields": {
+    "name": "HORMUUD",
+    "description": "jhkljhkl",
+    "location": "Mogadishu",
+    "logo": "company_logos/h2_vCxoIeM.png"
+  }
+},
+{
+  "model": "youthApp.jobposting",
+  "pk": 1,
+  "fields": {
+    "job_title": "back-end developer",
+    "company": 1,
+    "location": "Mogadishu",
+    "job_description": "jkjhjhjhjhjh",
+    "requirements": "jhiu9usdhuohfgioerh",
+    "salary": "1123.00",
+    "application_deadline": "2025-06-19",
+    "status": "approved"
+  }
+},
+{
+  "model": "youthApp.jobposting",
+  "pk": 2,
+  "fields": {
+    "job_title": "Marketing",
+    "company": 3,
+    "location": "Mogadishu",
+    "job_description": "nugyugyu",
+    "requirements": "jhuihiu",
+    "salary": "150.00",
+    "application_deadline": "2025-06-25",
+    "status": "approved"
+  }
+},
+{
+  "model": "youthApp.jobposting",
+  "pk": 3,
+  "fields": {
+    "job_title": "django",
+    "company": 2,
+    "location": "Delhi",
+    "job_description": "jkpiojh",
+    "requirements": "njinljk",
+    "salary": "100.00",
+    "application_deadline": "2025-06-27",
+    "status": "pending"
+  }
+},
+{
+  "model": "youthApp.jobposting",
+  "pk": 4,
+  "fields": {
+    "job_title": "Martin",
+    "company": 3,
+    "location": "England",
+    "job_description": "jhhhjhk",
+    "requirements": "jkjhijhi",
+    "salary": "200.00",
+    "application_deadline": "2025-06-18",
+    "status": "approved"
+  }
+},
+{
+  "model": "youthApp.jobposting",
+  "pk": 5,
+  "fields": {
+    "job_title": "ful stcak",
+    "company": 2,
+    "location": "Hodan",
+    "job_description": "kjhgyu",
+    "requirements": "njnik",
+    "salary": "30.00",
+    "application_deadline": "2025-06-16",
+    "status": "approved"
+  }
+},
+{
+  "model": "youthApp.jobposting",
+  "pk": 6,
+  "fields": {
+    "job_title": "football coach",
+    "company": 1,
+    "location": "somali",
+    "job_description": "gyuyu",
+    "requirements": "ji",
+    "salary": "50.00",
+    "application_deadline": "2025-06-25",
+    "status": "approved"
+  }
+},
+{
+  "model": "youthApp.jobposting",
+  "pk": 7,
+  "fields": {
+    "job_title": "assesment",
+    "company": 2,
+    "location": "Mogadishu",
+    "job_description": "last module",
+    "requirements": "hhh",
+    "salary": "233.00",
+    "application_deadline": "2025-06-17",
+    "status": "pending"
+  }
+},
+{
+  "model": "youthApp.trainingcourse",
+  "pk": 1,
+  "fields": {
+    "course_name": "full-stack course",
+    "course_description": "kjsd;fhweuifuierf",
+    "instructor": "spondias tech",
+    "price": "156.00",
+    "start_date": "2025-06-18",
+    "end_date": "2025-06-26",
+    "image": "youthApp/static/images/ChatGPT_Image_Apr_9_2025_09_26_23_PM_6cxjdux.png",
+    "status": "active",
+    "category": "Development",
+    "level": "Intermediate",
+    "rating": 4.0,
+    "duration": 40
+  }
+},
+{
+  "model": "youthApp.trainingcourse",
+  "pk": 2,
+  "fields": {
+    "course_name": "back end course",
+    "course_description": "jkshdfuisdiuf",
+    "instructor": "Pluralsight",
+    "price": "123.00",
+    "start_date": "2025-06-25",
+    "end_date": "2025-06-19",
+    "image": "youthApp/static/images/d_orECqyp.jpg",
+    "status": "upcoming",
+    "category": "Marketing",
+    "level": null,
+    "rating": 4.5,
+    "duration": 45
+  }
+},
+{
+  "model": "youthApp.trainingcourse",
+  "pk": 3,
+  "fields": {
+    "course_name": "Web Development",
+    "course_description": "jbvjhvh",
+    "instructor": "Udemy",
+    "price": "123.00",
+    "start_date": "2025-06-26",
+    "end_date": "2025-06-27",
+    "image": "youthApp/static/images/ChatGPT_Image_Apr_7_2025_01_25_57_PM_pK11ulI.png",
+    "status": "active",
+    "category": "Development",
+    "level": "Advanced",
+    "rating": 4.0,
+    "duration": 35
+  }
+},
+{
+  "model": "youthApp.trainingcourse",
+  "pk": 4,
+  "fields": {
+    "course_name": "web3",
+    "course_description": "hhh",
+    "instructor": "spondias tech",
+    "price": "50.00",
+    "start_date": "2025-06-09",
+    "end_date": "2025-06-19",
+    "image": "courses/images/d_1.jpg",
+    "status": "active",
+    "category": "Development",
+    "level": "Advanced",
+    "rating": 4.0,
+    "duration": 40
+  }
+},
+{
+  "model": "youthApp.trainingcourse",
+  "pk": 5,
+  "fields": {
+    "course_name": "web3",
+    "course_description": "jkhjh",
+    "instructor": "spondias tech",
+    "price": "150.00",
+    "start_date": "2025-06-18",
+    "end_date": "2025-06-11",
+    "image": "courses/images/ahmednuur-Photoroom_1.png",
+    "status": "upcoming",
+    "category": "Business",
+    "level": "Advanced",
+    "rating": 5.0,
+    "duration": 25
+  }
+},
+{
+  "model": "youthApp.enrollment",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "course": 2,
+    "enrolled_at": "2025-06-03T11:52:38.712Z",
+    "completed": false
+  }
+},
+{
+  "model": "youthApp.enrollment",
+  "pk": 2,
+  "fields": {
+    "user": 4,
+    "course": 1,
+    "enrolled_at": "2025-06-29T18:24:20.354Z",
+    "completed": false
+  }
+},
+{
+  "model": "youthApp.enrollment",
+  "pk": 3,
+  "fields": {
+    "user": 4,
+    "course": 3,
+    "enrolled_at": "2025-06-29T18:25:45.252Z",
+    "completed": false
+  }
+},
+{
+  "model": "youthApp.enrollment",
+  "pk": 4,
+  "fields": {
+    "user": 4,
+    "course": 5,
+    "enrolled_at": "2025-06-29T18:27:54.291Z",
+    "completed": false
+  }
+},
+{
+  "model": "youthApp.enrollment",
+  "pk": 5,
+  "fields": {
+    "user": 4,
+    "course": 4,
+    "enrolled_at": "2025-06-29T18:31:18.465Z",
+    "completed": false
+  }
+},
+{
+  "model": "youthApp.enrollment",
+  "pk": 6,
+  "fields": {
+    "user": 4,
+    "course": 2,
+    "enrolled_at": "2025-06-29T18:33:19.356Z",
+    "completed": false
+  }
+},
+{
+  "model": "youthApp.customuser",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$NDQJxnSdyeRIbkMwu6NsLs$4sz2f8yOqO2AVNUJt1VoKnnTWJMPgXxE2NihrpmZIwg=",
+    "last_login": "2025-07-10T13:18:46.025Z",
+    "is_superuser": true,
+    "username": "ahmed",
+    "first_name": "",
+    "last_name": "",
+    "email": "xararavic1547@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-06-03T10:29:52.293Z",
+    "fullname": "Xarara vic",
+    "phone_number": "617279437",
+    "skills": "hh",
+    "education": "jkj",
+    "cv_file": "cv_uploads/PyCon_Somalia__Proposal_Submission_YouthPlatform.docx",
+    "user_type": "individual",
+    "profile_picture": "profile_pictures/d_1.jpg",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "youthApp.customuser",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$wCnvJMTdFP4mJlprU8u1MC$S7mqIH1ENJQOY2Lbri2OXNuJe9kdUBa8alURQnHwnA0=",
+    "last_login": "2025-06-03T11:06:49.043Z",
+    "is_superuser": false,
+    "username": "ahmett",
+    "first_name": "",
+    "last_name": "",
+    "email": "aararavic1547@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-06-03T10:49:26.796Z",
+    "fullname": "Xarara vic",
+    "phone_number": "617279437",
+    "skills": "hhh",
+    "education": "nm,nm,",
+    "cv_file": "cv_uploads/Proposal_Title_Pixel-perfect_HTML__CSS_Form_Based_on_ProvidPixel-perfect_HTML__CSS.pdf",
+    "user_type": "individual",
+    "profile_picture": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "youthApp.customuser",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$Y8CfYzRmqiNoeAyF8GYudL$dKUI9n5O09jLskC8yYj4LtcZEtysO+Xws8fDrfuW/Ys=",
+    "last_login": "2025-06-04T12:13:10.770Z",
+    "is_superuser": false,
+    "username": "martin",
+    "first_name": "",
+    "last_name": "",
+    "email": "martin1547@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-06-04T12:12:46.791Z",
+    "fullname": "maartin aaa",
+    "phone_number": "617279437",
+    "skills": "hhhhh",
+    "education": "hhh",
+    "cv_file": "",
+    "user_type": "individual",
+    "profile_picture": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "youthApp.customuser",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$Bdk0tA3NtqTE0EfGJAjB8e$TLSN5BRWHIPIxyoypqti+PVrHfMjRX+fsoPJgq5fVbI=",
+    "last_login": "2025-06-30T10:20:54.774Z",
+    "is_superuser": false,
+    "username": "nuur",
+    "first_name": "",
+    "last_name": "",
+    "email": "nuur1547@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-06-29T11:44:54.704Z",
+    "fullname": "ahmednuurmaxa muud",
+    "phone_number": "617279437",
+    "skills": "hhh",
+    "education": "jkljkj",
+    "cv_file": "cv_uploads/Django_Ecommerce_3_Months_Plan.pdf",
+    "user_type": "company",
+    "profile_picture": "profile_pictures/ahmednuur-Photoroom.png",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "youthApp.customuser",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$SCHv7mGnuYkbQ0nEmNFqoN$WjpEXhWQUK64PX3eF3NH1X66XsLqra3FdYAetOzXdJI=",
+    "last_login": "2025-07-10T12:17:08.504Z",
+    "is_superuser": false,
+    "username": "ahmednor",
+    "first_name": "",
+    "last_name": "",
+    "email": "sararavic1547@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-07-09T11:03:39.670Z",
+    "fullname": "maxmuud",
+    "phone_number": "617279437",
+    "skills": "h",
+    "education": "jj",
+    "cv_file": "cv_uploads/_تحميل_الملف_Personal_Statement_Cardiology.pdf",
+    "user_type": "individual",
+    "profile_picture": "profile_pictures/ChatGPT_Image_Apr_7_2025_01_25_57_PM.png",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "youthApp.customuser",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$Sc2tJ71Qbucsu9SK3wvxHQ$ZfiFeeh8GGgW+RbJsx7CndZ6KtmKRrxYrptKAnCDT9c=",
+    "last_login": "2025-07-10T08:56:43.530Z",
+    "is_superuser": false,
+    "username": "xusni",
+    "first_name": "",
+    "last_name": "",
+    "email": "xusnimaxamuud123@gamil.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-07-10T08:56:23.347Z",
+    "fullname": "xasna maxamuud",
+    "phone_number": "617279437",
+    "skills": "soft skills",
+    "education": "degree",
+    "cv_file": "cv_uploads/PyCon_Somalia__Proposal_Submission_YouthPlatform_J3bXXnx.docx",
+    "user_type": "individual",
+    "profile_picture": "profile_pictures/m22.png",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "youthApp.networkconnection",
+  "pk": 2,
+  "fields": {
+    "sender": 5,
+    "receiver": 4,
+    "status": "pending",
+    "created_at": "2025-07-09T17:55:48.287Z"
+  }
+},
+{
+  "model": "youthApp.networkconnection",
+  "pk": 3,
+  "fields": {
+    "sender": 5,
+    "receiver": 2,
+    "status": "pending",
+    "created_at": "2025-07-09T18:18:36.653Z"
+  }
+},
+{
+  "model": "youthApp.networkconnection",
+  "pk": 4,
+  "fields": {
+    "sender": 1,
+    "receiver": 4,
+    "status": "pending",
+    "created_at": "2025-07-10T08:37:45.381Z"
+  }
+},
+{
+  "model": "youthApp.networkconnection",
+  "pk": 5,
+  "fields": {
+    "sender": 6,
+    "receiver": 4,
+    "status": "pending",
+    "created_at": "2025-07-10T10:29:24.960Z"
+  }
+},
+{
+  "model": "youthApp.networkconnection",
+  "pk": 6,
+  "fields": {
+    "sender": 6,
+    "receiver": 5,
+    "status": "accepted",
+    "created_at": "2025-07-10T10:43:15.465Z"
+  }
+},
+{
+  "model": "youthApp.networkconnection",
+  "pk": 7,
+  "fields": {
+    "sender": 5,
+    "receiver": 1,
+    "status": "accepted",
+    "created_at": "2025-07-10T10:59:10.563Z"
+  }
+},
+{
+  "model": "youthApp.message",
+  "pk": 1,
+  "fields": {
+    "sender": 1,
+    "receiver": 3,
+    "content": "hi",
+    "file": "",
+    "is_read": false,
+    "timestamp": "2025-07-09T16:17:59.383Z",
+    "is_image": false,
+    "is_audio": false,
+    "is_video": false
+  }
+},
+{
+  "model": "youthApp.message",
+  "pk": 2,
+  "fields": {
+    "sender": 1,
+    "receiver": 4,
+    "content": "hi",
+    "file": "",
+    "is_read": false,
+    "timestamp": "2025-07-09T16:21:01.837Z",
+    "is_image": false,
+    "is_audio": false,
+    "is_video": false
+  }
+},
+{
+  "model": "youthApp.message",
+  "pk": 3,
+  "fields": {
+    "sender": 1,
+    "receiver": 5,
+    "content": "boss",
+    "file": "",
+    "is_read": true,
+    "timestamp": "2025-07-09T16:21:31.495Z",
+    "is_image": false,
+    "is_audio": false,
+    "is_video": false
+  }
+},
+{
+  "model": "youthApp.message",
+  "pk": 4,
+  "fields": {
+    "sender": 1,
+    "receiver": 5,
+    "content": "fcn adn",
+    "file": "",
+    "is_read": true,
+    "timestamp": "2025-07-09T18:57:15.393Z",
+    "is_image": false,
+    "is_audio": false,
+    "is_video": false
+  }
+},
+{
+  "model": "youthApp.message",
+  "pk": 5,
+  "fields": {
+    "sender": 1,
+    "receiver": 5,
+    "content": "liph",
+    "file": "",
+    "is_read": true,
+    "timestamp": "2025-07-10T08:50:23.072Z",
+    "is_image": false,
+    "is_audio": false,
+    "is_video": false
+  }
+},
+{
+  "model": "youthApp.message",
+  "pk": 6,
+  "fields": {
+    "sender": 5,
+    "receiver": 1,
+    "content": "ha wraa",
+    "file": "",
+    "is_read": true,
+    "timestamp": "2025-07-10T08:51:00.341Z",
+    "is_image": false,
+    "is_audio": false,
+    "is_video": false
+  }
+},
+{
+  "model": "youthApp.message",
+  "pk": 7,
+  "fields": {
+    "sender": 5,
+    "receiver": 6,
+    "content": "hi",
+    "file": "",
+    "is_read": false,
+    "timestamp": "2025-07-10T10:46:06.358Z",
+    "is_image": false,
+    "is_audio": false,
+    "is_video": false
+  }
+},
+{
+  "model": "youthApp.message",
+  "pk": 8,
+  "fields": {
+    "sender": 1,
+    "receiver": 5,
+    "content": "",
+    "file": "chat_uploads/voice_message.webm",
+    "is_read": true,
+    "timestamp": "2025-07-10T11:33:53.949Z",
+    "is_image": false,
+    "is_audio": false,
+    "is_video": false
+  }
+},
+{
+  "model": "youthApp.message",
+  "pk": 9,
+  "fields": {
+    "sender": 1,
+    "receiver": 5,
+    "content": "",
+    "file": "chat_uploads/ChatGPT_Image_Apr_9_2025_09_26_23_PM.png",
+    "is_read": true,
+    "timestamp": "2025-07-10T11:36:58.291Z",
+    "is_image": false,
+    "is_audio": false,
+    "is_video": false
+  }
+},
+{
+  "model": "youthApp.message",
+  "pk": 10,
+  "fields": {
+    "sender": 1,
+    "receiver": 5,
+    "content": "",
+    "file": "chat_uploads/voice_message_91Kl1WY.webm",
+    "is_read": true,
+    "timestamp": "2025-07-10T11:46:36.256Z",
+    "is_image": false,
+    "is_audio": true,
+    "is_video": false
+  }
+},
+{
+  "model": "youthApp.message",
+  "pk": 11,
+  "fields": {
+    "sender": 1,
+    "receiver": 5,
+    "content": "",
+    "file": "chat_uploads/ChatGPT_Image_Apr_9_2025_09_26_23_PM_m5GU1A0.png",
+    "is_read": true,
+    "timestamp": "2025-07-10T11:46:51.559Z",
+    "is_image": true,
+    "is_audio": false,
+    "is_video": false
+  }
+},
+{
+  "model": "youthApp.message",
+  "pk": 12,
+  "fields": {
+    "sender": 5,
+    "receiver": 1,
+    "content": "hi",
+    "file": "",
+    "is_read": true,
+    "timestamp": "2025-07-10T12:00:31.410Z",
+    "is_image": false,
+    "is_audio": false,
+    "is_video": false
+  }
+},
+{
+  "model": "youthApp.message",
+  "pk": 13,
+  "fields": {
+    "sender": 1,
+    "receiver": 5,
+    "content": "hi",
+    "file": "",
+    "is_read": false,
+    "timestamp": "2025-07-10T12:24:03.664Z",
+    "is_image": false,
+    "is_audio": false,
+    "is_video": false
+  }
+},
+{
+  "model": "youthApp.message",
+  "pk": 14,
+  "fields": {
+    "sender": 1,
+    "receiver": 5,
+    "content": "hi",
+    "file": "",
+    "is_read": false,
+    "timestamp": "2025-07-10T12:32:45.326Z",
+    "is_image": false,
+    "is_audio": false,
+    "is_video": false
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "message": "maxmuud has sent you a connection request.",
+    "is_read": true,
+    "created_at": "2025-07-09T17:55:40.929Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 2,
+  "fields": {
+    "user": 4,
+    "message": "maxmuud has sent you a connection request.",
+    "is_read": false,
+    "created_at": "2025-07-09T17:55:48.306Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 3,
+  "fields": {
+    "user": 2,
+    "message": "maxmuud has sent you a connection request.",
+    "is_read": false,
+    "created_at": "2025-07-09T18:18:36.670Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 4,
+  "fields": {
+    "user": 5,
+    "message": "New message from Xarara vic",
+    "is_read": true,
+    "created_at": "2025-07-09T18:57:15.409Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 5,
+  "fields": {
+    "user": 4,
+    "message": "Xarara vic has sent you a connection request.",
+    "is_read": false,
+    "created_at": "2025-07-10T08:37:45.401Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 6,
+  "fields": {
+    "user": 5,
+    "message": "New message from Xarara vic",
+    "is_read": false,
+    "created_at": "2025-07-10T08:50:23.091Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 7,
+  "fields": {
+    "user": 1,
+    "message": "New message from maxmuud",
+    "is_read": false,
+    "created_at": "2025-07-10T08:51:00.359Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 8,
+  "fields": {
+    "user": 4,
+    "message": "xasna maxamuud has sent you a connection request.",
+    "is_read": false,
+    "created_at": "2025-07-10T10:29:24.980Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 9,
+  "fields": {
+    "user": 5,
+    "message": "xasna maxamuud has sent you a connection request.",
+    "is_read": false,
+    "created_at": "2025-07-10T10:43:15.482Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 10,
+  "fields": {
+    "user": 6,
+    "message": "maxmuud accepted your connection request.",
+    "is_read": false,
+    "created_at": "2025-07-10T10:45:25.473Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 11,
+  "fields": {
+    "user": 6,
+    "message": "New message from maxmuud",
+    "is_read": false,
+    "created_at": "2025-07-10T10:46:06.375Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 12,
+  "fields": {
+    "user": 1,
+    "message": "maxmuud has sent you a connection request.",
+    "is_read": false,
+    "created_at": "2025-07-10T10:59:10.581Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 13,
+  "fields": {
+    "user": 5,
+    "message": "Xarara vic accepted your connection request.",
+    "is_read": false,
+    "created_at": "2025-07-10T11:00:00.895Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 14,
+  "fields": {
+    "user": 5,
+    "message": "New message from Xarara vic",
+    "is_read": false,
+    "created_at": "2025-07-10T11:33:53.967Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 15,
+  "fields": {
+    "user": 5,
+    "message": "New message from Xarara vic",
+    "is_read": false,
+    "created_at": "2025-07-10T11:36:58.306Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 16,
+  "fields": {
+    "user": 5,
+    "message": "New message from Xarara vic",
+    "is_read": false,
+    "created_at": "2025-07-10T11:46:36.272Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 17,
+  "fields": {
+    "user": 5,
+    "message": "New message from Xarara vic",
+    "is_read": false,
+    "created_at": "2025-07-10T11:46:51.575Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 18,
+  "fields": {
+    "user": 1,
+    "message": "New message from maxmuud",
+    "is_read": false,
+    "created_at": "2025-07-10T12:00:31.427Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 19,
+  "fields": {
+    "user": 5,
+    "message": "New message from Xarara vic",
+    "is_read": false,
+    "created_at": "2025-07-10T12:24:03.680Z"
+  }
+},
+{
+  "model": "youthApp.notification",
+  "pk": 20,
+  "fields": {
+    "user": 5,
+    "message": "New message from Xarara vic",
+    "is_read": false,
+    "created_at": "2025-07-10T12:32:45.341Z"
+  }
+},
+{
+  "model": "youthApp.portfolio",
+  "pk": 1,
+  "fields": {
+    "user": 5,
+    "bio": "bhh",
+    "experience": "jhdjkshlfsdkl",
+    "skills": "jkk;lk",
+    "education": "k;klmk",
+    "website": "http://127.0.0.1:8000/youthApp/user/networks_page/network/",
+    "github": "http://127.0.0.1:8000/youthApp/user/networks_page/network/",
+    "linkedin": "http://127.0.0.1:8000/youthApp/user/networks_page/network/"
+  }
+}
+]

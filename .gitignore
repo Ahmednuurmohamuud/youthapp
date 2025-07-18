@@ -1,0 +1,10 @@
+# Faylasha sirta ah
+.env
+
+# Faylasha Python-ka
+__pycache__/
+*.pyc
+
+
+# OS-specific files
+.DS_Store

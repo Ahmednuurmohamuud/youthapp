@@ -1,0 +1,115 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<main class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-7xl mx-auto py-10">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-10">
+
+      <!-- Filters Form -->
+      <form id="filtersForm" method="get" action="{% url 'course_page' %}" class="bg-white shadow-xl rounded-2xl p-6 space-y-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Filter Courses</h3>
+
+        <!-- Category -->
+        <div>
+          <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+          <select id="category" name="category" class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" onchange="this.form.submit()">
+            <option value="" {% if not selected_category %}selected{% endif %}>All Categories</option>
+            <option value="Development" {% if selected_category == 'Development' %}selected{% endif %}>Development</option>
+            <option value="Business" {% if selected_category == 'Business' %}selected{% endif %}>Business</option>
+            <option value="Design" {% if selected_category == 'Design' %}selected{% endif %}>Design</option>
+            <option value="Marketing" {% if selected_category == 'Marketing' %}selected{% endif %}>Marketing</option>
+          </select>
+        </div>
+
+        <!-- Level -->
+        <div>
+          <label for="level" class="block text-sm font-medium text-gray-700 mb-1">Level</label>
+          <select id="level" name="level" class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" onchange="this.form.submit()">
+            <option value="" {% if not selected_level %}selected{% endif %}>All Levels</option>
+            <option value="Beginner" {% if selected_level == 'Beginner' %}selected{% endif %}>Beginner</option>
+            <option value="Intermediate" {% if selected_level == 'Intermediate' %}selected{% endif %}>Intermediate</option>
+            <option value="Advanced" {% if selected_level == 'Advanced' %}selected{% endif %}>Advanced</option>
+          </select>
+        </div>
+
+        <!-- Price -->
+        <div>
+          <label for="price" class="block text-sm font-medium text-gray-700 mb-1">
+            Max Price: <span id="priceValue">{{ selected_price }}</span>
+          </label>
+          <input type="range" id="price" name="price" min="0" max="200" value="{{ selected_price }}"
+                 class="w-full" oninput="document.getElementById('priceValue').innerText = this.value;"
+                 onchange="this.form.submit()">
+          <div class="flex justify-between text-sm text-gray-500 mt-1">
+            <span>$0</span><span>$200</span>
+          </div>
+        </div>
+
+        <!-- Rating -->
+        <div>
+          <label for="rating" class="block text-sm font-medium text-gray-700 mb-1">Rating</label>
+          <select id="rating" name="rating" class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" onchange="this.form.submit()">
+            <option value="" {% if not selected_rating %}selected{% endif %}>Any</option>
+            <option value="4" {% if selected_rating == '4' %}selected{% endif %}>4+ Stars</option>
+            <option value="3" {% if selected_rating == '3' %}selected{% endif %}>3+ Stars</option>
+          </select>
+        </div>
+
+        <!-- Duration -->
+        <div>
+          <label for="duration" class="block text-sm font-medium text-gray-700 mb-1">Duration</label>
+          <select id="duration" name="duration" class="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" onchange="this.form.submit()">
+            <option value="" {% if not selected_duration %}selected{% endif %}>Any</option>
+            <option value="short" {% if selected_duration == 'short' %}selected{% endif %}>0–20 Hours</option>
+            <option value="medium" {% if selected_duration == 'medium' %}selected{% endif %}>20–40 Hours</option>
+            <option value="long" {% if selected_duration == 'long' %}selected{% endif %}>40+ Hours</option>
+          </select>
+        </div>
+      </form>
+
+      <!-- Course Listings -->
+      <div class="lg:col-span-3">
+        <div class="text-center mb-10">
+          <h2 class="text-3xl font-bold text-gray-900">Featured Training Courses</h2>
+          <p class="mt-2 text-lg text-gray-500">Enhance your skills with our carefully curated training programs.</p>
+        </div>
+
+        <div id="coursesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+   {% for course in courses %}
+<div class="bg-white shadow-md hover:shadow-xl transition-shadow duration-300 rounded-xl overflow-hidden flex flex-col">
+  {% if course.image %}
+ <img src="{{ course.image.url }}" alt="{{ course.course_name }}" class="h-48 w-full object-contain object-top bg-gray-100">
+
+  {% endif %}
+  <div class="p-5 flex-1 flex flex-col justify-between">
+    <div>
+      <div class="flex items-center gap-2 mb-2">
+        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">{{ course.category }}</span>
+        <span class="text-sm text-gray-500">{{ course.level }}</span>
+      </div>
+      <h3 class="text-lg font-semibold text-gray-900">{{ course.course_name }}</h3>
+      <p class="text-sm text-gray-600 mt-1 mb-4">{{ course.course_description|truncatewords:20 }}</p>
+    </div>
+    <div class="flex items-center justify-between mt-auto">
+      <div class="text-sm text-gray-600 flex items-center gap-1">
+        <i class="fas fa-star text-yellow-400"></i>
+        <span>{{ course.rating }}</span>
+        <span>•</span>
+        <span>{{ course.duration }} hrs</span>
+      </div>
+      <a href="{% url 'course_lessons' course.id %}" class="bg-blue-600 text-white px-4 py-2 text-sm font-medium rounded hover:bg-blue-700 transition">Enroll</a>
+    </div>
+  </div>
+</div>
+
+          {% empty %}
+          <p class="text-gray-500 text-center col-span-full">No training courses available.</p>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+{% endblock %}

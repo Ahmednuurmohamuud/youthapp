@@ -1,0 +1,34 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<div class="max-w-4xl mx-auto py-10 px-6">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8 border-b pb-2">{{ course.course_name }} - Casharrada</h2>
+
+    {% if lessons %}
+        <div class="space-y-6">
+            {% for lesson in lessons %}
+                <div class="bg-white p-6 rounded-xl shadow border border-gray-100">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                        {{ lesson.order }}. {{ lesson.title }}
+                    </h3>
+
+                    {% if lesson.lesson_type == 'text' %}
+                        <div class="prose max-w-none text-gray-700">
+                            {{ lesson.text_content|safe }}
+                        </div>
+
+                    {% elif lesson.lesson_type == 'video' %}
+                        <div class="aspect-w-16 aspect-h-9">
+                            <iframe class="rounded-xl w-full h-64" src="{{ lesson.video_url }}" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-gray-500 text-center mt-10">Koorsadan weli cashar laguma darin.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-lg w-full bg-white shadow-xl rounded-2xl p-8 space-y-6">
+    
+    <!-- Header with icon -->
+    <div class="text-center">
+      <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+        <svg class="w-8 h-8 text-sky-600" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <h2 class="text-2xl font-bold text-gray-800">Ma hubtaa inaad is diiwaangeliso?</h2>
+      <p class="mt-2 text-gray-600 text-sm">Fadlan xaqiiji inaad rabto inaad iska diiwaangeliso koorsada hoos ku qoran.</p>
+    </div>
+
+    <!-- Course Details -->
+    <div class="bg-gray-50 border rounded-lg p-4">
+      <p class="text-gray-800"><strong>Koorsada:</strong> {{ course.course_name }}</p>
+      <p class="text-gray-800"><strong>Qiimaha:</strong> ${{ course.price }}</p>
+    </div>
+
+    <!-- Buttons -->
+    <form method="post" class="space-y-4">
+      {% csrf_token %}
+      <button type="submit"
+              class="w-full bg-sky-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-sky-700 transition duration-300">
+        ✅ Xaqiiji oo Bixi
+      </button>
+      <a href="{% url 'course_page' %}"
+         class="block text-center text-sm text-sky-600 hover:underline">
+        ← Ka noqo
+      </a>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

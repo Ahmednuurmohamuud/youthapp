@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<div class="card card-primary card-outline mt-3">
+    <div class="card-body">
+       <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="card card-primary card-outline mt-3">
+                <h2 class="p-4" id="form-title">{% if form.instance.id %}Edit{% else %}Add{% endif %} job</h2>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="container-fluid">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="{{ form.job_title.id_for_label }}">Job Title</label>
+                                    {{ form.job_title }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ form.location.id_for_label }}">Location</label>
+                                    {{ form.location }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label for="{{ form.job_description.id_for_label }}">Job Description</label>
+                                    {{ form.job_description }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label for="{{ form.requirements.id_for_label }}">Requirements</label>
+                                    {{ form.requirements }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="{{ form.salary.id_for_label }}">Salary</label>
+                                    {{ form.salary }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ form.application_deadline.id_for_label }}">Application Deadline</label>
+                                    {{ form.application_deadline }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="{{ form.company.id_for_label }}">Company</label>
+                                    <div class="form-group">
+                                        {{ form.company }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="{{ form.status.id_for_label }}">Status</label>
+                                    <div class="form-group">
+                                        {{ form.status }}
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <button type="submit" class="btn btn-success">Submit</button>
+                            <a href="{% url 'job_list' %}" class="btn btn-secondary">Cancel</a>
+                        </div>
+    
+                    </form>
+    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+       </div>
+        
+
+    </div>
+</div>
+
+
+<!-- Fix form action -->
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector(".btn-success").addEventListener("click", function (event) {
+            event.preventDefault();  // Prevent form from submitting immediately
+
+            let form = this.closest('form');  // Get the form
+            let formTitle = document.getElementById('form-title').textContent.trim();
+            let isEditMode = formTitle.includes("Edit");  // Detect if we are editing
+            let jobName = document.querySelector("input[name='job_title']")?.value || "Job";  // Get job name
+
+            Swal.fire({
+                title: isEditMode ? "Job Update" : "Job Insertion",
+                text: isEditMode
+                    ? "You updated " + jobName + " successfully!"
+                    : "You inserted " + jobName + " successfully!",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();  // Submit form after confirmation
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

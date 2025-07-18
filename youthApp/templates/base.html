@@ -1,0 +1,289 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Youth Professional Platform
+    </title>
+
+    
+
+
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Font Awesome -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.1.0/select2-bootstrap4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/jqvmap.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+    <!-- AdminLTE -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1.0/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.1/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/daterangepicker/3.1.0/daterangepicker.css">
+    <!-- Summernote -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+                </li>
+            </ul>
+
+            <div class="navbar-center">
+                
+            </div>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown user-menu">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        <img src="{% static 'images/profile.jpeg' %}" class="user-image img-circle elevation-2" alt="User Image">
+                        <span class="d-none d-md-inline">ahmed</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right"
+                        style="background-color: white; color:black;">
+                        <li class="user-header">
+                            <img src="{% static 'images/profile.jpeg' %}" class="user-image img-circle elevation-2" alt="User Image">
+                            <p>Ahmednur </p>
+                        </li>
+                        <li class="user-footer">
+                            <a href="" class="btn btn-flat float-right btn-block"
+                                style="background-color: #276AB4; color:white;">
+                                <i class="fas fa-sign-out-alt"></i> Sign out
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Sidebar -->
+        <aside class="main-sidebar sidebar-dark-success elevation-4"
+            style="background-color: #2c5072; color: rgb(14, 1, 1);">
+            <a href="" class="brand-link" style="color: rgb(246, 247, 241); text-align: center;">
+                Youth Professional Platform
+            </a>
+
+            <div class="text-center mb-4">
+                <img src="{% static 'images/logo.png' %}" alt="Logo" width="160">
+            </div>
+
+            <div class="sidebar">
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <li class="nav-item">
+                            <a href="" class="nav-link anchor-active active"
+                                style="color:#ffffff; background-color: #012b57;">
+                                <i class="nav-icon fa fa-home"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link anchor-active primary" style="color:#ffffff;">
+                                <i class="nav-icon fas fa-user-plus"></i>
+                                <p>
+                                    Registrations
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'job_list' %}" class="nav-link">
+                                        <i class="far nav-icon"></i>
+                                        <p>Add Job</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'course_list' %}" class="nav-link">
+                                        <i class="far nav-icon"></i>
+                                        <p>Add Courses</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        <i class="far nav-icon"></i>
+                                        <p>Add Admin</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="" class="nav-link anchor-active primary" style="color:white;">
+                                <i class="nav-icon fas fa-chart-pie"></i>
+                                <p>
+                                    User Page
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{% url 'user_page' %}" class="nav-link">
+                                        <i class="far nav-icon"></i>
+                                        <p> User Page</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="content-wrapper">
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <!-- Insert page content here -->
+                    {% block content %}
+                    
+                    {% endblock %}
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> <span id="version"></span>
+            </div>
+        </footer>
+
+        <aside class="control-sidebar control-sidebar-dark">
+        </aside>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- jQuery UI 1.12.1 -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+        <!-- ChartJS -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- Sparkline -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sparklines/2.1.2/jquery.sparkline.min.js"></script>
+        <!-- JQVMap -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/jquery.vmap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqvmap/1.5.1/maps/jquery.vmap.usa.js"></script>
+        <!-- jQuery Knob Chart -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery-knob@1.2.13/dist/jquery.knob.min.js"></script>
+        <!-- daterangepicker -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/daterangepicker/3.1.0/daterangepicker.js"></script>
+        <!-- Tempusdominus Bootstrap 4 -->
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js"></script>
+        <!-- Summernote -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+        <!-- overlayScrollbars -->
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.13.1/js/jquery.overlayScrollbars.min.js"></script>
+        <!-- DataTables -->
+        <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+        <!-- bs-custom-file-input -->
+        <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+        <!-- Select2 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
+        <!-- Toastr -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <!-- SweetAlert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1.0/dist/js/adminlte.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+        <script>
+
+
+            $(function () {
+                $('.select2').select2();
+                $('.select2bs4').select2({
+                    theme: 'bootstrap4'
+                });
+            });
+
+            $(document).ready(function () {
+                bsCustomFileInput.init();
+
+            });
+
+
+            $(document).ready(function () {
+                toastr.options.positionClass = 'toast-bottom-right';
+            });
+        </script>
+
+
+
+
+        <script>
+            $(document).ready(function () {
+                var now = new Date();
+                var currentYear = now.getFullYear();
+                var currentMonth = ("0" + (now.getMonth() + 1)).slice(-2);  // Get month and ensure it's 2 digits
+                $('#version').text(currentYear + '.' + currentMonth);
+            });
+
+        </script>
+
+        <style>
+            /* Hide DataTables default search input and showing entries */
+            .dataTables_filter {
+                display: none;
+            }
+
+            .dataTables_info {
+                display: none;
+            }
+
+            .dataTables_length {
+                display: none;
+            }
+        </style>
+</body>
+
+
+</html>

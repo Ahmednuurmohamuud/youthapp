@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Application Received</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        padding: 20px;
+      }
+      .message-box {
+        background-color: #ffffff;
+        border: 1px solid #dddddd;
+        padding: 20px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="message-box">
+      <h2>Thank you for your application!</h2>
+      <p>Dear {{ user.first_name }},</p>
+      <p>
+        We have received your application for the position of
+        <strong>{{ job.title }}</strong> at {{ job.company_name }}.
+      </p>
+      <p>We will contact you if you are shortlisted for the next step.</p>
+      <p>Good luck!</p>
+      <br>
+      <p>– YouthPlatform Team</p>
+    </div>
+  </body>
+</html>

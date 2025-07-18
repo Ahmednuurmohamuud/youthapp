@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-6">
+  <div class="max-w-md w-full bg-white p-8 shadow-lg rounded-lg">
+    <!-- Header -->
+    <div class="text-center mb-6">
+      <img src="{% static 'images/logo.png' %}" class="h-10 mx-auto" alt="Logo">
+      <h2 class="text-2xl font-bold text-gray-900 mt-4">Create an Account</h2>
+      <p class="text-sm text-gray-500">Join us today and grow your future.</p>
+    </div>
+
+    <!-- Form -->
+    <form method="POST" class="space-y-5">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <!-- Username -->
+      <div>
+        <label for="id_username" class="block text-sm font-medium text-gray-700">Username</label>
+        {{ form.username }}
+        {{ form.username.errors }}
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="id_email" class="block text-sm font-medium text-gray-700">Email address</label>
+        {{ form.email }}
+        {{ form.email.errors }}
+      </div>
+
+      <!-- User Type -->
+      <div>
+        <label for="id_user_type" class="block text-sm font-medium text-gray-700">User Type</label>
+        {{ form.user_type }}
+        {{ form.user_type.errors }}
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label for="id_password" class="block text-sm font-medium text-gray-700">Password</label>
+        {{ form.password }}
+        {{ form.password.errors }}
+      </div>
+
+      <!-- Submit -->
+      <div>
+        <button type="submit"
+          class="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition font-semibold">
+          Register
+        </button>
+      </div>
+
+      <!-- Link to login -->
+      <p class="text-center text-sm text-gray-600">
+        Already have an account?
+        <a href="{% url 'login_view' %}" class="text-blue-600 hover:underline">Login here</a>
+      </p>
+    </form>
+  </div>
+</div>
+{% endblock %}
