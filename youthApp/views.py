@@ -3,26 +3,25 @@ from .models import JobPosting,JobApplication
 from .forms import JobForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-<<<<<<< HEAD
+
 from django.urls import reverse_lazy ,reverse
-=======
+
 from django.urls import reverse_lazy
->>>>>>> 2e3be9379cd1c4844e04f38777a94919a664f30e
+
 from django.contrib.auth import get_user_model
 from .forms import MessageForm
 from django.db.models import Q
 from django.http import HttpResponseForbidden,JsonResponse
-<<<<<<< HEAD
+
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 import stripe
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
-=======
->>>>>>> 2e3be9379cd1c4844e04f38777a94919a664f30e
 
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 # from .models import TrainingCourse, Enrollment,Lesson
@@ -156,10 +155,7 @@ def base_page(request):
 def home_page(request):
     return render(request, 'user/home.html') 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 2e3be9379cd1c4844e04f38777a94919a664f30e
 @login_required(login_url=reverse_lazy('login_view'))
 def apply_job(request, job_id):
     job = get_object_or_404(JobPosting, id=job_id)
@@ -167,10 +163,9 @@ def apply_job(request, job_id):
     if request.method == 'POST':
         form = JobApplicationForm(request.POST, request.FILES)
         if form.is_valid():
-<<<<<<< HEAD
-=======
+
+
             # Prevent duplicate applications
->>>>>>> 2e3be9379cd1c4844e04f38777a94919a664f30e
             if JobApplication.objects.filter(user=request.user, job=job).exists():
                 messages.info(request, "You have already applied for this job.")
             else:
@@ -178,7 +173,7 @@ def apply_job(request, job_id):
                 application.user = request.user
                 application.job = job
                 application.save()
-<<<<<<< HEAD
+
 
                 company = job.company  # CompanyProfile
 
@@ -226,10 +221,10 @@ def apply_job(request, job_id):
 
                 messages.success(request, "You have successfully applied for the job!")
                 return redirect('user_page')
-=======
+
                 messages.success(request, "You have successfully applied for the job!")
                 return redirect('user_page')  # Make sure 'index' is a valid view name
->>>>>>> 2e3be9379cd1c4844e04f38777a94919a664f30e
+
         else:
             messages.error(request, "There was an error with your application. Please check the form.")
     else:
@@ -456,8 +451,7 @@ def job_page(request):
 
 
 
-<<<<<<< HEAD
-from .models import Enrollment  # hubi inaad keensato Enrollment model
+ # hubi inaad keensato Enrollment model
 
 @login_required(login_url=reverse_lazy('login_view'))
 def enroll_course(request, course_id):
@@ -542,7 +536,6 @@ def course_lessons(request, course_id):
     return render(request, 'user/course_page/course_lessons.html', {'course': course, 'lessons': lessons})
 
 
-=======
 
 
 @login_required(login_url=reverse_lazy('login_view'))
@@ -567,7 +560,7 @@ def course_lessons(request, course_id):
         'course': course,
         'lessons': lessons,
     })
->>>>>>> 2e3be9379cd1c4844e04f38777a94919a664f30e
+
 
 
 

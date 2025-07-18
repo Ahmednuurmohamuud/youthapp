@@ -4,11 +4,11 @@ from .models import JobPosting, CompanyProfile, TrainingCourse, CustomUser, JobA
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import CustomUser
-<<<<<<< HEAD
+
 from .models import Message, Portfolio,Notification,Education,Enrollment
-=======
+
 from .models import Message, Portfolio,Notification,Education
->>>>>>> 2e3be9379cd1c4844e04f38777a94919a664f30e
+
 
 
 
@@ -95,14 +95,12 @@ class CourseForm(forms.ModelForm):
 
         }
 
-<<<<<<< HEAD
+
 class EnrollmentForm(forms.ModelForm):
     class Meta:
         model = Enrollment
         fields = []
-=======
 
->>>>>>> 2e3be9379cd1c4844e04f38777a94919a664f30e
 
 
 class CompanyProfileForm(forms.ModelForm):

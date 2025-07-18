@@ -23,7 +23,7 @@ class CustomUserAdmin(UserAdmin):
         (None, {'fields': ('fullname', 'phone_number', 'skills', 'education', 'cv_file', 'user_type')}),
     )
 
-<<<<<<< HEAD
+
 class LessonInline(admin.TabularInline):
     model = Lesson
     extra = 1
@@ -31,6 +31,4 @@ class LessonInline(admin.TabularInline):
 class TrainingCourseAdmin(admin.ModelAdmin):
     inlines = [LessonInline]
 
-=======
->>>>>>> 2e3be9379cd1c4844e04f38777a94919a664f30e
 

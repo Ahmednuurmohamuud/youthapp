@@ -35,11 +35,7 @@ class Admin(models.Model):
 class CompanyProfile(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-<<<<<<< HEAD
     company_email = models.EmailField(max_length=255, null=True, blank=True)
-
-=======
->>>>>>> 2e3be9379cd1c4844e04f38777a94919a664f30e
     location = models.CharField(max_length=255)
     logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)  # 👈 Logo field
 
@@ -100,7 +96,7 @@ class TrainingCourse(models.Model):
 
     
 class Enrollment(models.Model):
-<<<<<<< HEAD
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     course = models.ForeignKey(TrainingCourse, on_delete=models.CASCADE)
     enrolled_at = models.DateTimeField(auto_now_add=True)
@@ -111,13 +107,13 @@ class Enrollment(models.Model):
         return f"{self.user.username} - {self.course.course_name}"
 
 
-=======
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     course = models.ForeignKey(TrainingCourse, on_delete=models.CASCADE)
     enrolled_at = models.DateTimeField(auto_now_add=True)
     completed = models.BooleanField(default=False)
     
->>>>>>> 2e3be9379cd1c4844e04f38777a94919a664f30e
+
     
 class Lesson(models.Model):
     course = models.ForeignKey(TrainingCourse, related_name='lessons', on_delete=models.CASCADE)
