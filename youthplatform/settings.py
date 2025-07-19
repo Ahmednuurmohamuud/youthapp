@@ -28,7 +28,8 @@ DEBUG = env.bool("DEBUG", default=False)
 STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
 STRIPE_PUBLISHABLE_KEY = env("STRIPE_PUBLISHABLE_KEY")
 
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'youthApp/static/images/'
 #MEDIA_ROOT = BASE_DIR / 'images'
 
