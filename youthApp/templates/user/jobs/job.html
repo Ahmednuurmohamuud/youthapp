@@ -5,88 +5,101 @@
 <section class="bg-white py-14" x-data="jobModal">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <!-- Top Filter Bar -->
+    <!-- Filter Bar -->
     <form method="get" class="bg-gray-100 rounded-xl shadow p-6 mb-10">
-      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 items-end">
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 items-end">
         <!-- Location -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Location</label>
           <input type="text" name="location" value="{{ request.GET.location }}" placeholder="e.g. Remote"
-                 class="w-full rounded-md border-gray-300 text-sm shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+                 class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 transition">
         </div>
 
-        <!-- Salary -->
+        <!-- Max Salary -->
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Max Salary:
+          <label class="block text-sm font-semibold text-gray-700 mb-2">Max Salary: 
             <span id="salaryVal" class="font-semibold">{{ request.GET.salary|default:"5000" }}</span> USD
           </label>
           <input type="range" name="salary" min="0" max="10000" step="100"
                  value="{{ request.GET.salary|default:"5000" }}"
                  oninput="salaryVal.innerText = this.value"
                  onchange="this.form.submit()"
-                 class="w-full">
+                 class="w-full cursor-pointer">
         </div>
 
         <!-- Apply Button -->
         <div class="md:col-span-1 lg:col-span-1">
           <button type="submit"
-                  class="w-full bg-blue-600 text-white text-sm py-2 rounded-md hover:bg-blue-700 transition font-medium">
+                  class="w-full bg-blue-600 text-white text-sm py-2 rounded-lg hover:bg-blue-700 transition font-semibold shadow">
             Apply Filters
           </button>
         </div>
       </div>
     </form>
 
-    <!-- Jobs Section -->
-    <div>
-      <div class="text-center mb-10">
-        <h2 class="text-3xl font-bold text-gray-900">Featured Opportunities</h2>
-        <p class="text-gray-500 mt-2">Discover your next career move from our curated job listings.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {% for job in jobs %}
-        <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-5 hover:shadow-md transition flex flex-col justify-between">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <img src="{% if job.company.logo %}{{ job.company.logo.url }}{% else %}/static/img/default-logo.png{% endif %}"
-                   alt="{{ job.company.name }}" class="h-10 w-10 rounded-full object-cover">
-              <div>
-                <h3 class="text-base font-semibold text-gray-900">{{ job.job_title }}</h3>
-                <p class="text-sm text-gray-500">{{ job.company.name }}</p>
-              </div>
-            </div>
-            <span class="text-xs bg-green-100 text-green-600 px-2 py-0.5 rounded">New</span>
+    <!-- Jobs Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for job in jobs %}
+      <div class="bg-white border border-gray-200 rounded-xl shadow hover:shadow-lg transition p-6 flex flex-col justify-between">
+        
+        <!-- Top: Logo and Title -->
+        <div class="flex items-center space-x-4 mb-5">
+          <div class="w-16 h-16 rounded-lg overflow-hidden border border-gray-300 flex items-center justify-center bg-gray-50">
+            {% if job.company.logo %}
+              <img src="{{ job.company.logo.url }}" alt="{{ job.company.name }} Logo" class="object-contain w-full h-full">
+            {% else %}
+              <i class="fas fa-building text-gray-300 text-2xl"></i>
+            {% endif %}
           </div>
-
-          <div class="text-sm text-gray-600 space-y-1 mb-4">
-            <div><i class="fas fa-map-marker-alt text-gray-400 mr-1"></i> {{ job.location }}</div>
-            <div><i class="fas fa-dollar-sign text-gray-400 mr-1"></i> {{ job.salary }} USD</div>
-          </div>
-
-          <div class="flex gap-2">
-            <a href="{% url 'apply_job' job.id %}"
-               class="flex-1 bg-blue-600 text-white text-sm text-center py-2 rounded-md hover:bg-blue-700 transition font-medium">
-               Apply
-            </a>
-            <button
-              @click="open({ 
-                title: '{{ job.job_title }}', 
-                company: '{{ job.company.name }}', 
-                location: '{{ job.location }}', 
-                salary: '{{ job.salary }}', 
-                description: '{{ job.job_description|escapejs }}', 
-                logo: '{% if job.company.logo %}{{ job.company.logo.url }}{% else %}/static/img/default-logo.png{% endif %}' 
-              })"
-              class="flex-1 bg-gray-100 text-gray-700 text-sm py-2 rounded-md hover:bg-gray-200 transition font-medium">
-              View
-            </button>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900">{{ job.job_title }}</h3>
+            <p class="text-sm text-gray-500 mt-1">{{ job.company.name }}</p>
           </div>
         </div>
-        {% empty %}
-        <p class="col-span-full text-center text-gray-500">No job postings found.</p>
-        {% endfor %}
+
+        <!-- Location, Salary, Type -->
+        <div class="flex flex-wrap gap-4 text-sm text-gray-600 mb-5">
+          <div class="flex items-center gap-1">
+            <i class="fas fa-map-marker-alt text-blue-500"></i>
+            <span>{{ job.location }}</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <i class="fas fa-dollar-sign text-green-500"></i>
+            <span>{{ job.salary }} USD</span>
+          </div>
+          <div class="flex items-center gap-1 capitalize">
+            <i class="fas fa-clock text-indigo-500"></i>
+            <span>{{ job.type }}</span>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <p class="text-gray-700 text-sm mb-6 line-clamp-3 whitespace-pre-line">{{ job.job_description|default:"No description available." }}</p>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-3">
+          <a href="{% url 'apply_job' job.id %}" 
+             class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-center font-semibold transition shadow">
+            Apply Now
+          </a>
+          <button 
+            @click="open({ 
+              title: '{{ job.job_title }}', 
+              company: '{{ job.company.name }}', 
+              location: '{{ job.location }}', 
+              salary: '{{ job.salary }}', 
+              description: '{{ job.job_description|escapejs }}', 
+              logo: '{% if job.company.logo %}{{ job.company.logo.url }}{% else %}/static/img/default-logo.png{% endif %}' 
+            })"
+            class="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-100 transition font-semibold">
+            View Details
+          </button>
+        </div>
+
       </div>
+      {% empty %}
+      <p class="col-span-full text-center text-gray-500">No job postings found.</p>
+      {% endfor %}
     </div>
   </div>
 
@@ -129,6 +142,7 @@
     }));
   });
 </script>
+
 
 
 

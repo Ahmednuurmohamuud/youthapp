@@ -424,7 +424,6 @@ def course_page(request):
 
 def job_page(request):
     jobs = JobPosting.objects.all()
-
     location = request.GET.get('location')
     max_salary = request.GET.get('salary')
 

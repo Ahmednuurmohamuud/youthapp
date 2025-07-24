@@ -4,57 +4,66 @@
 {% block content %}
 
 <section class="py-12 bg-gray-50">
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    {% for user in users %}
-    <div class="flex flex-col items-center bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition duration-200 ease-in-out text-center">
-
-      <!-- Profile Picture -->
-      {% if user.profile_picture %}
-        <img src="{{ user.profile_picture.url }}" class="h-24 w-24 rounded-full object-cover ring-2 ring-blue-500" alt="Profile Picture">
-      {% else %}
-        <img src="{% static 'img/default-user.png' %}" class="h-24 w-24 rounded-full object-cover ring-2 ring-blue-500" alt="Default Picture">
-      {% endif %}
-
-      <!-- Name & Skills -->
-      <h3 class="text-xl font-semibold mt-4 text-gray-800">{{ user.fullname }}</h3>
-      <p class="text-sm text-gray-500 mb-2">{{ user.skills|default:"No skills listed" }}</p>
-
-      <!-- Actions -->
-      <div class="mt-4 w-full flex flex-col gap-2">
-
-        <!-- View Profile -->
-        <a href="{% url 'user_profile_view' user.id %}" class="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded text-sm">👁 View </a>
-
-        <!-- Connection Logic -->
-        {% if connection_dict|get_item:user.id == 'pending' %}
-          <button type="button" disabled class="bg-yellow-400 text-white py-2 rounded text-sm cursor-not-allowed">⏳ Pending...</button>
-
-        {% elif connection_dict|get_item:user.id == 'accepted' %}
-          <!-- Message -->
-          <a href="{% url 'message_thread' user.id %}" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded text-sm">💬 Message</a>
-
-          <!-- Unfollow -->
-         <form method="post" action="{% url 'disconnect_user' user.id %}">
-  {% csrf_token %}
-  <button type="submit" class="bg-red-500 hover:bg-red-600 text-white py-2 rounded text-sm w-full flex justify-center items-center gap-1">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-    </svg>
-    Unfollow
-  </button>
-</form>
-
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-2xl font-bold text-gray-800 mb-8">🌐 Connect with Professionals</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for user in users %}
+      <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-lg transition duration-300 text-center flex flex-col items-center">
+        
+        <!-- Profile Image -->
+        {% if user.profile_picture %}
+          <img src="{{ user.profile_picture.url }}" alt="Profile" class="h-24 w-24 rounded-full object-cover ring-2 ring-blue-500">
         {% else %}
-          <!-- Connect Button -->
-          <form method="post" action="{% url 'connect_user' user.id %}">
-            {% csrf_token %}
-            <button type="submit" class="bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 rounded text-sm">➕ Connect</button>
-          </form>
+          <img src="{% static 'img/default-user.png' %}" alt="Default" class="h-24 w-24 rounded-full object-cover ring-2 ring-blue-500">
         {% endif %}
 
+        <!-- Name + Skills -->
+        <h3 class="mt-4 text-lg font-semibold text-gray-900">{{ user.fullname }}</h3>
+        <p class="text-sm text-gray-500">{{ user.skills|default:"No skills listed" }}</p>
+
+        <!-- Actions -->
+        <div class="mt-4 w-full space-y-2">
+
+          <!-- View Profile -->
+          <a href="{% url 'user_profile_view' user.id %}" class="block w-full text-white bg-blue-600 hover:bg-blue-700 py-2 rounded-md text-sm font-medium transition">
+            👁 View
+          </a>
+
+          {% if connection_dict|get_item:user.id == 'pending' %}
+            <button disabled class="w-full bg-yellow-400 text-white py-2 rounded-md text-sm font-medium cursor-not-allowed">
+              ⏳ Pending...
+            </button>
+
+          {% elif connection_dict|get_item:user.id == 'accepted' %}
+            <!-- Message -->
+            <a href="{% url 'message_thread' user.id %}" class="block w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-md text-sm font-medium transition">
+              💬 Message
+            </a>
+
+            <!-- Unfollow -->
+            <form method="post" action="{% url 'disconnect_user' user.id %}" class="w-full">
+              {% csrf_token %}
+              <button type="submit" class="flex justify-center items-center gap-2 bg-red-500 hover:bg-red-600 text-white py-2 w-full rounded-md text-sm font-medium transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+                Unfollow
+              </button>
+            </form>
+
+          {% else %}
+            <!-- Connect -->
+            <form method="post" action="{% url 'connect_user' user.id %}" class="w-full">
+              {% csrf_token %}
+              <button type="submit" class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-800 py-2 rounded-md text-sm font-medium transition">
+                ➕ Connect
+              </button>
+            </form>
+          {% endif %}
+        </div>
       </div>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
 </section>
 
