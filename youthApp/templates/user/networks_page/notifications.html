@@ -1,18 +1,37 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block content %}
-<h1>Notifications</h1>
-<a href="{% url 'mark_all_notifications_read' %}" class="btn btn-primary">Mark all as read</a>
-<ul>
-  {% for note in notifications %}
-  <li {% if not note.is_read %}style="font-weight:bold"{% endif %}>
-    {{ note.message }} - {{ note.created_at|timesince }} ago
-    {% if not note.is_read %}
-      <a href="{% url 'mark_notification_read' note.id %}">Mark as read</a>
-    {% endif %}
-  </li>
-  {% empty %}
-  <li>No notifications</li>
-  {% endfor %}
-</ul>
+
+<div class="max-w-2xl mx-auto mt-10 px-4">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-semibold text-gray-800">🔔 Notifications</h1>
+    <a href="{% url 'mark_all_notifications_read' %}" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-sm shadow">
+      Mark all as read
+    </a>
+  </div>
+
+  <div class="space-y-4">
+    {% for note in notifications %}
+    <div class="p-4 rounded-lg shadow-md border {{ note.is_read|yesno:'bg-white,bg-blue-50' }}">
+      <div class="flex justify-between items-start">
+        <p class="text-sm text-gray-800 {% if not note.is_read %}font-semibold{% endif %}">
+          {{ note.message }}
+        </p>
+        {% if not note.is_read %}
+        <a href="{% url 'mark_notification_read' note.id %}"
+           class="ml-4 text-sm text-blue-600 hover:underline">Mark as read</a>
+        {% endif %}
+      </div>
+      <p class="text-xs text-gray-500 mt-1">
+        {{ note.created_at|timesince }} ago
+      </p>
+    </div>
+    {% empty %}
+    <div class="p-4 bg-yellow-50 border border-yellow-300 text-yellow-800 rounded-lg">
+      You have no notifications.
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
 {% endblock %}

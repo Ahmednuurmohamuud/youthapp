@@ -809,8 +809,9 @@ def message_thread(request, user_id):
 
 @login_required
 def notifications_list(request):
-    notifications = request.user.notifications.order_by('-created_at')[:5]
+    notifications = request.user.notifications.order_by('-created_at')[:20]  # show more
     return render(request, 'user/networks_page/notifications.html', {'notifications': notifications})
+
 
 @login_required
 def mark_notification_read(request, notification_id):
